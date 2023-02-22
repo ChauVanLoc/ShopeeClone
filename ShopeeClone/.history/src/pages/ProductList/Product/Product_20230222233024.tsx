@@ -30,7 +30,7 @@ function Product({ classNameBlock }: ProductProps) {
         </div>
         <div className='flex'>
           <Rate Element='div' rating={3.4} />
-          <div className='ml-3 text-[11px]'>Đã bán 7,4k</div>
+          <div className='ml-3'>Đã bán 7,4k</div>
         </div>
       </div>
     </Link>

@@ -15,10 +15,8 @@ function Product({ classNameBlock }: ProductProps) {
         alt='img'
       />
       <div className='p-2'>
-        <p className='max-h-[39px] line-clamp-2'>
-          Áo Polo nam có cổ BASIC-POLOMANOR vải cá sấu cotton CMC, nam tính, chỉn chu, sang trọng
-        </p>
-        <div className='mt-3 mb-5 flex'>
+        <p className=''>Áo Polo nam có cổ BASIC-POLOMANOR vải cá sấu cotton CMC, nam tính, chỉn chu, sang trọng</p>
+        <div className='my-2 flex'>
           <div className='mr-3 text-gray-300 line-through'>
             <span>₫</span>
             <span>320.000</span>
@@ -30,7 +28,7 @@ function Product({ classNameBlock }: ProductProps) {
         </div>
         <div className='flex'>
           <Rate Element='div' rating={3.4} />
-          <div className='ml-3 text-[11px]'>Đã bán 7,4k</div>
+          <div className='ml-3'>Đã bán 7,4k</div>
         </div>
       </div>
     </Link>

@@ -11,14 +11,11 @@ function ProductList() {
       </div>
       <div className='flex w-[80%] flex-col'>
         <Sort />
-        <div className='grid grid-cols-5 gap-x-4 gap-y-1'>
+        <div className='grid grid-cols-4 gap-4'>
           {Array(10)
             .fill(0)
             .map((_, i) => (
-              <Product
-                key={i}
-                classNameBlock='hover:translate-y-[-3px] duration-[0.2s] text-sm mt-4 rounded-sm shadow-md bg-white'
-              />
+              <Product key={i} classNameBlock='mt-4 rounded-sm shadow-sm' />
             ))}
         </div>
       </div>

@@ -17,7 +17,7 @@ function ProductList() {
             .map((_, i) => (
               <Product
                 key={i}
-                classNameBlock='hover:translate-y-[-3px] duration-[0.2s] text-sm mt-4 rounded-sm shadow-md bg-white'
+                classNameBlock='hover:translate-y-[-3px] duration-[0.3s] text-sm mt-4 rounded-sm shadow-md bg-white'
               />
             ))}
         </div>

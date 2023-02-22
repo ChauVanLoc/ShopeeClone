@@ -2,7 +2,7 @@ import React from 'react'
 
 function Sort() {
   return (
-    <div className='flex justify-between rounded-sm bg-gray-100 py-3 px-5 text-sm'>
+    <div className='mt-5 flex justify-between rounded-sm bg-gray-100 py-3 px-5 text-sm'>
       <div className='flex items-center'>
         <div className='mr-5'>Sắp xếp theo</div>
         <button className='mr-5 rounded-sm bg-white py-2 px-5 shadow-sm'>Phổ biến</button>

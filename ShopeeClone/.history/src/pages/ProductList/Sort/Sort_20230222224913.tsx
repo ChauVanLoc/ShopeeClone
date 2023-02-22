@@ -2,7 +2,7 @@ import React from 'react'
 
 function Sort() {
   return (
-    <div className='flex justify-between rounded-sm bg-gray-100 py-3 px-5 text-sm'>
+    <div className='flex justify-between rounded-sm bg-gray-100 py-5 px-7 text-sm'>
       <div className='flex items-center'>
         <div className='mr-5'>Sắp xếp theo</div>
         <button className='mr-5 rounded-sm bg-white py-2 px-5 shadow-sm'>Phổ biến</button>
@@ -15,12 +15,12 @@ function Sort() {
         </select>
       </div>
       <div className='flex items-center justify-evenly'>
-        <div className='mr-4'>
+        <div>
           <span>1</span>
           <span>/9</span>
         </div>
         <div>
-          <button className='rounded-sm border-r-[1px] border-r-gray-200 bg-white py-2 px-2 shadow-sm'>
+          <button className='rounded-sm py-2 shadow-sm'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -32,7 +32,7 @@ function Sort() {
               <path strokeLinecap='round' strokeLinejoin='round' d='M15.75 19.5L8.25 12l7.5-7.5' />
             </svg>
           </button>
-          <button className='rounded-sm bg-white py-2 px-2 shadow-sm'>
+          <button className='rounded-sm py-2 shadow-sm'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
