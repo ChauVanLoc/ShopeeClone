@@ -7,10 +7,12 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import MainLayout from './layouts/MainLayout'
 import './index.css'
-import { useContext } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { Context } from './context/AppContext'
 import Profile from './pages/Profile'
 import { PathRoute } from './constants/PathRoute'
+import ProductDetail from './pages/ProductDetail'
+import { eventTarget } from './utils/LocalStorage'
 
 function ProtectedRoute() {
   const { isAuth } = useContext(Context)
@@ -18,11 +20,24 @@ function ProtectedRoute() {
 }
 
 function RejectedRoute() {
-  const { isAuth } = useContext(Context)
+  const { isAuth, setUser } = useContext(Context)
   return !isAuth ? <Outlet /> : <Navigate to='/' />
 }
 
 function App() {
+  const { setUser } = useContext(Context)
+  const resetUser = useCallback(() => {
+    setUser(null)
+  }, [])
+
+  useEffect(() => {
+    eventTarget.addEventListener('resetUser', resetUser)
+
+    return () => {
+      eventTarget.removeEventListener('resetUser', resetUser)
+    }
+  }, [setUser])
+
   return (
     <div>
       <Routes>
@@ -32,6 +47,14 @@ function App() {
           element={
             <MainLayout>
               <ProductList />
+            </MainLayout>
+          }
+        />
+        <Route
+          path={`/:${PathRoute.idNameProduct}`}
+          element={
+            <MainLayout>
+              <ProductDetail />
             </MainLayout>
           }
         />

@@ -31,12 +31,12 @@ class Http {
     this.instance.interceptors.response.use(
       (response: AxiosResponse<ResponveApi<AthDataResponve>>) => {
         const { url } = response.config
-        const data = response.data.data
+        const { data } = response.data
         if (url && [PathRoute.login as string, PathRoute.register as string].includes(url)) {
           this.accessToken = data.access_token
           WorkingWithLS.saveToLS([
-            { key: 'access_token', value: this.accessToken },
-            { key: 'user', value: JSON.stringify(data.user) }
+            { key: 'access_token', value: data.access_token || '' },
+            { key: 'user', value: JSON.stringify(data.user) || '' }
           ])
         } else if (url === PathRoute.logout) {
           this.accessToken = ''
@@ -47,6 +47,10 @@ class Http {
       (error: AxiosError<{ message: string }>) => {
         if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
           toast.error(error.response?.data.message || error.message)
+        }
+        if (error.response?.status === HttpStatusCode.Unauthorized) {
+          this.accessToken = ''
+          WorkingWithLS.clearFromLS(['access_token', 'user'])
         }
         return Promise.reject(error)
       }

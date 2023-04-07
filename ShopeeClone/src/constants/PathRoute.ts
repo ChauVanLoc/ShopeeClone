@@ -4,5 +4,11 @@ export const PathRoute = {
   logout: 'logout',
   profile: 'profile',
   listProduct: 'products',
-  product: 'product'
+  product: 'products',
+  category: 'categories',
+  idNameProduct: 'idNameProduct',
+  purchase: 'purchases',
+  addToCard: 'add-to-cart',
+  updatePurchase: 'update-purchase',
+  buyPurchase: 'buy-products'
 } as const

@@ -8,24 +8,24 @@ import { AuthFetching } from 'src/Api/AthFetching'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import { Context } from 'src/context/AppContext'
-import { RegisterSchemaType, schema } from 'src/utils/rules'
+import { RegisterUnionSchema, RegisterSchemaType, RegisterSchema } from 'src/utils/rules'
 import { ResponveApi } from 'src/types/Responve.type'
 
 export default function Register() {
-  const { setIsAuth } = useContext(Context)
+  const { setIsAuth, setUser } = useContext(Context)
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError
   } = useForm<RegisterSchemaType>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(RegisterSchema)
   })
   const registerMutation = useMutation({
     mutationFn: (body: RegisterSchemaType) => AuthFetching.registerFetching(body)
   })
-  const onSubmit = handleSubmit((data) => {
-    registerMutation.mutate(data, {
+  const onSubmit = handleSubmit((input) => {
+    registerMutation.mutate(input, {
       onError(error) {
         if (isUnprocessableEntityError<ResponveApi<Omit<RegisterSchemaType, 'confirm_password'>>>(error)) {
           const data = error.response?.data.data
@@ -37,8 +37,9 @@ export default function Register() {
             )
         }
       },
-      onSuccess() {
+      onSuccess(res) {
         setIsAuth(true)
+        setUser(res.data.data.user)
       }
     })
   })
@@ -78,7 +79,7 @@ export default function Register() {
               <Button classNameBlock='mt-3' errors={errors} isLoading={registerMutation.isLoading} />
               <div className='mt-8 flex items-center justify-center'>
                 <span className='text-gray-400'>Bạn đã có tài khoản?</span>
-                <Link className='ml-1 text-red-400' to='/login'>
+                <Link className='text-red-400 ml-1' to='/login'>
                   Đăng nhập
                 </Link>
               </div>

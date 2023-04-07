@@ -1,56 +1,52 @@
-import { useQuery } from '@tanstack/react-query'
-import { Link } from 'react-router-dom'
-import { ProductFetching } from 'src/Api/ProductFetching'
 import Pagination from 'src/components/Pagination'
 import { ProductSearch } from 'src/constants/KeySearch'
+import useQueryListCategory from 'src/hooks/useQueryListCategory'
+import useQueryListProduct from 'src/hooks/useQueryListProduct'
 import useSearchUrl from 'src/hooks/useSearchUrl'
+import { joinKeySearch } from 'src/utils/utils'
 import Aside from './Aside'
 import Product from './Product/Product'
 import Sort from './Sort'
 
+const limit = 5
+
 function ProductList() {
-  const o = useSearchUrl()
-  const getListProduct = useQuery({
-    queryKey: ['ListProduct', o],
-    queryFn: () => ProductFetching.ListProductFetching(o)
-  })
-  console.log(getListProduct.data)
+  const o = useSearchUrl(limit)
+  const getListProduct = useQueryListProduct(o)
+  const getListCategory = useQueryListCategory()
+  const ListCateGoryData = getListCategory.data?.data.data
+  console.log('productList', getListCategory.data?.data.data)
   return (
     <div className='mx-auto mt-5 flex max-w-7xl'>
       <div className='mr-8 w-[20%]'>
-        <Aside />
+        {ListCateGoryData && (
+          <Aside joinKeySearch={joinKeySearch<ProductSearch>(o)} ObjectKeySearch={o} categories={ListCateGoryData} />
+        )}
       </div>
       <div className='flex w-[80%] flex-col'>
-        <Sort />
+        <Sort
+          SearchParamsObject={o}
+          page={o.page as number}
+          stringPagination={joinKeySearch(o)}
+          pageSize={getListProduct.data?.data.data.pagination.page_size as number}
+        />
         <div className='grid grid-cols-5 gap-x-4 gap-y-1'>
-          {/* {Array(10)
-            .fill(0)
-            .map((_, i) => (
-              <Product
-                key={i + 1}
-                classNameBlock='hover:translate-y-[-3px] duration-[0.2s] text-sm mt-4 rounded-sm shadow-md bg-white'
-              />
-            ))} */}
           {getListProduct.data?.data.data.products.map((e) => (
             <Product
               product={e}
               key={e._id}
+              rating={e.rating}
               classNameBlock='hover:translate-y-[-3px] duration-[0.2s] text-sm mt-4 rounded-sm shadow-md bg-white'
             />
           ))}
         </div>
-        {/* <Pagination /> */}
-        <div className='grid h-10 gap-3'>
-          <Link
-            to={`/?${Object.entries({ ...o, page: 2 })
-              .map(([key, value]) => `${key}=${value}`)
-              .join('&')}`}
-          >
-            1
-          </Link>
-          <Link to={''}>2</Link>
-          <Link to={''}>3</Link>
-        </div>
+        {(getListProduct.data?.data.data.products.length as number) < limit ? null : (
+          <Pagination
+            page={o.page as number}
+            stringPagination={joinKeySearch<ProductSearch>(o)}
+            pageSize={getListProduct.data?.data.data.pagination.page_size as number}
+          />
+        )}
       </div>
     </div>
   )

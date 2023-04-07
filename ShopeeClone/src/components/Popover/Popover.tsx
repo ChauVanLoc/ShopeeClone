@@ -1,6 +1,7 @@
-import { ReactNode, useId, useRef, useState } from 'react'
+import { ReactNode, useRef, useState } from 'react'
 import { useFloating, arrow, shift, flip, offset } from '@floating-ui/react-dom'
 import { FloatingPortal } from '@floating-ui/react'
+import useIdHook from 'src/hooks/useIdHook'
 
 type PopoverProps = {
   classNameBlock: string
@@ -13,7 +14,7 @@ type PopoverProps = {
 function Popover({ classNameBlock, classNameArrow, off, as, children }: PopoverProps) {
   const arrowRef = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
-  const idFloatingPortal = useId()
+  const idFloatingPortal = useIdHook()
   const { x, y, strategy, refs, middlewareData } = useFloating({
     middleware: [
       shift(),

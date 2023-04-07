@@ -1,11 +1,12 @@
 import { UseFormRegister, RegisterOptions } from 'react-hook-form'
+import { LoginSchemaType, RegisterSchemaType } from 'src/utils/rules'
 
 type InputProps = {
   type: React.HTMLInputTypeAttribute
   className: string
   placeHolder?: string
   register: UseFormRegister<any>
-  name: string
+  name: keyof RegisterSchemaType
   rule?: RegisterOptions
   errorMessage?: string
   autoComplete?: string
@@ -21,7 +22,7 @@ function Input({ type, className, placeHolder, register, name, rule, errorMessag
         {...register(name, rule)}
         autoComplete={autoComplete}
       />
-      <div className='mt-1 min-h-[1.25rem] text-sm text-red-600'>{errorMessage}</div>
+      <div className='text-red-600 mt-1 min-h-[1.25rem] text-sm text-red'>{errorMessage}</div>
     </div>
   )
 }

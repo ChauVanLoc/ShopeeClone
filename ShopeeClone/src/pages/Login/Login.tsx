@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
-import { LoginSchemaType, schema } from 'src/utils/rules'
+import { LoginSchema, LoginSchemaType, RegisterSchema } from 'src/utils/rules'
 import Input from 'src/components/Input'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AuthFetching } from 'src/Api/AthFetching'
@@ -10,16 +10,18 @@ import { useContext } from 'react'
 import { Context } from 'src/context/AppContext'
 import Button from 'src/components/Button'
 import { ResponveApi } from 'src/types/Responve.type'
+import useIdHook from 'src/hooks/useIdHook'
 
 export default function Login() {
-  const { setIsAuth } = useContext(Context)
+  const id = useIdHook()
+  const { setIsAuth, setUser } = useContext(Context)
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError
   } = useForm<LoginSchemaType>({
-    resolver: yupResolver(schema.omit(['confirm_password']))
+    resolver: yupResolver(LoginSchema)
   })
   const loginMutation = useMutation({
     mutationFn: (body: LoginSchemaType) => AuthFetching.LoginFetching(body)
@@ -37,7 +39,8 @@ export default function Login() {
             )
         }
       },
-      onSuccess() {
+      onSuccess(data) {
+        setUser(data.data.data.user)
         setIsAuth(true)
       }
     })
@@ -50,6 +53,7 @@ export default function Login() {
             <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit}>
               <div className='text-2xl'>Đăng nhập</div>
               <Input
+                key={id}
                 type='text'
                 className='mt-8'
                 placeHolder='Email'
@@ -69,7 +73,7 @@ export default function Login() {
               <Button classNameBlock='mt-3' errors={errors} isLoading={loginMutation.isLoading} />
               <div className='mt-8 flex items-center justify-center'>
                 <span className='text-gray-400'>Bạn chưa có tài khoản?</span>
-                <Link className='ml-1 text-red-400' to='/register'>
+                <Link className='text-red-400 ml-1' to='/register'>
                   Đăng ký
                 </Link>
               </div>

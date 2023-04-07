@@ -1,21 +1,44 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
-import { useMutation } from '@tanstack/react-query'
+import { Link, useNavigate } from 'react-router-dom'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { Context } from 'src/context/AppContext'
 import Popover from '../Popover'
 import { AuthFetching } from 'src/Api/AthFetching'
+import { useForm } from 'react-hook-form'
+import useSearchUrl from 'src/hooks/useSearchUrl'
+import { convertCurrentcy, joinKeySearch } from 'src/utils/utils'
+import { ProductSearch } from 'src/constants/KeySearch'
+import { omit } from 'lodash'
+import { PurchaseFetching } from 'src/Api/PurchaseFetching'
+import { PurchaseStatus } from 'src/constants/PurchaseStatus'
+import { Empty } from 'antd'
 
 function Header() {
-  const { isAuth, setIsAuth, user } = useContext(Context)
+  const o = useSearchUrl()
+  const join = joinKeySearch<ProductSearch>(omit(o, ['category']))
+  const { isAuth, setIsAuth, user, setUser } = useContext(Context)
+  const navigate = useNavigate()
   const LogoutMutation = useMutation({
     mutationFn: () => AuthFetching.LogoutFetching(),
     onSuccess() {
+      setUser(null)
       setIsAuth(false)
     }
   })
+  const purchaseData = useQuery({
+    queryKey: ['purchasesall', { status: PurchaseStatus.IN_CART }],
+    queryFn: () => PurchaseFetching.GetPurchasesFetching({ status: PurchaseStatus.IN_CART }),
+    enabled: isAuth
+  })
+  const { handleSubmit, reset, register } = useForm<{ search: string }>()
   const LogoutHandle = () => {
     LogoutMutation.mutate()
   }
+  const onSubmit = handleSubmit((data) => {
+    navigate(`${join({ name: data.search })}`)
+    reset()
+  })
+  console.log('header', purchaseData.data)
   return (
     <div className='bg-header pt-1 pb-5'>
       <div className='mx-auto text-xs text-white lg:max-w-7xl'>
@@ -104,7 +127,7 @@ function Header() {
                         />
                       </g>
                     </svg>
-                    <span>{user.name ? user.name : user.email}</span>
+                    <span>{user?.name ? user.name : user?.email}</span>
                   </div>
                 }
                 off={0.7}
@@ -147,27 +170,33 @@ function Header() {
             </svg>
           </Link>
           <div className='relative flex h-[40px] w-[840px] overflow-hidden rounded-sm bg-white'>
-            <input
-              type='text'
-              className='absolute top-0 left-0 h-full w-[90%] pl-3 text-sm text-gray-600 outline-none'
-              placeholder='Sale lên đến 90%'
-            />
-            <button className='absolute top-[50%] right-1 flex translate-y-[-50%] items-center justify-center rounded-sm lg:h-[32px] lg:w-[55px] lg:bg-header'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='h-6 w-6'
+            <form onSubmit={onSubmit}>
+              <input
+                type='text'
+                className='absolute top-0 left-0 h-full w-[90%] pl-3 text-sm text-gray-600 outline-none'
+                placeholder='Sale lên đến 90%'
+                {...register('search')}
+              />
+              <button
+                onClick={onSubmit}
+                className='absolute top-[50%] right-1 flex translate-y-[-50%] items-center justify-center rounded-sm lg:h-[32px] lg:w-[55px] lg:bg-header'
               >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z'
-                />
-              </svg>
-            </button>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='h-6 w-6'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z'
+                  />
+                </svg>
+              </button>
+            </form>
           </div>
           <Popover
             as={
@@ -188,86 +217,42 @@ function Header() {
                 </svg>
               </span>
             }
-            off={3}
+            off={5}
             classNameBlock={'ml-4 flex'}
             classNameArrow={
-              'translate-l-[-50%] absolute top-[-2.7%] border-[6px] border-solid border-white border-x-transparent border-t-transparent'
+              'translate-l-[-50%] absolute top-[-7.7%] border-[12px] border-solid border-white border-x-transparent border-t-transparent'
             }
           >
-            <div className='flex flex-col rounded-sm bg-white text-[12px] text-gray-600 shadow-sm'>
-              <div className='p-3 capitalize text-gray-300'>Sản phẩm mới thêm</div>
-              <div className='h-[264px] overflow-y-scroll'>
-                <div className='flex cursor-pointer p-3 hover:bg-gray-200'>
-                  <div className='h-[42px] w-[42px]'>
-                    <img
-                      src='https://cf.shopee.vn/file/bc6b34c15c78cf6c67aaa0d81c94ee0f_tn
-                  '
-                      alt='logo'
-                    />
+            {purchaseData?.data?.data.data && purchaseData.data.data.data.length > 1 ? (
+              <div className='flex flex-col rounded-sm bg-white text-[12px] text-gray-600 shadow-md lg:w-[400px]'>
+                <div className='p-3 capitalize text-gray-300'>Sản phẩm mới thêm</div>
+                {purchaseData.data.data?.data.splice(0, 5).map((purchase) => (
+                  <div className='flex cursor-pointer p-3 hover:bg-gray-200' key={purchase.product._id}>
+                    <div className='h-[42px] w-[42px]'>
+                      <img src={purchase.product.image} alt='logo' />
+                    </div>
+                    <div className='mx-3 h-[42px] w-[231px] truncate capitalize'>{purchase.product.name}</div>
+                    <div className='text-primary'>₫{convertCurrentcy(purchase.product.price, 2)}</div>
                   </div>
-                  <div className='mx-3 h-[42px] w-[231px] truncate capitalize'>
-                    ghế bệt tựa lưng thư giãn d104 cao 72cm
+                ))}
+                <div className='flex items-center justify-between p-3'>
+                  <div className='p-3'>
+                    {purchaseData.data.data.data.length > 5
+                      ? `${purchaseData.data.data.data.length - 5} Thêm hàng vào giỏ`
+                      : ''}
                   </div>
-                  <div className='text-primary'>₫420.000</div>
-                </div>
-                <div className='flex cursor-pointer p-3 hover:bg-gray-200'>
-                  <div className='h-[42px] w-[42px]'>
-                    <img
-                      src='https://cf.shopee.vn/file/bc6b34c15c78cf6c67aaa0d81c94ee0f_tn
-                  '
-                      alt='logo'
-                    />
-                  </div>
-                  <div className='mx-3 h-[42px] w-[231px] truncate capitalize'>
-                    ghế bệt tựa lưng thư giãn d104 cao 72cm
-                  </div>
-                  <div className='text-primary'>₫420.000</div>
-                </div>
-                <div className='flex cursor-pointer p-3 hover:bg-gray-200'>
-                  <div className='h-[42px] w-[42px]'>
-                    <img
-                      src='https://cf.shopee.vn/file/bc6b34c15c78cf6c67aaa0d81c94ee0f_tn
-                  '
-                      alt='logo'
-                    />
-                  </div>
-                  <div className='mx-3 h-[42px] w-[231px] truncate capitalize'>
-                    ghế bệt tựa lưng thư giãn d104 cao 72cm
-                  </div>
-                  <div className='text-primary'>₫420.000</div>
-                </div>
-                <div className='flex cursor-pointer p-3 hover:bg-gray-200'>
-                  <div className='h-[42px] w-[42px]'>
-                    <img
-                      src='https://cf.shopee.vn/file/bc6b34c15c78cf6c67aaa0d81c94ee0f_tn
-                  '
-                      alt='logo'
-                    />
-                  </div>
-                  <div className='mx-3 h-[42px] w-[231px] truncate capitalize'>
-                    ghế bệt tựa lưng thư giãn d104 cao 72cm
-                  </div>
-                  <div className='text-primary'>₫420.000</div>
-                </div>
-                <div className='flex cursor-pointer p-3 hover:bg-gray-200'>
-                  <div className='h-[42px] w-[42px]'>
-                    <img
-                      src='https://cf.shopee.vn/file/bc6b34c15c78cf6c67aaa0d81c94ee0f_tn
-                  '
-                      alt='logo'
-                    />
-                  </div>
-                  <div className='mx-3 h-[42px] w-[231px] truncate capitalize'>
-                    ghế bệt tựa lưng thư giãn d104 cao 72cm
-                  </div>
-                  <div className='text-primary'>₫420.000</div>
+                  <button className='rounded-sm bg-primary px-4 py-2 text-white'>Xem giỏ hàng</button>
                 </div>
               </div>
-              <div className='flex items-center justify-between p-3'>
-                <div className='p-3'>11 Thêm vào giỏ hàng</div>
-                <button className='rounded-sm bg-primary px-4 py-2 text-white'>Thêm vào giỏ hàng</button>
+            ) : (
+              <div className='flex items-center justify-center rounded-sm bg-white text-[12px] text-gray-600 shadow-sm lg:h-[260px] lg:w-[400px]'>
+                <Empty
+                  className='m-auto'
+                  image='https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/9bdd8040b334d31946f49e36beaf32db.png'
+                  description={<span>Chưa có sản phẩm</span>}
+                />
               </div>
-            </div>
+            )}
           </Popover>
         </div>
       </div>
