@@ -1,4 +1,4 @@
-import { Order, Purchase } from 'src/types/Purchase.type'
+import { ListPurchase, Order, Purchase } from 'src/types/Purchase.type'
 import http from './http'
 import { PathRoute } from 'src/constants/PathRoute'
 import { PurchaseStatus } from '../constants/PurchaseStatus'
@@ -11,7 +11,7 @@ export const PurchaseFetching = {
     return http.post<ResponveApi<Purchase>>(`${purchase}/${addToCard}`, body)
   },
   GetPurchasesFetching: (params: { status: PurchaseStatus }) => {
-    return http.get<ResponveApi<Purchase[]>>(`${purchase}`, {
+    return http.get<ResponveApi<ListPurchase>>(`${purchase}`, {
       params
     })
   },

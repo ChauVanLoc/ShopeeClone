@@ -30,7 +30,7 @@ function ProductDetail() {
   const { mutate: addToCard } = useMutation({
     mutationFn: (body: Order) => PurchaseFetching.AddToCardFetching(body),
     onSuccess: (data) => {
-      // clientQuery.invalidateQueries(['purchases_all'])
+      clientQuery.invalidateQueries(['purchases_all'])
       toast.success(data.data.message, {
         position: 'top-right',
         autoClose: 1500,

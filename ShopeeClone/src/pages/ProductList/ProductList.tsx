@@ -15,7 +15,6 @@ function ProductList() {
   const getListProduct = useQueryListProduct(o)
   const getListCategory = useQueryListCategory()
   const ListCateGoryData = getListCategory.data?.data.data
-  console.log('productList', getListCategory.data?.data.data)
   return (
     <div className='mx-auto mt-5 flex max-w-7xl'>
       <div className='mr-8 w-[20%]'>

@@ -25,11 +25,15 @@ function Header() {
       setIsAuth(false)
     }
   })
-  const purchaseData = useQuery({
-    queryKey: ['purchasesall', { status: PurchaseStatus.IN_CART }],
+
+  /* --------------Phần này nè a */
+  const { data } = useQuery({
+    queryKey: ['purchasesall'],
     queryFn: () => PurchaseFetching.GetPurchasesFetching({ status: PurchaseStatus.IN_CART }),
     enabled: isAuth
   })
+  /* -------------------- */
+
   const { handleSubmit, reset, register } = useForm<{ search: string }>()
   const LogoutHandle = () => {
     LogoutMutation.mutate()
@@ -38,7 +42,8 @@ function Header() {
     navigate(`${join({ name: data.search })}`)
     reset()
   })
-  console.log('header', purchaseData.data)
+  const purchaseData = data?.data.data
+  console.log('header', data?.data)
   return (
     <div className='bg-header pt-1 pb-5'>
       <div className='mx-auto text-xs text-white lg:max-w-7xl'>
@@ -223,10 +228,11 @@ function Header() {
               'translate-l-[-50%] absolute top-[-7.7%] border-[12px] border-solid border-white border-x-transparent border-t-transparent'
             }
           >
-            {purchaseData?.data?.data.data && purchaseData.data.data.data.length > 1 ? (
+            /* ------- Giỏ hàng ------------- */
+            {purchaseData && purchaseData.length >= 1 ? (
               <div className='flex flex-col rounded-sm bg-white text-[12px] text-gray-600 shadow-md lg:w-[400px]'>
                 <div className='p-3 capitalize text-gray-300'>Sản phẩm mới thêm</div>
-                {purchaseData.data.data?.data.splice(0, 5).map((purchase) => (
+                {purchaseData.splice(0, 5).map((purchase) => (
                   <div className='flex cursor-pointer p-3 hover:bg-gray-200' key={purchase.product._id}>
                     <div className='h-[42px] w-[42px]'>
                       <img src={purchase.product.image} alt='logo' />
@@ -237,9 +243,7 @@ function Header() {
                 ))}
                 <div className='flex items-center justify-between p-3'>
                   <div className='p-3'>
-                    {purchaseData.data.data.data.length > 5
-                      ? `${purchaseData.data.data.data.length - 5} Thêm hàng vào giỏ`
-                      : ''}
+                    {purchaseData.length > 5 ? `${purchaseData.length - 5} Thêm hàng vào giỏ` : ''}
                   </div>
                   <button className='rounded-sm bg-primary px-4 py-2 text-white'>Xem giỏ hàng</button>
                 </div>

@@ -17,3 +17,4 @@ export type Purchase = {
   __v: number
   _id: string
 }
+export type ListPurchase = Purchase[]
