@@ -28,7 +28,7 @@ function Header() {
 
   /* --------------Phần này nè a */
   const { data } = useQuery({
-    queryKey: ['purchasesall'],
+    queryKey: ['purchasesall', PurchaseStatus.IN_CART],
     queryFn: () => PurchaseFetching.GetPurchasesFetching({ status: PurchaseStatus.IN_CART }),
     enabled: isAuth
   })
@@ -228,7 +228,6 @@ function Header() {
               'translate-l-[-50%] absolute top-[-7.7%] border-[12px] border-solid border-white border-x-transparent border-t-transparent'
             }
           >
-            /* ------- Giỏ hàng ------------- */
             {purchaseData && purchaseData.length >= 1 ? (
               <div className='flex flex-col rounded-sm bg-white text-[12px] text-gray-600 shadow-md lg:w-[400px]'>
                 <div className='p-3 capitalize text-gray-300'>Sản phẩm mới thêm</div>
