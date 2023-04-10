@@ -10,5 +10,6 @@ export const PathRoute = {
   purchase: 'purchases',
   addToCard: 'add-to-cart',
   updatePurchase: 'update-purchase',
-  buyPurchase: 'buy-products'
+  buyPurchase: 'buy-products',
+  cart: 'cart'
 } as const

@@ -8,7 +8,11 @@ module.exports = {
         header: '#d0011b',
         blue: '#05a',
         red: '#d0011b',
-        start: '#FFBB1C'
+        rate: '#FFBB1C',
+        product: '#FFFFFF',
+        backg: '#F5F5F5',
+        footer: '#FBFBFB',
+        sort: '#EDEDED'
       },
       backgroundColor: {
         primary: '#ee4d2d',
@@ -16,17 +20,19 @@ module.exports = {
         red: '#d0011b'
       },
       backgroundImage: {
-        bgPrimary: "url('https://cf.shopee.vn/file/5569eb9dc7e09e2dbed5315b8f2ea8ba')"
+        bgPrimary:
+          "url('https://cf.shopee.vn/file/5569eb9dc7e09e2dbed5315b8f2ea8ba')"
       },
       maxWidth: {
         primary: '1200px'
       },
       gridTemplateRows: {
         7: 'repeat(7, minmax(0, 1fr))'
+      },
+      gridTemplateColumns: {
+        16: 'repeat(16, minmax(0, 1fr))'
       }
     }
   },
-  plugins: [
-    require('@tailwindcss/line-clamp'),
-  ]
+  plugins: [require('@tailwindcss/line-clamp')]
 }

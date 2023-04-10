@@ -4,22 +4,34 @@ import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import InputNumber from 'src/components/InputNumber'
-import { ProductKeySearch, ProductSearch } from 'src/constants/KeySearch'
+import {
+  ProductKeySearch,
+  ProductSearch
+} from 'src/constants/KeySearch'
 import { PathRoute } from 'src/constants/PathRoute'
 import useIdHook from 'src/hooks/useIdHook'
 import { ListCategory } from 'src/types/Category.type'
 import { NoUndefinedField } from 'src/types/utils.type'
 import { schema } from 'src/utils/rules'
-import { PriceFormSchema, PriceFormSchemaType } from 'src/utils/rules'
+import {
+  PriceFormSchema,
+  PriceFormSchemaType
+} from 'src/utils/rules'
 import { Rate } from 'antd'
 
 type AsideProps = {
   categories: ListCategory
   ObjectKeySearch: ProductSearch
-  joinKeySearch: (fieldsToUpdate: Partial<ProductSearch>) => string
+  joinKeySearch: (
+    fieldsToUpdate: Partial<ProductSearch>
+  ) => string
 }
 
-function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
+function Aside({
+  categories,
+  ObjectKeySearch,
+  joinKeySearch
+}: AsideProps) {
   const id = useIdHook()
   const navigate = useNavigate()
   const {
@@ -30,20 +42,48 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
     getValues,
     formState: { errors }
   } = useForm<PriceFormSchemaType>({
+    defaultValues: { price_min: '', price_max: '' },
     resolver: yupResolver(PriceFormSchema)
   })
   const onSubmit = handleSubmit((data) => {
     if (data.price_min !== '' && data.price_max !== '') {
-      navigate(joinKeySearch({ price_min: Number(data.price_min), price_max: Number(data.price_max), page: 1 }))
-    } else if (data.price_min !== '' && data.price_max === '') {
-      navigate(joinKeySearch({ price_min: Number(data.price_min), page: 1 }))
-    } else if (data.price_min === '' && data.price_max !== '') {
-      navigate(joinKeySearch({ price_max: Number(data.price_max), page: 1 }))
-    } else if (data.price_min === '' && data.price_max === '') {
+      navigate(
+        joinKeySearch({
+          price_min: Number(data.price_min),
+          price_max: Number(data.price_max),
+          page: 1
+        })
+      )
+    } else if (
+      data.price_min !== '' &&
+      data.price_max === ''
+    ) {
+      navigate(
+        joinKeySearch({
+          price_min: Number(data.price_min),
+          page: 1
+        })
+      )
+    } else if (
+      data.price_min === '' &&
+      data.price_max !== ''
+    ) {
+      navigate(
+        joinKeySearch({
+          price_max: Number(data.price_max),
+          page: 1
+        })
+      )
+    } else if (
+      data.price_min === '' &&
+      data.price_max === ''
+    ) {
       navigate(joinKeySearch({ page: 1 }))
     }
   })
-  const checkUniqueCategoryPropertyOfObjectKeySearch = (O: ProductSearch) => {
+  const checkUniqueCategoryPropertyOfObjectKeySearch = (
+    O: ProductSearch
+  ) => {
     const keys = Object.keys(ObjectKeySearch)
     if (keys.length === 3 && ObjectKeySearch.category) {
       return true
@@ -52,17 +92,24 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
   }
 
   const handleRating = (rating: number) => () => {
-    navigate(`${joinKeySearch({ page: 1, rating_filter: rating })}`)
+    navigate(
+      `${joinKeySearch({ page: 1, rating_filter: rating })}`
+    )
   }
 
   useEffect(() => {
-    checkUniqueCategoryPropertyOfObjectKeySearch(ObjectKeySearch) && reset()
+    checkUniqueCategoryPropertyOfObjectKeySearch(
+      ObjectKeySearch
+    ) && reset()
   }, [ObjectKeySearch])
 
   return (
     <div className='flex max-w-full flex-col py-3 text-[12px]'>
       <div className='mb-10'>
-        <Link to={''} className='mb-2 flex items-center text-sm font-bold capitalize'>
+        <Link
+          to={''}
+          className='mb-2 flex items-center text-sm font-bold capitalize'
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -80,29 +127,38 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
           Tất cả danh mục
         </Link>
         <div className='mb-4 h-[1px] border-b-[1px]' />
-        {categories.map((c) => (
-          <Link key={c._id} to={`?${ProductKeySearch.category}=${c._id}`} className='mb-4 flex items-center pr-2'>
-            {ObjectKeySearch.category && c._id === ObjectKeySearch.category && (
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='mr-3 flex h-[10px] w-[10px] flex-shrink-0 text-primary'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5'
-                />
-              </svg>
-            )}
+        {categories.slice(0, 3).map((c) => (
+          <Link
+            key={c._id}
+            to={`?${ProductKeySearch.category}=${c._id}`}
+            className='mb-4 flex items-center pr-2'
+          >
+            {ObjectKeySearch.category &&
+              c._id === ObjectKeySearch.category && (
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='mr-3 flex h-[10px] w-[10px] flex-shrink-0 text-primary'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5'
+                  />
+                </svg>
+              )}
             <div
               className={classNames('truncate', {
-                'text-primary': ObjectKeySearch.category && c._id === ObjectKeySearch.category,
+                'text-primary':
+                  ObjectKeySearch.category &&
+                  c._id === ObjectKeySearch.category,
                 'ml-3 pl-[10px]':
-                  (ObjectKeySearch.category && c._id !== ObjectKeySearch.category) || !ObjectKeySearch.category
+                  (ObjectKeySearch.category &&
+                    c._id !== ObjectKeySearch.category) ||
+                  !ObjectKeySearch.category
               })}
             >
               {c.name}
@@ -147,33 +203,43 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
             {Array(4)
               .fill(0)
               .map((_, i) => (
-                <button key={i} className='flex items-baseline' onClick={handleRating(i + 2)}>
-                  <Rate
-                    rootClassName='text-start text-sm ml-6 mr-4 mb-4 cursor-pointer'
-                    disabled
-                    allowHalf
-                    defaultValue={i + 2}
-                  />
-                  <span>{i + 2 < 5 ? 'trở lên' : ''}</span>
+                <button
+                  key={i}
+                  className='mb-4 flex items-center'
+                  onClick={handleRating(i + 2)}
+                >
+                  <div
+                    className={`px-5 ${classNames({
+                      'rounded-full bg-[#EBEBEB]':
+                        ObjectKeySearch.rating_filter ===
+                        i + 2
+                    })}`}
+                  >
+                    <Rate
+                      rootClassName='text-rate text-sm cursor-pointer mr-4 pb-[6px]'
+                      disabled
+                      allowHalf
+                      defaultValue={i + 2}
+                    />
+                    <span>
+                      {i + 2 < 5 ? 'trở lên' : ''}
+                    </span>
+                  </div>
                 </button>
               ))}
           </div>
-          {/* <Rate className='mb-4 flex items-center pr-2 ml-3' disabled allowHalf defaultValue={5} />
-          <Rate className='mb-4 flex items-center pr-2 ml-3' disabled allowHalf defaultValue={5} />
-          <Rate className='mb-4 flex items-center pr-2 ml-3' disabled allowHalf defaultValue={5} />
-          <Rate className='mb-4 flex items-center pr-2 ml-3' disabled allowHalf defaultValue={5} />
-          <Rate className='mb-4 flex items-center pr-2 ml-3' disabled allowHalf defaultValue={5} /> */}
-          {/* <div className='mb-4 flex items-center pr-2'>
-            <input type='checkbox' name='' id='aothun' />
-            <span className=''>Áo thun</span>
-          </div> */}
         </div>
         <div className='mb-7 border-b-[1px] pb-5'>
           <div className='my-4 flex'>Khoảng giá</div>
-          <form className='mb-4 flex flex-col' onSubmit={onSubmit}>
+          <form
+            className='mb-4 flex flex-col'
+            onSubmit={onSubmit}
+          >
             <div className='mb-1 flex items-center justify-between'>
               <InputNumber
-                className={'h-9 max-w-[43%] rounded-sm border bg-white px-3 outline-none'}
+                className={
+                  'h-9 max-w-[43%] rounded-sm border bg-white px-3 outline-none'
+                }
                 placeholder='₫ TỪ'
                 {...register('price_min')}
                 triggerName='price_max'
@@ -192,7 +258,9 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
               />
             </div>
             <div className='mb-1 min-h-[15px] max-w-full text-red'>
-              {errors && <span>{errors.price_max?.message}</span>}
+              {errors && (
+                <span>{errors.price_max?.message}</span>
+              )}
             </div>
             {errors.price_max && errors.price_min ? (
               <input
@@ -209,42 +277,6 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
             )}
           </form>
         </div>
-        {/* <div className='mb-7 border-b-[1px] pb-5'>
-          <div className='my-4'>Đánh Giá</div>
-          <div className='mb-4 flex items-center pr-2'>
-            <input type='checkbox' name='' id='aothun' />
-            <span className='ml-3'>Áo thun</span>
-          </div>
-          <div className='mb-4 flex items-center pr-2'>
-            <input type='checkbox' name='' id='aokhoac' />
-            <span className='ml-3'>Áo Khoác</span>
-          </div>
-          <div className='mb-4 flex items-center pr-2'>
-            <input type='checkbox' name='' id='aosomi' />
-            <div className='ml-3 truncate'>Áo sơ mi</div>
-          </div>
-          <div className='mb-4 flex items-center pr-2'>
-            <input type='checkbox' name='' id='hoodie' />
-            <div className='ml-3 truncate'>Hoodie & Áo Nỉ</div>
-          </div>
-          <div className='flex items-center justify-end pr-2 text-[11px]'>
-            <div className='mr-2 ml-3 truncate'>Thêm</div>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth={1.5}
-              stroke='currentColor'
-              className='h-[10px] w-[10px]'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5'
-              />
-            </svg>
-          </div>
-        </div> */}
         <div className=' border-b-[1px]'>
           <button
             onClick={() => {

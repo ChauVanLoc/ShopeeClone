@@ -1,15 +1,22 @@
-export const convertCurrentcy = (value: number, digit = 2) =>
+export const convertCurrentcy = (
+  value: number,
+  digit = 2
+) =>
   new Intl.NumberFormat('de-DE', {
     minimumFractionDigits: digit
   }).format(value)
 
-export const convertDigitalNumber = (value: number, digit = 2) =>
+export const convertDigitalNumber = (
+  value: number,
+  digit = 0
+) =>
   new Intl.NumberFormat('en', {
     notation: 'compact',
     maximumFractionDigits: digit
   }).format(value)
 
-export const rateSale = (original: number, sale: number) => Math.round(((original - sale) / original) * 100) + '%'
+export const rateSale = (original: number, sale: number) =>
+  Math.round(((original - sale) / original) * 100) + '%'
 
 export const joinKeySearch =
   <T>(o: T) =>
@@ -21,8 +28,14 @@ export const joinKeySearch =
 
 const removeSpecialCharacter = (str: string) =>
   // eslint-disable-next-line no-useless-escape
-  str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, '')
+  str.replace(
+    /!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g,
+    ''
+  )
 
 export const initId = (text: string, character = '-') => {
-  return removeSpecialCharacter(text).replaceAll(/\s+/g, character)
+  return removeSpecialCharacter(text).replaceAll(
+    /\s+/g,
+    character
+  )
 }

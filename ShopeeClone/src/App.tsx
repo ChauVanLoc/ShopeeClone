@@ -13,6 +13,7 @@ import Profile from './pages/Profile'
 import { PathRoute } from './constants/PathRoute'
 import ProductDetail from './pages/ProductDetail'
 import { eventTarget } from './utils/LocalStorage'
+import Cart from './pages/Cart'
 
 function ProtectedRoute() {
   const { isAuth } = useContext(Context)
@@ -41,50 +42,23 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route
-          path=''
-          index
-          element={
-            <MainLayout>
-              <ProductList />
-            </MainLayout>
-          }
-        />
-        <Route
-          path={`/:${PathRoute.idNameProduct}`}
-          element={
-            <MainLayout>
-              <ProductDetail />
-            </MainLayout>
-          }
-        />
-        <Route path='' element={<RejectedRoute />}>
-          <Route
-            path={`/${PathRoute.register}`}
-            element={
-              <RegisterLayout>
-                <Register />
-              </RegisterLayout>
-            }
-          />
-          <Route
-            path={`/${PathRoute.login}`}
-            element={
-              <RegisterLayout>
-                <Login />
-              </RegisterLayout>
-            }
-          />
+        <Route path='/' element={<MainLayout />}>
+          <Route index element={<ProductList />} />
+          <Route path={`/:${PathRoute.idNameProduct}`} element={<ProductDetail />} />
         </Route>
+
         <Route path='' element={<ProtectedRoute />}>
-          <Route
-            path={`/${PathRoute.profile}`}
-            element={
-              <MainLayout>
-                <Profile />
-              </MainLayout>
-            }
-          />
+          <Route path='/' element={<MainLayout />}>
+            <Route path={PathRoute.cart} element={<Cart />} />
+            <Route path={`${PathRoute.profile}`} element={<Profile />} />
+          </Route>
+        </Route>
+
+        <Route path='' element={<RejectedRoute />}>
+          <Route path='/' element={<RegisterLayout />}>
+            <Route path={PathRoute.login} element={<Login />} />
+            <Route path={PathRoute.register} element={<Register />} />
+          </Route>
         </Route>
       </Routes>
       <ToastContainer />

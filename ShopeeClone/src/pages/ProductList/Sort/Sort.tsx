@@ -19,7 +19,7 @@ function Sort({ SearchParamsObject, page, pageSize, stringPagination }: SortType
       : navigate(stringPagination({ page: 1, order: 'desc' }))
   }
   return (
-    <div className='flex justify-between rounded-sm bg-gray-100 py-3 px-5 text-sm shadow-sm'>
+    <div className='flex justify-between rounded-sm bg-sort py-3 px-5 text-sm shadow-sm'>
       <div className='flex items-center'>
         <div className='mr-5'>Sắp xếp theo</div>
         {SearchParamsObject && SearchParamsObject.sort_by === 'view' ? (
@@ -106,17 +106,6 @@ function Sort({ SearchParamsObject, page, pageSize, stringPagination }: SortType
             }
           ]}
         />
-        {/* <select
-          className={classNames('mr-5 rounded-sm bg-white py-2 px-5 shadow-sm', {
-            'bg-primary text-white': SearchParamsObject.sort_by === 'price'
-          })}
-          name='price'
-          id='price'
-        >
-          <option value=''>Giá</option>
-          <option value='lowtohigh'>Giá: Từ Thấp đến Cao</option>
-          <option value='hightolow'>Giá: Từ Cao đến Thấp</option>
-        </select> */}
       </div>
       <div className='flex items-center justify-evenly'>
         <div className='mr-4'>
@@ -155,7 +144,7 @@ function Sort({ SearchParamsObject, page, pageSize, stringPagination }: SortType
             </Link>
           )}
           {page === pageSize ? (
-            <span className='cursor-not-allowed rounded-sm bg-white bg-gray-300/30 py-2 px-2 shadow-sm'>
+            <span className='cursor-not-allowed rounded-sm bg-gray-300/30 py-2 px-2 shadow-sm'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'

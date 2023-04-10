@@ -18,7 +18,6 @@ type contextProps = {
 const initialContext: contextType = {
   isAuth: Boolean(getFromLS('access_token')),
   setIsAuth: () => null,
-  // user: WorkingWithLS.getFromLS('user') !== '' ? JSON.parse(WorkingWithLS.getFromLS('user')) : null,
   user: JSON.parse(getFromLS('user')),
   setUser: () => null
 }

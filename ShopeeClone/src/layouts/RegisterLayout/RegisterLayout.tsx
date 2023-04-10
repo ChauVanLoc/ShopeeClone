@@ -1,15 +1,12 @@
+import { Outlet } from 'react-router-dom'
 import Footer from 'src/components/Footer'
 import HeaderRegister from 'src/components/HeaderRegister'
 
-type RegisterLayoutType = {
-  children: React.ReactNode
-}
-
-const RegisterLayout = ({ children }: RegisterLayoutType) => {
+const RegisterLayout = () => {
   return (
     <div>
       <HeaderRegister />
-      {children}
+      <Outlet />
       <Footer />
     </div>
   )

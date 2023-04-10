@@ -1,7 +1,14 @@
 import { ReactNode, useRef, useState } from 'react'
-import { useFloating, arrow, shift, flip, offset } from '@floating-ui/react-dom'
+import {
+  useFloating,
+  arrow,
+  shift,
+  flip,
+  offset
+} from '@floating-ui/react-dom'
 import { FloatingPortal } from '@floating-ui/react'
 import useIdHook from 'src/hooks/useIdHook'
+import { NavLink, To } from 'react-router-dom'
 
 type PopoverProps = {
   classNameBlock: string
@@ -9,23 +16,32 @@ type PopoverProps = {
   off?: number
   as: ReactNode
   children: ReactNode
+  to?: To
 }
 
-function Popover({ classNameBlock, classNameArrow, off, as, children }: PopoverProps) {
+function Popover({
+  classNameBlock,
+  classNameArrow,
+  off,
+  as,
+  children,
+  to
+}: PopoverProps) {
   const arrowRef = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
   const idFloatingPortal = useIdHook()
-  const { x, y, strategy, refs, middlewareData } = useFloating({
-    middleware: [
-      shift(),
-      offset(off),
-      flip(),
-      arrow({
-        element: arrowRef
-      })
-    ],
-    placement: 'bottom-end'
-  })
+  const { x, y, strategy, refs, middlewareData } =
+    useFloating({
+      middleware: [
+        shift(),
+        offset(off),
+        flip(),
+        arrow({
+          element: arrowRef
+        })
+      ],
+      placement: 'bottom-end'
+    })
   const onMouseEnterHandle = () => {
     setIsOpen(true)
   }
@@ -52,14 +68,26 @@ function Popover({ classNameBlock, classNameArrow, off, as, children }: PopoverP
             }}
             className='relative'
           >
-            <span
-              style={{
-                left: middlewareData.arrow?.x,
-                top: middlewareData.arrow?.y
-              }}
-              ref={arrowRef}
-              className={classNameArrow}
-            />
+            {to ? (
+              <NavLink
+                to={`/${to}`}
+                style={{
+                  left: middlewareData.arrow?.x,
+                  top: middlewareData.arrow?.y
+                }}
+                ref={arrowRef}
+                className={classNameArrow}
+              />
+            ) : (
+              <span
+                style={{
+                  left: middlewareData.arrow?.x,
+                  top: middlewareData.arrow?.y
+                }}
+                ref={arrowRef}
+                className={classNameArrow}
+              />
+            )}
             {children}
           </div>
         )}

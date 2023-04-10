@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Context } from 'src/context/AppContext'
 import Popover from '../Popover'
@@ -9,9 +9,11 @@ import useSearchUrl from 'src/hooks/useSearchUrl'
 import { convertCurrentcy, joinKeySearch } from 'src/utils/utils'
 import { ProductSearch } from 'src/constants/KeySearch'
 import { omit } from 'lodash'
+import { Badge, Empty } from 'antd'
 import { PurchaseFetching } from 'src/Api/PurchaseFetching'
 import { PurchaseStatus } from 'src/constants/PurchaseStatus'
-import { Empty } from 'antd'
+import useQueryListPurchase from 'src/hooks/useQueryListPurchase'
+import { PathRoute } from 'src/constants/PathRoute'
 
 function Header() {
   const o = useSearchUrl()
@@ -26,15 +28,11 @@ function Header() {
     }
   })
 
-  /* --------------Phần này nè a */
-  const { data } = useQuery({
-    queryKey: ['purchasesall', PurchaseStatus.IN_CART],
-    queryFn: () => PurchaseFetching.GetPurchasesFetching({ status: PurchaseStatus.IN_CART }),
-    enabled: isAuth
-  })
-  /* -------------------- */
+  const purchaseFetching = useQueryListPurchase(isAuth)
 
-  const { handleSubmit, reset, register } = useForm<{ search: string }>()
+  const { handleSubmit, reset, register } = useForm<{
+    search: string
+  }>()
   const LogoutHandle = () => {
     LogoutMutation.mutate()
   }
@@ -42,8 +40,7 @@ function Header() {
     navigate(`${join({ name: data.search })}`)
     reset()
   })
-  const purchaseData = data?.data.data
-  console.log('header', data?.data)
+  const purchaseData = purchaseFetching.data?.data.data
   return (
     <div className='bg-header pt-1 pb-5'>
       <div className='mx-auto text-xs text-white lg:max-w-7xl'>
@@ -63,7 +60,10 @@ function Header() {
             </Link>
           </div>
           <div className='flex flex-shrink-0 items-center'>
-            <Link to={''} className={'flex flex-row items-center justify-center pr-3'}>
+            <Link
+              to={''}
+              className={'flex flex-row items-center justify-center pr-3'}
+            >
               <span className='mr-2'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -82,7 +82,10 @@ function Header() {
               </span>
               Thông Báo
             </Link>
-            <Link to={''} className={'flex flex-row items-center justify-center px-3'}>
+            <Link
+              to={''}
+              className={'flex flex-row items-center justify-center px-3'}
+            >
               <span className='mr-2'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -106,7 +109,11 @@ function Header() {
               classNameBlock='px-3 py-1 cursor-pointer'
               classNameArrow='translate-l-[-50%] absolute top-[-16%] border-[6px] border-solid border-white border-x-transparent border-t-transparent'
             >
-              <div className={'flex flex-col rounded-sm bg-white py-3 pr-16 pl-3 text-[12px] text-gray-800 shadow-md'}>
+              <div
+                className={
+                  'flex flex-col rounded-sm bg-white py-3 pr-16 pl-3 text-[12px] text-gray-800 shadow-md'
+                }
+              >
                 <button className='mb-3 hover:text-header'>Tiếng Việt</button>
                 <button className='hover:text-header'>Tiếng Anh</button>
               </div>
@@ -123,7 +130,13 @@ function Header() {
                       y={0}
                     >
                       <g>
-                        <circle cx='7.5' cy='4.5' fill='none' r='3.8' strokeMiterlimit={10} />
+                        <circle
+                          cx='7.5'
+                          cy='4.5'
+                          fill='none'
+                          r='3.8'
+                          strokeMiterlimit={10}
+                        />
                         <path
                           d='m1.5 14.2c0-3.3 2.7-6 6-6s6 2.7 6 6'
                           fill='none'
@@ -156,10 +169,18 @@ function Header() {
               </Popover>
             ) : (
               <>
-                <Link to={'/register'} className={'flex flex-row items-center justify-center border-r-[1px] px-3'}>
+                <Link
+                  to={'/register'}
+                  className={
+                    'flex flex-row items-center justify-center border-r-[1px] px-3'
+                  }
+                >
                   Đăng Kí
                 </Link>
-                <Link to={'/login'} className={'flex flex-row items-center justify-center pl-3'}>
+                <Link
+                  to={'/login'}
+                  className={'flex flex-row items-center justify-center pl-3'}
+                >
                   Đăng Nhập
                 </Link>
               </>
@@ -204,47 +225,82 @@ function Header() {
             </form>
           </div>
           <Popover
+            to={PathRoute.cart}
             as={
-              <span className='flex cursor-pointer self-end'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.25}
-                  stroke='currentColor'
-                  className='h-8 w-8'
+              <Badge
+                color='#FAFAFA'
+                style={{
+                  color: '#ee4d2d',
+                  fontWeight: '600',
+                  cursor: 'pointer'
+                }}
+                offset={[-2, 5]}
+                count={
+                  purchaseData && purchaseData?.length > 9
+                    ? '9+'
+                    : purchaseData?.length
+                }
+              >
+                <NavLink
+                  to={`/${PathRoute.cart}`}
+                  className='flex cursor-pointer self-end'
                 >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z'
-                  />
-                </svg>
-              </span>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.25}
+                    stroke='currentColor'
+                    className='h-8 w-8 text-white'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z'
+                    />
+                  </svg>
+                </NavLink>
+              </Badge>
             }
             off={5}
             classNameBlock={'ml-4 flex'}
             classNameArrow={
-              'translate-l-[-50%] absolute top-[-7.7%] border-[12px] border-solid border-white border-x-transparent border-t-transparent'
+              'translate-l-[-50%] absolute top-[-5.5%] border-[12px] border-solid border-white border-x-transparent border-t-transparent cursor-pointer'
             }
           >
             {purchaseData && purchaseData.length >= 1 ? (
               <div className='flex flex-col rounded-sm bg-white text-[12px] text-gray-600 shadow-md lg:w-[400px]'>
-                <div className='p-3 capitalize text-gray-300'>Sản phẩm mới thêm</div>
-                {purchaseData.splice(0, 5).map((purchase) => (
-                  <div className='flex cursor-pointer p-3 hover:bg-gray-200' key={purchase.product._id}>
+                <div className='p-3 capitalize text-gray-300'>
+                  Sản phẩm mới thêm
+                </div>
+                {purchaseData.slice(0, 5).map((purchase) => (
+                  <div
+                    className='flex cursor-pointer p-3 hover:bg-gray-200'
+                    key={purchase.product._id}
+                  >
                     <div className='h-[42px] w-[42px]'>
                       <img src={purchase.product.image} alt='logo' />
                     </div>
-                    <div className='mx-3 h-[42px] w-[231px] truncate capitalize'>{purchase.product.name}</div>
-                    <div className='text-primary'>₫{convertCurrentcy(purchase.product.price, 2)}</div>
+                    <div className='mx-3 h-[42px] w-[231px] truncate capitalize'>
+                      {purchase.product.name}
+                    </div>
+                    <div className='text-primary'>
+                      ₫{convertCurrentcy(purchase.product.price, 2)}
+                    </div>
                   </div>
                 ))}
                 <div className='flex items-center justify-between p-3'>
                   <div className='p-3'>
-                    {purchaseData.length > 5 ? `${purchaseData.length - 5} Thêm hàng vào giỏ` : ''}
+                    {purchaseData.length > 5
+                      ? `${purchaseData.length - 5} Thêm hàng vào giỏ`
+                      : ''}
                   </div>
-                  <button className='rounded-sm bg-primary px-4 py-2 text-white'>Xem giỏ hàng</button>
+                  <NavLink
+                    to={`/${PathRoute.cart}`}
+                    className='rounded-sm bg-primary px-4 py-2 text-white'
+                  >
+                    Xem giỏ hàng
+                  </NavLink>
                 </div>
               </div>
             ) : (

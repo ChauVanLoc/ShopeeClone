@@ -11,16 +11,22 @@ export const PurchaseFetching = {
     return http.post<ResponveApi<Purchase>>(`${purchase}/${addToCard}`, body)
   },
   GetPurchasesFetching: (params: { status: PurchaseStatus }) => {
-    return http.get<ResponveApi<ListPurchase>>(`${purchase}`, {
-      params
-    })
+    return http.get<ResponveApi<ListPurchase>>(
+      `${purchase}?status=${params.status}`
+    )
   },
   UpdatePurchaseFetching: (body: Order) => {
-    return http.put<ResponveApi<Purchase>>(`${purchase}/${updatePurchase}`, body)
+    return http.put<ResponveApi<Purchase>>(
+      `${purchase}/${updatePurchase}`,
+      body
+    )
   },
   DeletePurchaseFetching: (id: string[]) => {
     return http.delete<ResponveApi<{ deleted_count: number }>>(`${purchase}`, {
       data: id
     })
+  },
+  BuyPurchaseFetching: (body: Order[]) => {
+    return http.post<ResponveApi<Order[]>>(`/${purchase}/${buyPurchase}`, body)
   }
 }

@@ -1,9 +1,8 @@
 import classNames from 'classnames'
-import { forwardRef, InputHTMLAttributes, useState } from 'react'
+import { forwardRef, InputHTMLAttributes } from 'react'
 import { FieldError, type UseFormTrigger } from 'react-hook-form/dist/types'
 import { ProductSearch } from 'src/constants/KeySearch'
 import { PriceFormSchemaType, PriceFormUnionSchemaType } from 'src/utils/rules'
-import { convertCurrentcy } from 'src/utils/utils'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string

@@ -1,4 +1,5 @@
 import { KeyLocalStorage } from 'src/constants/KeyLocalStorage'
+import { CartType } from 'src/pages/Cart/Cart'
 
 type ItemLSType = {
   key: keyof typeof KeyLocalStorage
