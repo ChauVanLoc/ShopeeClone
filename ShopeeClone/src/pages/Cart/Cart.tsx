@@ -27,7 +27,7 @@ function Cart() {
     mutationFn: (id: string[]) => PurchaseFetching.DeletePurchaseFetching(id),
     onSuccess() {
       queryClient.invalidateQueries({ queryKey: ['purchase_all'] })
-      setDisibleAll(true)
+      purchaseFetching.isRefetching && setDisibleAll(true)
     },
     onMutate() {
       setDisibleAll(false)
@@ -108,26 +108,33 @@ function Cart() {
       .map((e) => ({ product_id: e.product._id, buy_count: e.buy_count }))
     orderMutation.mutate(orders)
   }
+  const choosenPurchaseIdFromLocation = (
+    location.state as { id: string } | null
+  )?.id
   useEffect(() => {
-    const newPurchases = keyBy(purchases, '_id')
     purchaseFetching.data &&
-      setPurchases((pre) =>
-        purchaseFetching.data?.data.data.map((e, i) => {
+      purchaseFetching.data?.data.data.length > 0 &&
+      setPurchases((pre) => {
+        const newPurchases = keyBy(purchases, '_id')
+        return purchaseFetching.data?.data.data.map((e, i) => {
+          const isChoosenPurchaseFromLocation =
+            choosenPurchaseIdFromLocation === e._id
+          console.log(isChoosenPurchaseFromLocation)
           return {
             ...e,
-            disable:
-              purchases.length > 0 ? newPurchases[`${e._id}`].disable : false,
-            isChecked:
-              purchases.length > 0
-                ? newPurchases[`${e._id}`].isChecked
-                : location.state.product_id === e.product._id
-                ? true
-                : false
+            disable: false,
+            isChecked: location.state.id
+              ? isChoosenPurchaseFromLocation
+              : newPurchases[e._id].isChecked || false
           }
         })
-      )
+      })
   }, [purchaseFetching.isSuccess, purchaseFetching.isRefetching])
-  console.log(location.state)
+  useEffect(() => {
+    return () => {
+      history.replaceState(null, '')
+    }
+  }, [])
   return (
     <div className='bg-backg'>
       <div className='mx-auto max-w-7xl bg-backg py-4 text-center text-base'>

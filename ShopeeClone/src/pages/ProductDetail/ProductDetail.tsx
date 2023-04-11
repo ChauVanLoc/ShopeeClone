@@ -35,7 +35,7 @@ function ProductDetail() {
   const [count, setCount] = useState<number>(1)
   const [change, setChange] = useState<number>(0)
   const [messageApi, contextHolder] = message.useMessage()
-  const { mutate: addToCard } = useMutation({
+  const addToCartMutation = useMutation({
     mutationFn: (body: Order) => PurchaseFetching.AddToCardFetching(body),
     onSuccess: (data) => {
       clientQuery.invalidateQueries({
@@ -91,21 +91,22 @@ function ProductDetail() {
       }
     }
   const handleAddCart = () => {
-    addToCard({
+    addToCartMutation.mutate({
       product_id: id as string,
       buy_count: Number(getValues('amount'))
     })
   }
-  const handleOrder = () => {
-    addToCard({
+  const handleOrder = async () => {
+    const purchase = await addToCartMutation.mutateAsync({
       product_id: id as string,
       buy_count: Number(getValues('amount'))
     })
-    navigate(`/${PathRoute.cart}`, {
-      state: {
-        product_id: id
-      }
-    })
+    purchase &&
+      navigate(`/${PathRoute.cart}`, {
+        state: {
+          id: purchase.data.data._id
+        }
+      })
   }
   const { data } = useQueyProduct(id as string)
   const product = data?.data.data
