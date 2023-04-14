@@ -54,7 +54,7 @@ function AsideUser() {
         </div>
       </div>
       <div className='mt-7'>
-        <div className='flex items-center'>
+        <NavLink to={url.profilePath} className='flex items-center'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -70,7 +70,7 @@ function AsideUser() {
             />
           </svg>
           <p className='ml-3 capitalize'>tài khoản của tôi</p>
-        </div>
+        </NavLink>
         <div className='flex flex-col py-5 pl-8'>
           <NavLink
             to={url.profilePath}
@@ -98,7 +98,12 @@ function AsideUser() {
           </NavLink>
         </div>
       </div>
-      <div className='mt-3 flex items-center'>
+      <NavLink
+        to={url.orderPath}
+        className={`mt-3 flex cursor-pointer items-center ${classNames({
+          'text-primary': location.pathname === url.orderPath
+        })}`}
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
@@ -115,7 +120,7 @@ function AsideUser() {
         </svg>
 
         <p className='ml-3'>Đơn Mua</p>
-      </div>
+      </NavLink>
     </div>
   )
 }
