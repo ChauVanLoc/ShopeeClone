@@ -6,7 +6,7 @@ import Popover from '../Popover'
 import { AuthFetching } from 'src/Api/AthFetching'
 import { useForm } from 'react-hook-form'
 import useSearchUrl from 'src/hooks/useSearchUrl'
-import { convertCurrentcy, joinKeySearch } from 'src/utils/utils'
+import { convertCurrentcy, initId, joinKeySearch } from 'src/utils/utils'
 import { ProductSearch } from 'src/constants/KeySearch'
 import { omit } from 'lodash'
 import { Badge, Empty } from 'antd'
@@ -14,6 +14,8 @@ import { PurchaseFetching } from 'src/Api/PurchaseFetching'
 import { PurchaseStatus } from 'src/constants/PurchaseStatus'
 import useQueryListPurchase from 'src/hooks/useQueryListPurchase'
 import { PathRoute } from 'src/constants/PathRoute'
+
+const { user: userPath, account, profile, order } = PathRoute
 
 function Header() {
   const o = useSearchUrl()
@@ -153,12 +155,18 @@ function Header() {
                 classNameArrow='translate-l-[-50%] absolute top-[-11%] border-[6px] border-solid border-white border-x-transparent border-t-transparent'
               >
                 <div className='flex flex-col rounded-sm bg-white text-[12px] shadow-sm'>
-                  <button className='cursor-pointer py-[9px] pl-5 pr-16 capitalize hover:bg-gray-100 hover:text-primary'>
+                  <NavLink
+                    to={`/${userPath}/${account}/${profile}`}
+                    className='cursor-pointer py-[9px] pl-5 pr-16 capitalize hover:bg-gray-100 hover:text-primary'
+                  >
                     Tài khoản của tôi
-                  </button>
-                  <button className='cursor-pointer py-[9px] pl-5 pr-16 text-left capitalize hover:bg-gray-100 hover:text-primary'>
+                  </NavLink>
+                  <NavLink
+                    to={`/${userPath}/${order}`}
+                    className='cursor-pointer py-[9px] pl-5 pr-16 text-left capitalize hover:bg-gray-100 hover:text-primary'
+                  >
                     Đơn mua
-                  </button>
+                  </NavLink>
                   <button
                     onClick={LogoutHandle}
                     className='cursor-pointer py-[9px] pl-5 pr-16 text-left capitalize hover:bg-gray-100 hover:text-primary'
@@ -274,7 +282,10 @@ function Header() {
                   Sản phẩm mới thêm
                 </div>
                 {purchaseData.slice(0, 5).map((purchase) => (
-                  <div
+                  <NavLink
+                    to={`/${initId(purchase.product.name)}-id,${
+                      purchase.product._id
+                    }`}
                     className='flex cursor-pointer p-3 hover:bg-gray-200'
                     key={purchase.product._id}
                   >
@@ -287,7 +298,7 @@ function Header() {
                     <div className='text-primary'>
                       ₫{convertCurrentcy(purchase.product.price, 2)}
                     </div>
-                  </div>
+                  </NavLink>
                 ))}
                 <div className='flex items-center justify-between p-3'>
                   <div className='p-3'>

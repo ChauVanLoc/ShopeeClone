@@ -42,9 +42,6 @@ function Cart() {
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: 'colored'
       })
     }
@@ -106,34 +103,38 @@ function Cart() {
     const orders: Order[] = purchases
       .filter((o) => o.isChecked)
       .map((e) => ({ product_id: e.product._id, buy_count: e.buy_count }))
-    orderMutation.mutate(orders)
+    orders.length > 0
+      ? orderMutation.mutate(orders)
+      : toast.warn(
+          'Mua hàng không thành công vì không có đơn hàng nào được chọn',
+          {
+            position: 'top-right',
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            theme: 'colored'
+          }
+        )
   }
-  const choosenPurchaseIdFromLocation = (
-    location.state as { id: string } | null
-  )?.id
   useEffect(() => {
     purchaseFetching.data &&
-      purchaseFetching.data?.data.data.length > 0 &&
       setPurchases((pre) => {
         const newPurchases = keyBy(purchases, '_id')
         return purchaseFetching.data?.data.data.map((e, i) => {
-          const isChoosenPurchaseFromLocation =
-            choosenPurchaseIdFromLocation === e._id
-          console.log(isChoosenPurchaseFromLocation)
           return {
             ...e,
             disable: false,
-            isChecked: location.state.id
-              ? isChoosenPurchaseFromLocation
-              : newPurchases[e._id].isChecked || false
+            isChecked: location.state
+              ? location.state.id === e._id
+              : Object.keys(newPurchases).length > 0
+              ? newPurchases[e._id].isChecked
+              : false
           }
         })
       })
   }, [purchaseFetching.isSuccess, purchaseFetching.isRefetching])
   useEffect(() => {
-    return () => {
-      history.replaceState(null, '')
-    }
+    window.history.replaceState({}, '')
   }, [])
   return (
     <div className='bg-backg'>

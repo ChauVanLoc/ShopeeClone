@@ -23,6 +23,7 @@ import { Order } from 'src/types/Purchase.type'
 import { toast } from 'react-toastify'
 import { message } from 'antd'
 import { PathRoute } from 'src/constants/PathRoute'
+import InputOrder from 'src/components/InputOrder'
 
 function ProductDetail() {
   const clientQuery = useQueryClient()
@@ -357,6 +358,7 @@ function ProductDetail() {
               </div>
               <div className='col-span-1 col-start-2 row-start-7 my-auto text-gray-500'>
                 <div className='flex items-center'>
+                  {/* <InputOrder addButton={classNames()} /> */}
                   <button
                     onClick={handleAmount('substract')}
                     className='rounded-sm border-[1px] border-gray-300 px-2 py-[6px]'

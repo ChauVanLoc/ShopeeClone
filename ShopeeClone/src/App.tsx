@@ -9,11 +9,16 @@ import MainLayout from './layouts/MainLayout'
 import './index.css'
 import { useCallback, useContext, useEffect } from 'react'
 import { Context } from './context/AppContext'
-import Profile from './pages/Profile'
 import { PathRoute } from './constants/PathRoute'
 import ProductDetail from './pages/ProductDetail'
 import { eventTarget } from './utils/LocalStorage'
 import Cart from './pages/Cart'
+import User from './pages/User'
+import Account from './pages/User/Account'
+import Password from './pages/User/Account/Password'
+import Address from './pages/User/Account/Address'
+import Order from './pages/User/Order'
+import Profile from './pages/User/Account/Profile'
 
 function ProtectedRoute() {
   const { isAuth } = useContext(Context)
@@ -44,13 +49,23 @@ function App() {
       <Routes>
         <Route path='/' element={<MainLayout />}>
           <Route index element={<ProductList />} />
-          <Route path={`/:${PathRoute.idNameProduct}`} element={<ProductDetail />} />
+          <Route
+            path={`:${PathRoute.idNameProduct}`}
+            element={<ProductDetail />}
+          />
         </Route>
 
         <Route path='' element={<ProtectedRoute />}>
           <Route path='/' element={<MainLayout />}>
             <Route path={PathRoute.cart} element={<Cart />} />
-            <Route path={`${PathRoute.profile}`} element={<Profile />} />
+            <Route path={PathRoute.user} element={<User />}>
+              <Route path={PathRoute.account} element={<Account />}>
+                <Route path={PathRoute.profile} element={<Profile />} />
+                <Route path={PathRoute.password} element={<Password />} />
+                <Route path={PathRoute.address} element={<Address />} />
+              </Route>
+              <Route path={PathRoute.order} element={<Order />} />
+            </Route>
           </Route>
         </Route>
 

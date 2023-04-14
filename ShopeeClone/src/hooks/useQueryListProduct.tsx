@@ -8,6 +8,7 @@ function useQueryListProduct(o: ProductSearch) {
   const getListProduct = useQuery({
     queryKey: ['ListProduct', o],
     queryFn: () => ProductFetching.ListProductFetching(o),
+    staleTime: 1000 * 15,
     keepPreviousData: true
   })
   return getListProduct
