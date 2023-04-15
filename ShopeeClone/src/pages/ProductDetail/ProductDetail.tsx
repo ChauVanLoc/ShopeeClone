@@ -1,5 +1,5 @@
 import DOMPurify from 'dompurify'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Rate } from 'antd'
@@ -21,11 +21,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { PurchaseFetching } from 'src/Api/PurchaseFetching'
 import { Order } from 'src/types/Purchase.type'
 import { toast } from 'react-toastify'
-import { message } from 'antd'
 import { PathRoute } from 'src/constants/PathRoute'
 import InputOrder from 'src/components/InputOrder'
+import useAddToCartMutation from 'src/hooks/useAddToCartMutation'
+import { Context } from 'src/context/AppContext'
 
 function ProductDetail() {
+  const { isAuth } = useContext(Context)
   const clientQuery = useQueryClient()
   const { idNameProduct } = useParams()
   const navigate = useNavigate()
@@ -35,45 +37,7 @@ function ProductDetail() {
   const [slider2, setSlider2] = useState<Slider | null>(null)
   const [count, setCount] = useState<number>(1)
   const [change, setChange] = useState<number>(0)
-  const [messageApi, contextHolder] = message.useMessage()
-  const addToCartMutation = useMutation({
-    mutationFn: (body: Order) => PurchaseFetching.AddToCardFetching(body),
-    onSuccess: (data) => {
-      clientQuery.invalidateQueries({
-        queryKey: ['purchase_all']
-      })
-      messageApi.open({
-        type: 'success',
-        content: 'This is a prompt message with custom className and style',
-        className: 'custom-class',
-        style: {
-          marginTop: '20vh'
-        }
-      })
-      toast.success(data.data.message, {
-        position: 'top-right',
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored'
-      })
-    },
-    onError(error, variables, context) {
-      toast.error('Lỗi!', {
-        position: 'top-right',
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored'
-      })
-    }
-  })
+  const addToCartMutation = useAddToCartMutation()
   const {
     register,
     getValues,
@@ -92,12 +56,20 @@ function ProductDetail() {
       }
     }
   const handleAddCart = () => {
+    if (!isAuth) {
+      navigate(`/${PathRoute.login}`)
+      return
+    }
     addToCartMutation.mutate({
       product_id: id as string,
       buy_count: Number(getValues('amount'))
     })
   }
   const handleOrder = async () => {
+    if (!isAuth) {
+      navigate(`/${PathRoute.login}`)
+      return
+    }
     const purchase = await addToCartMutation.mutateAsync({
       product_id: id as string,
       buy_count: Number(getValues('amount'))

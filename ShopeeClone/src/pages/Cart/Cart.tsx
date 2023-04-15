@@ -7,6 +7,7 @@ import { useContext, useState, useEffect, useMemo, useCallback } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { PurchaseFetching } from 'src/Api/PurchaseFetching'
+import { PurchaseStatus } from 'src/constants/PurchaseStatus'
 import { Context } from 'src/context/AppContext'
 import useQueryListPurchase from 'src/hooks/useQueryListPurchase'
 import { Order, Purchase } from 'src/types/Purchase.type'
@@ -36,9 +37,11 @@ function Cart() {
   const orderMutation = useMutation({
     mutationFn: (body: Order[]) => PurchaseFetching.BuyPurchaseFetching(body),
     onSuccess(data) {
-      queryClient.invalidateQueries({ queryKey: ['purchase_all'] })
+      queryClient.invalidateQueries({
+        queryKey: ['purchases', PurchaseStatus.IN_CART]
+      })
       toast.success(data.data.message, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -132,6 +135,7 @@ function Cart() {
           }
         })
       })
+    console.log('aaaalo')
   }, [purchaseFetching.isSuccess, purchaseFetching.isRefetching])
   useEffect(() => {
     window.history.replaceState({}, '')

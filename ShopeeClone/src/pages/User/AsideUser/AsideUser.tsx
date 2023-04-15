@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import { useMemo } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { PathRoute } from 'src/constants/PathRoute'
+import { PurchaseStatus } from 'src/constants/PurchaseStatus'
 
 const { account, user, profile, address, password, order } = PathRoute
 
@@ -14,8 +15,8 @@ function AsideUser() {
     orderPath: `/${user}/${order}`
   }
   return (
-    <div className='flex flex-col'>
-      <div className='flex cursor-pointer items-center border-b-[1px] border-b-gray-200 pb-6'>
+    <div className='sticky top-0'>
+      <div className='flex cursor-pointer items-center border-b-[1px] border-b-gray-200 pt-3 pb-6'>
         <div className='mr-3 rounded-full border border-gray-300 p-3'>
           <svg
             xmlns='http://www.w3.org/2000/svg'

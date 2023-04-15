@@ -3,7 +3,6 @@ import dayjs from 'dayjs'
 import { useCallback } from 'react'
 
 function Profile() {
-  const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY']
   return (
     <div className='rounded-sm bg-product p-6 shadow-sm'>
       <div className='border-b-[1px] border-b-gray-300 pb-3'>
@@ -13,37 +12,37 @@ function Profile() {
         </p>
       </div>
       <div className='flex'>
-        <div className='mt-8 grid grid-cols-3 grid-rows-7 items-center gap-x-8 gap-y-3 lg:w-[60%]'>
-          <div className='col-start-1 row-start-1 text-end text-gray-400'>
+        <div className='mt-8 grid grid-cols-3 grid-rows-6 items-center gap-x-8 gap-y-3 lg:w-[60%]'>
+          {/* <div className='col-start-1 row-start-1 text-end text-gray-400'>
             Tên đăng nhập
           </div>
           <label className='col-span-3 col-start-2 row-start-1'>
             Chau_Van_Loc
-          </label>
-          <div className='col-start-1 row-start-2 text-end text-gray-400'>
-            Tên
+          </label> */}
+          <div className='col-start-1 row-start-1 text-end text-gray-400'>
+            Tên đăng nhập
           </div>
           <input
             type='text'
-            className='col-span-2 col-start-2 row-start-2 rounded-sm border-[0.5px] px-3 py-2 outline-none'
+            className='col-span-2 col-start-2 row-start-1 rounded-sm border-[0.5px] px-3 py-2 outline-none'
             value={'VanLoc'}
           />
-          <label className='col-start-1 row-start-3 text-end text-gray-400'>
+          <label className='col-start-1 row-start-2 text-end text-gray-400'>
             Email
           </label>
-          <label className='col-span-3 col-start-2 row-start-3'>
+          <label className='col-span-3 col-start-2 row-start-2'>
             locchau.220401@gmail.com
           </label>
-          <label className='col-start-1 row-start-4 text-end text-gray-400'>
+          <label className='col-start-1 row-start-3 text-end text-gray-400'>
             Số điện thoại
           </label>
-          <label className='col-span-3 col-start-2 row-start-4'>
+          <label className='col-span-3 col-start-2 row-start-3'>
             0879229072
           </label>
-          <label className='col-start-1 row-start-5 text-end text-gray-400'>
+          <label className='col-start-1 row-start-4 text-end text-gray-400'>
             Giới tính
           </label>
-          <div className='col-span-3 col-start-2 row-start-5'>
+          <div className='col-span-3 col-start-2 row-start-4'>
             <div className='flex'>
               <div className='mr-7 flex items-center'>
                 <input type='radio' name='radio' id='Nam' />
@@ -65,21 +64,21 @@ function Profile() {
               </div>
             </div>
           </div>
-          <label className='col-start-1 row-start-6 text-end text-gray-500'>
+          <label className='col-start-1 row-start-5 text-end text-gray-500'>
             Ngày sinh
           </label>
-          <div className='col-start-2 row-start-6 text-end'>
+          <div className='col-start-2 row-start-5 text-end'>
             <DatePicker
-              defaultValue={dayjs('01/01/2015', dateFormatList[0])}
-              format={dateFormatList}
+              defaultValue={dayjs('01/01/2015', 'DD/MM/YYYY')}
+              format={'DD/MM/YYYY'}
             />
           </div>
-          <button className='col-start-2 row-start-7 bg-primary p-3 text-white'>
+          <button className='col-start-2 row-start-6 bg-primary p-3 text-white'>
             Lưu
           </button>
         </div>
         <div className='align-middle lg:w-[40%]'>
-          <div className='mt-10 flex flex-col items-center justify-center border-l-[1px] py-10'>
+          <div className='mt-8 flex flex-col items-center justify-center border-l-[1px] pb-10'>
             <div className='mb-5 rounded-full bg-gray-100 p-5'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'

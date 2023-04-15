@@ -10,10 +10,8 @@ export const PurchaseFetching = {
   AddToCardFetching: (body: Order) => {
     return http.post<ResponveApi<Purchase>>(`${purchase}/${addToCard}`, body)
   },
-  GetPurchasesFetching: (params: { status: PurchaseStatus }) => {
-    return http.get<ResponveApi<ListPurchase>>(
-      `${purchase}?status=${params.status}`
-    )
+  GetPurchasesFetching: (status: PurchaseStatus) => {
+    return http.get<ResponveApi<ListPurchase>>(`${purchase}?status=${status}`)
   },
   UpdatePurchaseFetching: (body: Order) => {
     return http.put<ResponveApi<Purchase>>(
