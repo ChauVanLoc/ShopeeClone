@@ -3,11 +3,18 @@ import type { InferType } from 'yup'
 import { AnyObject } from 'yup/lib/types'
 
 function testPriceMinMax(this: yup.TestContext<AnyObject>) {
-  const { price_max, price_min } = this.parent as { price_min: string; price_max: string }
+  const { price_max, price_min } = this.parent as {
+    price_min: string
+    price_max: string
+  }
   if (price_min !== '' && price_max !== '') {
     return Number(price_max) > Number(price_min)
   }
-  return price_min !== '' || price_max !== '' || (price_min === '' && price_max == '')
+  return (
+    price_min !== '' ||
+    price_max !== '' ||
+    (price_min === '' && price_max == '')
+  )
 }
 
 export const schema = yup.object({
@@ -41,14 +48,31 @@ export const schema = yup.object({
   amount: yup.string()
 })
 
+const user = yup.object({
+  name: yup.string().max(160, 'tối đa 160 kí tự'),
+  phone: yup.string().max(20, 'tối đa 20 kí tự'),
+  address: yup.string().max(160, 'tối đa 160 kí tự'),
+  date_of_birth: yup.string(),
+  avatar: yup.string().max(1000, 'tối đa 1000 kí tự')
+})
+
 export type SchemaType = InferType<typeof schema>
 
-export type RegisterSchemaType = Pick<SchemaType, 'email' | 'password' | 'confirm_password'>
+export type RegisterSchemaType = Pick<
+  SchemaType,
+  'email' | 'password' | 'confirm_password'
+>
 
 export const RegisterUnionSchema =
-  schema.pick(['email']) || schema.pick(['password']) || schema.pick(['confirm_password'])
+  schema.pick(['email']) ||
+  schema.pick(['password']) ||
+  schema.pick(['confirm_password'])
 
-export const RegisterSchema = schema.pick(['email', 'password', 'confirm_password'])
+export const RegisterSchema = schema.pick([
+  'email',
+  'password',
+  'confirm_password'
+])
 
 export type LoginSchemaType = Pick<SchemaType, 'email' | 'password'>
 
@@ -58,8 +82,13 @@ export type PriceFormSchemaType = Pick<SchemaType, 'price_max' | 'price_min'>
 
 export const PriceFormSchema = schema.pick(['price_max', 'price_min'])
 
-export type PriceFormUnionSchemaType = keyof Pick<SchemaType, 'price_max' | 'price_min'>
+export type PriceFormUnionSchemaType = keyof Pick<
+  SchemaType,
+  'price_max' | 'price_min'
+>
 
 export const OrderSchema = schema.pick(['amount'])
 
 export type OrderSchematype = Pick<SchemaType, 'amount'>
+
+export const schemaUser = user && schema.pick(['password', 'confirm_password'])

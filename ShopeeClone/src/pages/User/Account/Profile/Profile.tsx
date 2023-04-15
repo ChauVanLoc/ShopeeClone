@@ -1,8 +1,29 @@
+import { useQuery } from '@tanstack/react-query'
 import { DatePicker, Select } from 'antd'
 import dayjs from 'dayjs'
-import { useCallback } from 'react'
+import { UserFetching } from 'src/Api/UserFetching'
+import useEditUser from 'src/hooks/useEditUser'
+import { useForm } from 'react-hook-form'
+import { schemaUser } from 'src/utils/rules'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 function Profile() {
+  const EditUser = useEditUser()
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm({ resolver: yupResolver(schemaUser) })
+  const getUserFetching = useQuery({
+    queryKey: ['user'],
+    queryFn: UserFetching.GetUserFetching
+  })
+  const user = getUserFetching.data?.data.data
+  const handleEdit = () => {}
+  if (!user) {
+    return null
+  }
   return (
     <div className='rounded-sm bg-product p-6 shadow-sm'>
       <div className='border-b-[1px] border-b-gray-300 pb-3'>
@@ -12,7 +33,7 @@ function Profile() {
         </p>
       </div>
       <div className='flex'>
-        <div className='mt-8 grid grid-cols-3 grid-rows-6 items-center gap-x-8 gap-y-3 lg:w-[60%]'>
+        <div className='mt-8 grid grid-cols-3 grid-rows-5 items-center gap-x-8 gap-y-3 lg:w-[60%]'>
           {/* <div className='col-start-1 row-start-1 text-end text-gray-400'>
             Tên đăng nhập
           </div>
@@ -25,21 +46,23 @@ function Profile() {
           <input
             type='text'
             className='col-span-2 col-start-2 row-start-1 rounded-sm border-[0.5px] px-3 py-2 outline-none'
-            value={'VanLoc'}
+            value={user?.name}
           />
           <label className='col-start-1 row-start-2 text-end text-gray-400'>
             Email
           </label>
           <label className='col-span-3 col-start-2 row-start-2'>
-            locchau.220401@gmail.com
+            {user?.email}
           </label>
           <label className='col-start-1 row-start-3 text-end text-gray-400'>
             Số điện thoại
           </label>
-          <label className='col-span-3 col-start-2 row-start-3'>
-            0879229072
-          </label>
-          <label className='col-start-1 row-start-4 text-end text-gray-400'>
+          <input
+            type='text'
+            className='col-span-2 col-start-2 row-start-3 rounded-sm border-[0.5px] px-3 py-2 outline-none'
+            value={user?.phone}
+          />
+          {/* <label className='col-start-1 row-start-4 text-end text-gray-400'>
             Giới tính
           </label>
           <div className='col-span-3 col-start-2 row-start-4'>
@@ -63,17 +86,20 @@ function Profile() {
                 </label>
               </div>
             </div>
-          </div>
-          <label className='col-start-1 row-start-5 text-end text-gray-500'>
+          </div> */}
+          <label className='col-start-1 row-start-4 text-end text-gray-500'>
             Ngày sinh
           </label>
-          <div className='col-start-2 row-start-5 text-end'>
+          <div className='col-start-2 row-start-4'>
             <DatePicker
-              defaultValue={dayjs('01/01/2015', 'DD/MM/YYYY')}
-              format={'DD/MM/YYYY'}
+              defaultValue={dayjs(
+                user?.date_of_birth || '2023-01-01',
+                'YYYY-MM-DD'
+              )}
+              format={'YYYY-MM-DD'}
             />
           </div>
-          <button className='col-start-2 row-start-6 bg-primary p-3 text-white'>
+          <button className='col-start-2 row-start-5 bg-primary p-3 text-white'>
             Lưu
           </button>
         </div>
