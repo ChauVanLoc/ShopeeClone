@@ -27,7 +27,7 @@ function Profile() {
     defaultValues: {
       name: '',
       phone: '',
-      date_of_birth: '',
+      date_of_birth: new Date().toISOString(),
       avatar: '',
       address: ''
     },
@@ -38,7 +38,6 @@ function Profile() {
     queryFn: UserFetching.GetUserFetching
   })
   const user = getUserFetching.data?.data.data
-  console.log(user)
   const onSubmit: SubmitHandler<ProfileType> = async (data) => {
     try {
       if (file) {
@@ -48,14 +47,8 @@ function Profile() {
         console.log(resAvatar.data.data)
         reset({ avatar: resAvatar.data.data })
         setFile(null)
-        console.log('image')
       }
-      console.log(dayjs(getValues('date_of_birth'), 'DD-MM-YYYY').toISOString())
-      console.log(dayjs(getValues('date_of_birth')))
-      // const res = await updateUserMutation.mutate({
-      //   ...getValues(),
-      //   avatar: dayjs(getValues('date_of_birth'), 'DD-MM-YYYY').toISOString()
-      // })
+      const res = await updateUserMutation.mutate(getValues())
     } catch (error) {
       console.log(error)
     }
@@ -64,14 +57,7 @@ function Profile() {
     if (user) {
       reset({
         avatar: user.avatar || '',
-        date_of_birth: user.date_of_birth
-          ? user.date_of_birth?.split('T')[0].split('-').reverse().join('-')
-          : new Date()
-              .toISOString()
-              .split('T')[0]
-              .split('-')
-              .reverse()
-              .join('-'),
+        date_of_birth: user.date_of_birth || new Date().toISOString(),
         name: user.name || '',
         phone: user.phone || '',
         address: user.address || ''
@@ -149,19 +135,12 @@ function Profile() {
                   disabledDate={(current) =>
                     current && current.valueOf() > Date.now()
                   }
-                  onChange={(date, datestring) => field.onChange(date)}
+                  onChange={(date) =>
+                    date ? field.onChange(date?.valueOf()) : null
+                  }
                   status={fieldState.error ? 'error' : undefined}
                   name={field.name}
-                  value={
-                    field.value
-                      ? dayjs(
-                          getValues('date_of_birth')
-                            ? getValues('date_of_birth')
-                            : '01-01-2023',
-                          'DD-MM-YYYY'
-                        )
-                      : null
-                  }
+                  value={dayjs(getValues('date_of_birth'))}
                   format={'DD-MM-YYYY'}
                 />
               )}
