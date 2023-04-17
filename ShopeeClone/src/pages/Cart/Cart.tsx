@@ -135,7 +135,6 @@ function Cart() {
           }
         })
       })
-    console.log('aaaalo')
   }, [purchaseFetching.isSuccess, purchaseFetching.isRefetching])
   useEffect(() => {
     window.history.replaceState({}, '')

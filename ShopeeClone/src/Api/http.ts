@@ -1,6 +1,12 @@
-import aixos, { AxiosError, AxiosInstance, AxiosResponse, HttpStatusCode } from 'axios'
+import aixos, {
+  AxiosError,
+  AxiosInstance,
+  AxiosResponse,
+  HttpStatusCode
+} from 'axios'
 import { toast } from 'react-toastify'
 import { PathRoute } from 'src/constants/PathRoute'
+import { urlApi } from 'src/constants/config'
 import { AthDataResponve } from 'src/types/Ath.type'
 import { ResponveApi } from 'src/types/Responve.type'
 import { WorkingWithLS } from 'src/utils/LocalStorage'
@@ -11,7 +17,7 @@ class Http {
   constructor() {
     this.accessToken = WorkingWithLS.getFromLS('access_token') || ''
     this.instance = aixos.create({
-      baseURL: 'https://api-ecom.duthanhduoc.com/',
+      baseURL: urlApi,
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json'
@@ -32,7 +38,12 @@ class Http {
       (response: AxiosResponse<ResponveApi<AthDataResponve>>) => {
         const { url } = response.config
         const { data } = response.data
-        if (url && [PathRoute.login as string, PathRoute.register as string].includes(url)) {
+        if (
+          url &&
+          [PathRoute.login as string, PathRoute.register as string].includes(
+            url
+          )
+        ) {
           this.accessToken = data.access_token
           WorkingWithLS.saveToLS([
             { key: 'access_token', value: data.access_token || '' },

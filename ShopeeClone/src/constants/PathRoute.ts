@@ -8,6 +8,7 @@ export const PathRoute = {
   password: 'password',
   address: 'address',
   order: 'purchase',
+  uploadAvatar: 'upload-avatar',
   listProduct: 'products',
   product: 'products',
   category: 'categories',

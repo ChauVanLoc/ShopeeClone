@@ -1,26 +1,83 @@
-import { useQuery } from '@tanstack/react-query'
-import { DatePicker, Select } from 'antd'
-import dayjs from 'dayjs'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { Button, DatePicker, Select, Upload } from 'antd'
+import dayjs, { type Dayjs } from 'dayjs'
 import { UserFetching } from 'src/Api/UserFetching'
-import useEditUser from 'src/hooks/useEditUser'
-import { useForm } from 'react-hook-form'
-import { schemaUser } from 'src/utils/rules'
+import useEditUser from 'src/hooks/useUpdateUser'
+import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import { ProfileType, profile } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useEffect, useRef } from 'react'
+import { useState } from 'react'
+import useUpdateUser from 'src/hooks/useUpdateUser'
+import { urlApi } from 'src/constants/config'
 
 function Profile() {
-  const EditUser = useEditUser()
+  const ref = useRef<HTMLInputElement>(null)
+  const [file, setFile] = useState<File | null>(null)
+  const updateUserMutation = useUpdateUser()
+  const updateAvatarMutation = useMutation(UserFetching.updateAvatar)
   const {
     register,
-    handleSubmit,
-    watch,
-    formState: { errors }
-  } = useForm({ resolver: yupResolver(schemaUser) })
+    reset,
+    control,
+    getValues,
+    formState: { errors },
+    handleSubmit
+  } = useForm<ProfileType>({
+    defaultValues: {
+      name: '',
+      phone: '',
+      date_of_birth: '',
+      avatar: '',
+      address: ''
+    },
+    resolver: yupResolver(profile)
+  })
   const getUserFetching = useQuery({
     queryKey: ['user'],
     queryFn: UserFetching.GetUserFetching
   })
   const user = getUserFetching.data?.data.data
-  const handleEdit = () => {}
+  console.log(user)
+  const onSubmit: SubmitHandler<ProfileType> = async (data) => {
+    try {
+      if (file) {
+        const form = new FormData()
+        form.append('image', file)
+        const resAvatar = await updateAvatarMutation.mutateAsync(form)
+        console.log(resAvatar.data.data)
+        reset({ avatar: resAvatar.data.data })
+        setFile(null)
+        console.log('image')
+      }
+      console.log(dayjs(getValues('date_of_birth'), 'DD-MM-YYYY').toISOString())
+      console.log(dayjs(getValues('date_of_birth')))
+      // const res = await updateUserMutation.mutate({
+      //   ...getValues(),
+      //   avatar: dayjs(getValues('date_of_birth'), 'DD-MM-YYYY').toISOString()
+      // })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    if (user) {
+      reset({
+        avatar: user.avatar || '',
+        date_of_birth: user.date_of_birth
+          ? user.date_of_birth?.split('T')[0].split('-').reverse().join('-')
+          : new Date()
+              .toISOString()
+              .split('T')[0]
+              .split('-')
+              .reverse()
+              .join('-'),
+        name: user.name || '',
+        phone: user.phone || '',
+        address: user.address || ''
+      })
+    }
+  }, [getUserFetching.isSuccess, getUserFetching.isRefetching])
   if (!user) {
     return null
   }
@@ -33,7 +90,10 @@ function Profile() {
         </p>
       </div>
       <div className='flex'>
-        <div className='mt-8 grid grid-cols-3 grid-rows-5 items-center gap-x-8 gap-y-3 lg:w-[60%]'>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='mt-8 grid grid-cols-3 grid-rows-6 items-center gap-x-8 gap-y-3 lg:w-[60%]'
+        >
           {/* <div className='col-start-1 row-start-1 text-end text-gray-400'>
             Tên đăng nhập
           </div>
@@ -45,8 +105,8 @@ function Profile() {
           </div>
           <input
             type='text'
-            className='col-span-2 col-start-2 row-start-1 rounded-sm border-[0.5px] px-3 py-2 outline-none'
-            value={user?.name}
+            className="after:z-9999 relative col-span-2 col-start-2 row-start-1 rounded-sm border-[0.5px] px-3 py-2 outline-none after:absolute after:top-0 after:left-3 after:-translate-y-[50%] after:text-xs after:text-primary after:content-['lỗi']"
+            {...register('name')}
           />
           <label className='col-start-1 row-start-2 text-end text-gray-400'>
             Email
@@ -60,68 +120,101 @@ function Profile() {
           <input
             type='text'
             className='col-span-2 col-start-2 row-start-3 rounded-sm border-[0.5px] px-3 py-2 outline-none'
-            value={user?.phone}
+            {...register('phone')}
           />
-          {/* <label className='col-start-1 row-start-4 text-end text-gray-400'>
-            Giới tính
+          <label className='col-start-1 row-start-4 text-end text-gray-400'>
+            Địa chỉ
           </label>
-          <div className='col-span-3 col-start-2 row-start-4'>
-            <div className='flex'>
-              <div className='mr-7 flex items-center'>
-                <input type='radio' name='radio' id='Nam' />
-                <label className='ml-2' htmlFor='Nam'>
-                  Nam
-                </label>
-              </div>
-              <div className='mr-7 flex items-center'>
-                <input type='radio' name='radio' id='Nu' />
-                <label className='ml-2' htmlFor='Nu'>
-                  Nữ
-                </label>
-              </div>
-              <div className='flex items-center'>
-                <input type='radio' name='radio' id='Other' />
-                <label className='ml-2' htmlFor='Other'>
-                  Khác
-                </label>
-              </div>
-            </div>
-          </div> */}
-          <label className='col-start-1 row-start-4 text-end text-gray-500'>
+          <input
+            className='col-span-2 col-start-2 row-start-4 rounded-sm border-[0.5px] px-3 py-2'
+            type='text'
+            {...register('address')}
+          />
+          <label
+            {...register('date_of_birth')}
+            className='col-start-1 row-start-5 text-end text-gray-500'
+          >
             Ngày sinh
           </label>
-          <div className='col-start-2 row-start-4'>
-            <DatePicker
-              defaultValue={dayjs(
-                user?.date_of_birth || '2023-01-01',
-                'YYYY-MM-DD'
+          {/* <span className='col-start-2 row-start-4'>
+            {getValues('date_of_birth')}
+          </span> */}
+          <div className='col-start-2 row-start-5'>
+            <Controller
+              name='date_of_birth'
+              control={control}
+              render={({ field, fieldState }) => (
+                <DatePicker
+                  className='rounded-sm px-3 py-2'
+                  disabledDate={(current) =>
+                    current && current.valueOf() > Date.now()
+                  }
+                  onChange={(date, datestring) => field.onChange(date)}
+                  status={fieldState.error ? 'error' : undefined}
+                  name={field.name}
+                  value={
+                    field.value
+                      ? dayjs(
+                          getValues('date_of_birth')
+                            ? getValues('date_of_birth')
+                            : '01-01-2023',
+                          'DD-MM-YYYY'
+                        )
+                      : null
+                  }
+                  format={'DD-MM-YYYY'}
+                />
               )}
-              format={'YYYY-MM-DD'}
             />
           </div>
-          <button className='col-start-2 row-start-5 bg-primary p-3 text-white'>
-            Lưu
-          </button>
-        </div>
+          <input
+            type='submit'
+            className='col-start-2 row-start-6 bg-primary p-3 text-white hover:bg-primary/90'
+          />
+        </form>
         <div className='align-middle lg:w-[40%]'>
           <div className='mt-8 flex flex-col items-center justify-center border-l-[1px] pb-10'>
-            <div className='mb-5 rounded-full bg-gray-100 p-5'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='h-20 w-20 text-gray-300'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z'
-                />
-              </svg>
-            </div>
-            <button className='mb-5 border-[1px] px-5 py-2'>Chọn Ảnh</button>
+            {getValues('avatar') ? (
+              <img
+                className='h-28 w-28 rounded-full border-[1px] border-gray-100 object-cover'
+                src={
+                  file
+                    ? URL.createObjectURL(file)
+                    : `${urlApi}images/${getValues('avatar')}`
+                }
+                alt='img-profile'
+              />
+            ) : (
+              <div className='mb-5 rounded-full bg-gray-100 p-5'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='h-20 w-20 text-gray-300'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z'
+                  />
+                </svg>
+              </div>
+            )}
+            <input
+              onChange={(e) => setFile(e.target.files?.[0] as File)}
+              ref={ref}
+              className='invisible'
+              type='file'
+              accept='image/*'
+            />
+            <button
+              onClick={() => ref.current?.click()}
+              className='mb-5 border-[1px] px-5 py-2'
+            >
+              Chọn ảnh
+            </button>
             <div className='px-14 text-center'>
               Dụng lượng file tối đa 1 MB Định dạng:.JPEG, .PNG
             </div>

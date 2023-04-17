@@ -1,15 +1,9 @@
-export const convertCurrentcy = (
-  value: number,
-  digit = 2
-) =>
+export const convertCurrentcy = (value: number, digit = 2) =>
   new Intl.NumberFormat('de-DE', {
     minimumFractionDigits: digit
   }).format(value)
 
-export const convertDigitalNumber = (
-  value: number,
-  digit = 0
-) =>
+export const convertDigitalNumber = (value: number, digit = 0) =>
   new Intl.NumberFormat('en', {
     notation: 'compact',
     maximumFractionDigits: digit
@@ -34,8 +28,5 @@ const removeSpecialCharacter = (str: string) =>
   )
 
 export const initId = (text: string, character = '-') => {
-  return removeSpecialCharacter(text).replaceAll(
-    /\s+/g,
-    character
-  )
+  return removeSpecialCharacter(text).replaceAll(/\s+/g, character)
 }

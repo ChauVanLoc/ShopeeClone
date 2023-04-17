@@ -2,14 +2,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React from 'react'
 import { toast } from 'react-toastify'
 import { UserFetching } from 'src/Api/UserFetching'
-import { Update } from 'src/types/Update'
+import { OptionUser } from 'src/types/User'
 
-function useEditUser() {
+function useUpdateUser() {
   const clientQuery = useQueryClient()
   const EditUser = useMutation({
-    mutationFn: (body: Partial<Update>) => UserFetching.UpdateFetching(body),
+    mutationFn: (body: Partial<OptionUser>) =>
+      UserFetching.UpdateFetching(body),
     onSuccess(data, variables, context) {
-      toast.success('🦄 Wow so easy!', {
+      toast.success(data.data.message, {
         position: 'top-center',
         autoClose: 1000,
         hideProgressBar: false,
@@ -23,4 +24,4 @@ function useEditUser() {
   return EditUser
 }
 
-export default useEditUser
+export default useUpdateUser

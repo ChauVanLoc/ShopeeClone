@@ -9,7 +9,7 @@ function Password() {
           Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
         </p>
       </div>
-      <div className='mt-8 grid grid-cols-7 grid-rows-4 items-center gap-8'>
+      <div className='mt-8 grid grid-cols-7 grid-rows-4 items-center gap-y-3 gap-x-8'>
         <label
           htmlFor='ps'
           className='col-span-2 col-start-1 row-start-1 text-end capitalize text-gray-400'
@@ -17,7 +17,7 @@ function Password() {
           Mật khẩu hiện tại
         </label>
         <input
-          className='col-span-3 col-start-3 row-start-1 rounded-sm border-[1px] border-gray-300 p-3 outline-none'
+          className='col-span-3 col-start-3 row-start-1 rounded-sm border-[1px] border-gray-300 px-3 py-2 outline-none'
           type='text'
           id='ps'
         />
@@ -29,7 +29,7 @@ function Password() {
           Mật khẩu mới
         </label>
         <input
-          className='col-span-3 col-start-3 row-start-2 rounded-sm border-[1px] border-gray-300 p-3 outline-none'
+          className='col-span-3 col-start-3 row-start-2 rounded-sm border-[1px] border-gray-300 px-3 py-2 outline-none'
           type='text'
           id='nps'
         />
@@ -41,7 +41,7 @@ function Password() {
           Xác nhận mật khẩu
         </label>
         <input
-          className='col-span-3 col-start-3 row-start-3 rounded-sm border-[1px] border-gray-300 p-3 outline-none'
+          className='col-span-3 col-start-3 row-start-3 rounded-sm border-[1px] border-gray-300 px-3 py-2 outline-none'
           type='text'
           id='cps'
         />

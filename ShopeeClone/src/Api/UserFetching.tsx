@@ -1,14 +1,24 @@
 import { ResponveApi } from 'src/types/Responve.type'
 import http from './http'
-import { Update, UpdateData } from 'src/types/Update'
 import { PathRoute } from 'src/constants/PathRoute'
-import { User } from 'src/types/Ath.type'
+import { User } from 'src/types/User'
 
 export const UserFetching = {
   GetUserFetching: () => {
     return http.get<ResponveApi<User>>('/me')
   },
-  UpdateFetching: (body: Partial<Update>) => {
-    return http.put<ResponveApi<UpdateData>>(PathRoute.user, body)
+  UpdateFetching: (body: Partial<User>) => {
+    return http.put<ResponveApi<User>>(PathRoute.user, body)
+  },
+  updateAvatar: (body: FormData) => {
+    return http.post<ResponveApi<string>>(
+      `${PathRoute.user}/${PathRoute.uploadAvatar}`,
+      body,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
   }
 }

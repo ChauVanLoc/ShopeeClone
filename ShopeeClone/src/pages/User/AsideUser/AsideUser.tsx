@@ -82,14 +82,6 @@ function AsideUser() {
             Hồ Sơ
           </NavLink>
           <NavLink
-            to={url.addressPath}
-            className={`mt-6 text-gray-500 ${classNames({
-              'text-primary': location.pathname === url.addressPath
-            })}`}
-          >
-            Địa Chỉ
-          </NavLink>
-          <NavLink
             to={url.passwordPath}
             className={`mt-6 text-gray-500 ${classNames({
               'text-primary': location.pathname === url.passwordPath

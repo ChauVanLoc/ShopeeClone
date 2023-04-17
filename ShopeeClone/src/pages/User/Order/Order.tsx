@@ -112,7 +112,7 @@ function Order() {
       </div>
       {purchase.length > 0 && (
         <div className='flex items-center rounded-sm bg-[#EAEAEA]/70 px-4 py-2 shadow-sm'>
-          <span>
+          <span className='peer-focus:text-white'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -129,7 +129,7 @@ function Order() {
             </svg>
           </span>
           <input
-            className='grow bg-[#EAEAEA]/70 outline-none'
+            className='peer grow bg-[#EAEAEA]/70 outline-none'
             onChange={handleSearch}
             type='text'
             placeholder='Bạn có thể tìm kiếm theo ID đơn hàng, tên sản phẩm, ID sản phẩm'

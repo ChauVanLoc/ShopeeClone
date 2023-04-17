@@ -48,7 +48,7 @@ export const schema = yup.object({
   amount: yup.string()
 })
 
-const user = yup.object({
+export const profile = yup.object({
   name: yup.string().max(160, 'tối đa 160 kí tự'),
   phone: yup.string().max(20, 'tối đa 20 kí tự'),
   address: yup.string().max(160, 'tối đa 160 kí tự'),
@@ -91,4 +91,7 @@ export const OrderSchema = schema.pick(['amount'])
 
 export type OrderSchematype = Pick<SchemaType, 'amount'>
 
-export const schemaUser = user && schema.pick(['password', 'confirm_password'])
+export const schemaProfilePassword =
+  profile && schema.pick(['password', 'confirm_password'])
+
+export type ProfileType = InferType<typeof profile>
