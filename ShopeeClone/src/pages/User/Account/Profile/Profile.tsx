@@ -48,14 +48,12 @@ function Profile() {
         const form = new FormData()
         form.append('image', file)
         const resAvatar = await updateAvatarMutation.mutateAsync(form)
-        console.log(resAvatar.data.data)
         setValue('avatar', resAvatar.data.data)
         setFile(null)
       }
-      console.log(getValues())
-      const res = await updateUserMutation.mutate(getValues())
+      await updateUserMutation.mutate(getValues())
     } catch (error) {
-      toast.error('Error', {
+      toast.error('Error Submit', {
         position: 'top-right',
         autoClose: 1000,
         hideProgressBar: false,
@@ -94,12 +92,6 @@ function Profile() {
           onSubmit={handleSubmit(onSubmit)}
           className='mt-8 grid grid-cols-3 grid-rows-6 items-center gap-x-8 gap-y-3 lg:w-[60%]'
         >
-          {/* <div className='col-start-1 row-start-1 text-end text-gray-400'>
-            Tên đăng nhập
-          </div>
-          <label className='col-span-3 col-start-2 row-start-1'>
-            Chau_Van_Loc
-          </label> */}
           <div className='col-start-1 row-start-1 text-end text-gray-400'>
             Tên đăng nhập
           </div>
@@ -136,16 +128,13 @@ function Profile() {
           >
             Ngày sinh
           </label>
-          {/* <span className='col-start-2 row-start-4'>
-            {getValues('date_of_birth')}
-          </span> */}
           <div className='col-start-2 row-start-5'>
             <Controller
               name='date_of_birth'
               control={control}
               render={({ field, fieldState }) => (
                 <DatePicker
-                  className='rounded-sm px-3 py-2'
+                  className='rounded-sm px-3 py-2 font-semibold'
                   disabledDate={(current) =>
                     current && current.valueOf() > Date.now()
                   }
