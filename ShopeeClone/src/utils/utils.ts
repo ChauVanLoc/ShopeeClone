@@ -30,3 +30,7 @@ const removeSpecialCharacter = (str: string) =>
 export const initId = (text: string, character = '-') => {
   return removeSpecialCharacter(text).replaceAll(/\s+/g, character)
 }
+
+export const getTimeToIso = (iso: string) => {
+  return iso.split('T')[0].split('-').reverse().join('-')
+}

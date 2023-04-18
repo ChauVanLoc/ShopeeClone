@@ -10,6 +10,9 @@ import { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import useUpdateUser from 'src/hooks/useUpdateUser'
 import { urlApi } from 'src/constants/config'
+import { getTimeToIso } from 'src/utils/utils'
+import { toast } from 'react-toastify'
+import { AxiosError } from 'axios'
 
 function Profile() {
   const ref = useRef<HTMLInputElement>(null)
@@ -22,6 +25,7 @@ function Profile() {
     control,
     getValues,
     formState: { errors },
+    setValue,
     handleSubmit
   } = useForm<ProfileType>({
     defaultValues: {
@@ -45,12 +49,22 @@ function Profile() {
         form.append('image', file)
         const resAvatar = await updateAvatarMutation.mutateAsync(form)
         console.log(resAvatar.data.data)
-        reset({ avatar: resAvatar.data.data })
+        setValue('avatar', resAvatar.data.data)
         setFile(null)
       }
+      console.log(getValues())
       const res = await updateUserMutation.mutate(getValues())
     } catch (error) {
-      console.log(error)
+      toast.error('Error', {
+        position: 'top-right',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
     }
   }
   useEffect(() => {
@@ -135,12 +149,21 @@ function Profile() {
                   disabledDate={(current) =>
                     current && current.valueOf() > Date.now()
                   }
-                  onChange={(date) =>
-                    date ? field.onChange(date?.valueOf()) : null
+                  onChange={(_, dateString) =>
+                    field.onChange(
+                      dateString
+                        ? new Date(
+                            dateString.split('-').reverse().join('-')
+                          ).toISOString()
+                        : getValues('date_of_birth')
+                    )
                   }
                   status={fieldState.error ? 'error' : undefined}
                   name={field.name}
-                  value={dayjs(getValues('date_of_birth'))}
+                  value={dayjs(
+                    getTimeToIso(getValues('date_of_birth') as string),
+                    'DD-MM-YYYY'
+                  )}
                   format={'DD-MM-YYYY'}
                 />
               )}
