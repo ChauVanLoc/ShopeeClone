@@ -100,7 +100,6 @@ function Profile() {
   if (!user) {
     return null
   }
-  console.log(getUserFetching.data?.data.data)
   return (
     <div className='rounded-sm bg-product p-6 shadow-sm'>
       <div className='border-b-[1px] border-b-gray-300 pb-3'>
@@ -114,9 +113,12 @@ function Profile() {
           onSubmit={handleSubmit(onSubmit)}
           className='mt-8 grid grid-cols-3 grid-rows-6 items-center gap-x-8 gap-y-5 lg:w-[60%]'
         >
-          <div className='col-start-1 row-start-1 text-end text-gray-400'>
+          <label
+            htmlFor='dn'
+            className='col-start-1 row-start-1 text-end text-gray-400'
+          >
             Tên đăng nhập
-          </div>
+          </label>
           <div className='relative col-span-2 col-start-2 row-start-1 flex'>
             <input
               className={`grow rounded-sm border-[1px] border-gray-300 px-3 py-3 outline-none ${classNames(
@@ -125,7 +127,7 @@ function Profile() {
                 }
               )}`}
               type='text'
-              id='ps'
+              id='dn'
               {...register('name')}
             />
             <span
@@ -146,7 +148,10 @@ function Profile() {
             {user?.email}
           </label>
 
-          <label className='col-start-1 row-start-3 text-end text-gray-400'>
+          <label
+            htmlFor='phone'
+            className='col-start-1 row-start-3 text-end text-gray-400'
+          >
             Số điện thoại
           </label>
           <div className='relative col-span-2 col-start-2 row-start-3 flex'>
@@ -157,7 +162,7 @@ function Profile() {
                 }
               )}`}
               type='text'
-              id='ps'
+              id='phone'
               {...register('phone')}
             />
             <span
@@ -171,7 +176,10 @@ function Profile() {
             </span>
           </div>
 
-          <label className='col-start-1 row-start-4 text-end text-gray-400'>
+          <label
+            htmlFor='dc'
+            className='col-start-1 row-start-4 text-end text-gray-400'
+          >
             Địa chỉ
           </label>
           <div className='relative col-span-2 col-start-2 row-start-4 flex'>
@@ -182,7 +190,7 @@ function Profile() {
                 }
               )}`}
               type='text'
-              id='ps'
+              id='dc'
               {...register('address')}
             />
             <span
@@ -234,7 +242,7 @@ function Profile() {
           </div>
           <input
             type='submit'
-            className='col-start-2 row-start-6 bg-primary p-3 text-white hover:bg-primary/90'
+            className='col-start-2 row-start-6 cursor-pointer bg-primary p-3 text-white hover:bg-primary/90'
           />
         </form>
         <div className='align-middle lg:w-[40%]'>
@@ -276,7 +284,7 @@ function Profile() {
             />
             <button
               onClick={() => ref.current?.click()}
-              className='mb-5 border-[1px] px-5 py-2'
+              className='mb-5 rounded-sm border-[1px] px-5 py-2 shadow-sm hover:bg-gray-50'
             >
               Chọn ảnh
             </button>

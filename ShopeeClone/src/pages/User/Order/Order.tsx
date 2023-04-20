@@ -129,7 +129,7 @@ function Order() {
             </svg>
           </span>
           <input
-            className='peer grow bg-[#EAEAEA]/70 outline-none'
+            className='peer grow bg-[#EAEAEA]/70 outline-none placeholder:italic'
             onChange={handleSearch}
             type='text'
             placeholder='Bạn có thể tìm kiếm theo ID đơn hàng, tên sản phẩm, ID sản phẩm'

@@ -27,7 +27,7 @@ function Cart() {
   const deleteMutation = useMutation({
     mutationFn: (id: string[]) => PurchaseFetching.DeletePurchaseFetching(id),
     onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ['purchase_all'] })
+      queryClient.invalidateQueries({ queryKey: ['purchases', -1] })
       purchaseFetching.isRefetching && setDisibleAll(true)
     },
     onMutate() {
