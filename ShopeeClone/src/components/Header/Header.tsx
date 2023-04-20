@@ -14,6 +14,8 @@ import { PurchaseFetching } from 'src/Api/PurchaseFetching'
 import { PurchaseStatus } from 'src/constants/PurchaseStatus'
 import useQueryListPurchase from 'src/hooks/useQueryListPurchase'
 import { PathRoute } from 'src/constants/PathRoute'
+import { UserFetching } from 'src/Api/UserFetching'
+import { urlApi } from 'src/constants/config'
 
 const { user: userPath, account, profile, order } = PathRoute
 
@@ -29,7 +31,12 @@ function Header() {
       setIsAuth(false)
     }
   })
-
+  const getUserFetching = useQuery({
+    queryKey: ['user'],
+    queryFn: UserFetching.GetUserFetching,
+    enabled: isAuth
+  })
+  const avatar = getUserFetching.data?.data.data.avatar
   const purchaseFetching = useQueryListPurchase(isAuth)
 
   const { handleSubmit, reset, register } = useForm<{
@@ -48,24 +55,15 @@ function Header() {
       <div className='mx-auto text-xs text-white lg:max-w-7xl'>
         <div className='mt-1 mb-3 flex justify-between'>
           <div className='flex items-center justify-between'>
-            <Link to={''} className={'border-r-[1px] pr-3'}>
-              Kênh Người Bán
-            </Link>
-            <Link to={''} className={'border-r-[1px] px-3'}>
+            <span className={'border-r-[1px] pr-3'}>Kênh Người Bán</span>
+            <span className={'border-r-[1px] px-3'}>
               Trở thành Người bán Shopee
-            </Link>
-            <Link to={''} className={'border-r-[1px] px-3'}>
-              Tải ứng dụng
-            </Link>
-            <Link to={''} className={' px-3'}>
-              Kết nối
-            </Link>
+            </span>
+            <span className={'border-r-[1px] px-3'}>Tải ứng dụng</span>
+            <span className={' px-3'}>Kết nối</span>
           </div>
           <div className='flex flex-shrink-0 items-center'>
-            <Link
-              to={''}
-              className={'flex flex-row items-center justify-center pr-3'}
-            >
+            <span className={'flex flex-row items-center justify-center pr-3'}>
               <span className='mr-2'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -83,11 +81,8 @@ function Header() {
                 </svg>
               </span>
               Thông Báo
-            </Link>
-            <Link
-              to={''}
-              className={'flex flex-row items-center justify-center px-3'}
-            >
+            </span>
+            <span className={'flex flex-row items-center justify-center px-3'}>
               <span className='mr-2'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -105,7 +100,7 @@ function Header() {
                 </svg>
               </span>
               Hỗ Trợ
-            </Link>
+            </span>
             <Popover
               as={<span>Ngôn ngữ</span>}
               classNameBlock='px-3 py-1 cursor-pointer'
@@ -124,7 +119,12 @@ function Header() {
               <Popover
                 as={
                   <div className='flex'>
-                    <svg
+                    <img
+                      className='mr-2 h-[15px] w-[15px] rounded-full object-cover'
+                      src={avatar && `${urlApi}images/${avatar}`}
+                      alt='avatar'
+                    />
+                    {/* <svg
                       className='mr-2 h-[15px] w-[15px] rounded-full bg-white stroke-[#c6c6c6]'
                       enableBackground='new 0 0 15 15'
                       viewBox='0 0 15 15'
@@ -146,13 +146,13 @@ function Header() {
                           strokeMiterlimit={10}
                         />
                       </g>
-                    </svg>
+                    </svg> */}
                     <span>{user?.name ? user.name : user?.email}</span>
                   </div>
                 }
                 off={0.7}
                 classNameBlock='pl-3 py-1 cursor-pointer'
-                classNameArrow='translate-l-[-50%] absolute top-[-11%] border-[6px] border-solid border-white border-x-transparent border-t-transparent'
+                classNameArrow='translate-l-[-50%] absolute -top-[11%] border-[6px] border-solid border-white border-x-transparent border-t-transparent'
               >
                 <div className='flex flex-col rounded-sm bg-white text-[12px] shadow-sm'>
                   <NavLink
@@ -273,7 +273,7 @@ function Header() {
             off={5}
             classNameBlock={'ml-4 flex'}
             classNameArrow={
-              'translate-l-[-50%] absolute top-[-5.5%] border-[12px] border-solid border-white border-x-transparent border-t-transparent cursor-pointer'
+              'translate-l-[-50%] absolute top-[-8.5%] border-[12px] border-solid border-white border-x-transparent border-t-transparent cursor-pointer'
             }
           >
             {purchaseData && purchaseData.length >= 1 ? (

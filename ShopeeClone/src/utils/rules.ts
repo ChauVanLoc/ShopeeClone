@@ -49,9 +49,9 @@ export const schema = yup.object({
 })
 
 export const profile = yup.object({
-  name: yup.string().max(160, 'tối đa 160 kí tự'),
-  phone: yup.string().max(20, 'tối đa 20 kí tự'),
-  address: yup.string().max(160, 'tối đa 160 kí tự'),
+  name: yup.string().max(160, 'Tên đăng nhập tối đa 160 kí tự'),
+  phone: yup.string().max(20, 'Số điện thoại tối đa 20 kí tự'),
+  address: yup.string().max(160, 'Địa chỉ tối đa 160 kí tự'),
   date_of_birth: yup.string(),
   avatar: yup.string().max(1000, 'tối đa 1000 kí tự')
 })
@@ -91,7 +91,12 @@ export const OrderSchema = schema.pick(['amount'])
 
 export type OrderSchematype = Pick<SchemaType, 'amount'>
 
-export const schemaProfilePassword =
-  profile && schema.pick(['password', 'confirm_password'])
-
 export type ProfileType = InferType<typeof profile>
+
+export const PasswordProfileSchema = yup.object({
+  newPassword: yup.string().required('Nhập lại password hiện tại là bắt buộc'),
+  password: schema.fields['password'],
+  confirm_password: schema.fields['confirm_password']
+})
+
+export type PasswordProfileType = InferType<typeof PasswordProfileSchema>

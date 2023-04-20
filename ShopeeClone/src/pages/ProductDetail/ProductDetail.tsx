@@ -25,6 +25,7 @@ import { PathRoute } from 'src/constants/PathRoute'
 import InputOrder from 'src/components/InputOrder'
 import useAddToCartMutation from 'src/hooks/useAddToCartMutation'
 import { Context } from 'src/context/AppContext'
+import NotFound from '../NotFound'
 
 function ProductDetail() {
   const { isAuth } = useContext(Context)
@@ -32,6 +33,9 @@ function ProductDetail() {
   const { idNameProduct } = useParams()
   const navigate = useNavigate()
   const id = idNameProduct?.split(',')[1]
+  if (!id) {
+    return <NotFound />
+  }
   const idProduct = useIdHook()
   const [slider1, setSlider1] = useState<Slider | null>(null)
   const [slider2, setSlider2] = useState<Slider | null>(null)
@@ -84,7 +88,7 @@ function ProductDetail() {
   const { data } = useQueyProduct(id as string)
   const product = data?.data.data
 
-  if (!product) return null
+  if (!product) return <NotFound />
   return (
     <div className='bg-[#f5f5f5] py-3'>
       {/* <div className='mx-auto flex max-w-7xl py-4'>

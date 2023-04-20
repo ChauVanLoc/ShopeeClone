@@ -13,6 +13,9 @@ import { urlApi } from 'src/constants/config'
 import { getTimeToIso } from 'src/utils/utils'
 import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
+import classNames from 'classnames'
+
+const LimitSize = 1024000
 
 function Profile() {
   const ref = useRef<HTMLInputElement>(null)
@@ -51,7 +54,7 @@ function Profile() {
         setValue('avatar', resAvatar.data.data)
         setFile(null)
       }
-      await updateUserMutation.mutate(getValues())
+      await updateUserMutation.mutate(data)
     } catch (error) {
       toast.error('Error Submit', {
         position: 'top-right',
@@ -63,6 +66,24 @@ function Profile() {
         progress: undefined,
         theme: 'colored'
       })
+    }
+  }
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    ref.current?.setAttribute('value', '')
+    const file = e.target.files?.[0] as File
+    if (file && (file.size >= LimitSize || !file.type.includes('image'))) {
+      toast.error('File không hợp lệ', {
+        position: 'top-center',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
+    } else {
+      setFile(file)
     }
   }
   useEffect(() => {
@@ -79,6 +100,7 @@ function Profile() {
   if (!user) {
     return null
   }
+  console.log(getUserFetching.data?.data.data)
   return (
     <div className='rounded-sm bg-product p-6 shadow-sm'>
       <div className='border-b-[1px] border-b-gray-300 pb-3'>
@@ -90,38 +112,90 @@ function Profile() {
       <div className='flex'>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className='mt-8 grid grid-cols-3 grid-rows-6 items-center gap-x-8 gap-y-3 lg:w-[60%]'
+          className='mt-8 grid grid-cols-3 grid-rows-6 items-center gap-x-8 gap-y-5 lg:w-[60%]'
         >
           <div className='col-start-1 row-start-1 text-end text-gray-400'>
             Tên đăng nhập
           </div>
-          <input
-            type='text'
-            className="after:z-9999 relative col-span-2 col-start-2 row-start-1 rounded-sm border-[0.5px] px-3 py-2 outline-none after:absolute after:top-0 after:left-3 after:-translate-y-[50%] after:text-xs after:text-primary after:content-['lỗi']"
-            {...register('name')}
-          />
+          <div className='relative col-span-2 col-start-2 row-start-1 flex'>
+            <input
+              className={`grow rounded-sm border-[1px] border-gray-300 px-3 py-3 outline-none ${classNames(
+                {
+                  'border-primary': errors.name
+                }
+              )}`}
+              type='text'
+              id='ps'
+              {...register('name')}
+            />
+            <span
+              className={`absolute top-0 left-2 -translate-y-[50%] bg-product px-2 font-sans text-xs italic text-primary opacity-0 ${classNames(
+                {
+                  'opacity-100': errors.name
+                }
+              )}`}
+            >
+              {errors.name?.message}
+            </span>
+          </div>
+
           <label className='col-start-1 row-start-2 text-end text-gray-400'>
             Email
           </label>
           <label className='col-span-3 col-start-2 row-start-2'>
             {user?.email}
           </label>
+
           <label className='col-start-1 row-start-3 text-end text-gray-400'>
             Số điện thoại
           </label>
-          <input
-            type='text'
-            className='col-span-2 col-start-2 row-start-3 rounded-sm border-[0.5px] px-3 py-2 outline-none'
-            {...register('phone')}
-          />
+          <div className='relative col-span-2 col-start-2 row-start-3 flex'>
+            <input
+              className={`grow rounded-sm border-[1px] border-gray-300 px-3 py-3 outline-none ${classNames(
+                {
+                  'border-primary': errors.phone
+                }
+              )}`}
+              type='text'
+              id='ps'
+              {...register('phone')}
+            />
+            <span
+              className={`absolute top-0 left-2 -translate-y-[50%] bg-product px-2 font-sans text-xs italic text-primary opacity-0 ${classNames(
+                {
+                  'opacity-100': errors.phone
+                }
+              )}`}
+            >
+              {errors.phone?.message}
+            </span>
+          </div>
+
           <label className='col-start-1 row-start-4 text-end text-gray-400'>
             Địa chỉ
           </label>
-          <input
-            className='col-span-2 col-start-2 row-start-4 rounded-sm border-[0.5px] px-3 py-2'
-            type='text'
-            {...register('address')}
-          />
+          <div className='relative col-span-2 col-start-2 row-start-4 flex'>
+            <input
+              className={`grow rounded-sm border-[1px] border-gray-300 px-3 py-3 outline-none ${classNames(
+                {
+                  'border-primary': errors.address
+                }
+              )}`}
+              type='text'
+              id='ps'
+              {...register('address')}
+            />
+            <span
+              className={`absolute top-0 left-2 -translate-y-[50%] bg-product px-2 font-sans text-xs italic text-primary opacity-0 ${classNames(
+                {
+                  'opacity-100': errors.address
+                }
+              )}`}
+            >
+              {errors.address?.message}
+            </span>
+          </div>
+
           <label
             {...register('date_of_birth')}
             className='col-start-1 row-start-5 text-end text-gray-500'
@@ -134,7 +208,7 @@ function Profile() {
               control={control}
               render={({ field, fieldState }) => (
                 <DatePicker
-                  className='rounded-sm px-3 py-2 font-semibold'
+                  className='rounded-sm p-3 font-semibold'
                   disabledDate={(current) =>
                     current && current.valueOf() > Date.now()
                   }
@@ -194,7 +268,7 @@ function Profile() {
               </div>
             )}
             <input
-              onChange={(e) => setFile(e.target.files?.[0] as File)}
+              onChange={onFileChange}
               ref={ref}
               className='invisible'
               type='file'
@@ -207,7 +281,7 @@ function Profile() {
               Chọn ảnh
             </button>
             <div className='px-14 text-center'>
-              Dụng lượng file tối đa 1 MB Định dạng:.JPEG, .PNG
+              Dụng lượng file tối đa 1 MB Định dạng: Image/*
             </div>
           </div>
         </div>

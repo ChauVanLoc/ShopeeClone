@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import { UserFetching } from 'src/Api/UserFetching'
 import { OptionUser } from 'src/types/User'
 
-function useUpdateUser() {
+function useUpdateUser(refetching = true) {
   const clientQuery = useQueryClient()
   const EditUser = useMutation({
     mutationFn: (body: Partial<OptionUser>) =>
@@ -18,7 +18,7 @@ function useUpdateUser() {
         progress: undefined,
         theme: 'colored'
       })
-      clientQuery.invalidateQueries({ queryKey: ['user'] })
+      refetching && clientQuery.invalidateQueries({ queryKey: ['user'] })
     }
   })
   return EditUser

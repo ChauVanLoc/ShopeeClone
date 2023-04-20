@@ -172,7 +172,7 @@ function Order() {
                 <div className='shrink-0 lg:h-[80px] lg:w-[80px]'>
                   <img src={p.product.image} alt='' />
                 </div>
-                <div className='line-clamp-2 lg:min-w-[68%]'>
+                <div className='line-clamp-2 lg:w-[68%]'>
                   <p className='mb-3'>{p.product.name}</p>
                   <span>x{p.buy_count}</span>
                 </div>
@@ -217,7 +217,7 @@ function Order() {
                 <div className='mt-4 flex items-center justify-end'>
                   <button
                     onClick={handleOrder(p.product._id)}
-                    className='mr-4 rounded-md bg-primary px-7 py-3 capitalize text-white'
+                    className='mr-4 rounded-md bg-primary px-7 py-3 capitalize text-white hover:bg-primary/90'
                   >
                     Mua Lại
                   </button>

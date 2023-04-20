@@ -10,7 +10,7 @@ function useAddToCartMutation() {
     mutationFn: (body: Order) => PurchaseFetching.AddToCardFetching(body),
     onSuccess: (data) => {
       clientQuery.invalidateQueries({
-        queryKey: ['add_purchase']
+        queryKey: ['purchases', -1]
       })
       toast.success(data.data.message, {
         position: 'top-center',

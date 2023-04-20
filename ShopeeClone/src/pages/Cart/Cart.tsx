@@ -201,7 +201,7 @@ function Cart() {
                       alt='img'
                     />
                   </div>
-                  <div className='w-[70%]'>
+                  <div className='w-[70%] grow-0'>
                     <p className='line-clamp-2'>{purchase.product.name}</p>
                     <div className='mt-2 flex items-center'>
                       <svg

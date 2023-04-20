@@ -19,6 +19,7 @@ import Password from './pages/User/Account/Password'
 import Address from './pages/User/Account/Address'
 import Order from './pages/User/Order'
 import Profile from './pages/User/Account/Profile'
+import NotFound from './pages/NotFound'
 
 function ProtectedRoute() {
   const { isAuth } = useContext(Context)
@@ -54,6 +55,7 @@ function App() {
             element={<ProductDetail />}
           />
         </Route>
+        <Route path='*' element={<NotFound />} />
 
         <Route path='' element={<ProtectedRoute />}>
           <Route path='/' element={<MainLayout />}>

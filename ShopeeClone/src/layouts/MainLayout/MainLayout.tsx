@@ -5,7 +5,7 @@ import Header from 'src/components/Header'
 
 function MainLayout() {
   return (
-    <div>
+    <div className='select-none'>
       <Header />
       <Outlet />
       <Footer />

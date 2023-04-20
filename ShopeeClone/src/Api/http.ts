@@ -57,7 +57,8 @@ class Http {
       },
       (error: AxiosError<{ message: string }>) => {
         if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
-          toast.error(error.response?.data.message || error.message)
+          // toast.error(error.response?.data.message || error.message)
+          console.log(error.response?.data.message || error.message)
         }
         if (error.response?.status === HttpStatusCode.Unauthorized) {
           this.accessToken = ''
