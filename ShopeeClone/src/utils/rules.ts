@@ -44,16 +44,15 @@ export const schema = yup.object({
     name: 'price-not-allowed',
     message: 'Giá không phù hợp',
     test: testPriceMinMax
-  }),
-  amount: yup.string()
+  })
 })
 
 export const profile = yup.object({
-  name: yup.string().max(160, 'Tên đăng nhập tối đa 160 kí tự'),
-  phone: yup.string().max(20, 'Số điện thoại tối đa 20 kí tự'),
-  address: yup.string().max(160, 'Địa chỉ tối đa 160 kí tự'),
-  date_of_birth: yup.string(),
-  avatar: yup.string().max(1000, 'tối đa 1000 kí tự')
+  name: yup.string().trim().max(160, 'Tên đăng nhập tối đa 160 kí tự'),
+  phone: yup.string().trim().max(20, 'Số điện thoại tối đa 20 kí tự'),
+  address: yup.string().trim().max(160, 'Địa chỉ tối đa 160 kí tự'),
+  date_of_birth: yup.string().trim(),
+  avatar: yup.string().trim().max(1000, 'tối đa 1000 kí tự')
 })
 
 export type SchemaType = InferType<typeof schema>
@@ -87,9 +86,11 @@ export type PriceFormUnionSchemaType = keyof Pick<
   'price_max' | 'price_min'
 >
 
-export const OrderSchema = schema.pick(['amount'])
+export const OrderSchema = yup.object({
+  amount: yup.string().trim()
+})
 
-export type OrderSchematype = Pick<SchemaType, 'amount'>
+export type OrderSchemaType = InferType<typeof OrderSchema>
 
 export type ProfileType = InferType<typeof profile>
 

@@ -1,6 +1,6 @@
 import DOMPurify from 'dompurify'
 import { useState, useContext } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Rate } from 'antd'
 import useQueyProduct from 'src/hooks/useQueyProduct'
@@ -13,8 +13,6 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { Image } from 'antd'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { OrderSchema, OrderSchematype } from 'src/utils/rules'
 import useIdHook from 'src/hooks/useIdHook'
 import classNames from 'classnames'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -39,26 +37,10 @@ function ProductDetail() {
   const idProduct = useIdHook()
   const [slider1, setSlider1] = useState<Slider | null>(null)
   const [slider2, setSlider2] = useState<Slider | null>(null)
-  const [count, setCount] = useState<number>(1)
   const [change, setChange] = useState<number>(0)
+  const [count, setCount] = useState<number>(1)
   const addToCartMutation = useAddToCartMutation()
-  const {
-    register,
-    getValues,
-    setValue,
-    formState: { errors }
-  } = useForm<OrderSchematype>({
-    resolver: yupResolver(OrderSchema)
-  })
-  const handleAmount =
-    (syntax: 'add' | 'substract') =>
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      if (syntax === 'add' && count < (product?.quantity as number)) {
-        setCount((pre) => pre + 1)
-      } else if (syntax === 'substract' && count > 1) {
-        setCount((pre) => pre - 1)
-      }
-    }
+
   const handleAddCart = () => {
     if (!isAuth) {
       navigate(`/${PathRoute.login}`)
@@ -66,7 +48,7 @@ function ProductDetail() {
     }
     addToCartMutation.mutate({
       product_id: id as string,
-      buy_count: Number(getValues('amount'))
+      buy_count: count
     })
   }
   const handleOrder = async () => {
@@ -76,7 +58,7 @@ function ProductDetail() {
     }
     const purchase = await addToCartMutation.mutateAsync({
       product_id: id as string,
-      buy_count: Number(getValues('amount'))
+      buy_count: count
     })
     purchase &&
       navigate(`/${PathRoute.cart}`, {
@@ -91,66 +73,8 @@ function ProductDetail() {
   if (!product) return <NotFound />
   return (
     <div className='bg-[#f5f5f5] py-3'>
-      {/* <div className='mx-auto flex max-w-7xl py-4'>
-        <Link to={'/'} className={'mr-2 text-blue'}>
-          Shopee
-        </Link>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          fill='none'
-          viewBox='0 0 24 24'
-          strokeWidth={1.5}
-          stroke='currentColor'
-          className='mr-2 h-4 w-4'
-        >
-          <path strokeLinecap='round' strokeLinejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5' />
-        </svg>
-        <Link to={''} className={'mr-2 text-blue'}>
-          Thời trang nam
-        </Link>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          fill='none'
-          viewBox='0 0 24 24'
-          strokeWidth={1.5}
-          stroke='currentColor'
-          className='mr-2 h-4 w-4'
-        >
-          <path strokeLinecap='round' strokeLinejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5' />
-        </svg>
-        <Link to={''} className={'mr-2 text-blue'}>
-          Áo
-        </Link>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          fill='none'
-          viewBox='0 0 24 24'
-          strokeWidth={1.5}
-          stroke='currentColor'
-          className='mr-2 h-4 w-4'
-        >
-          <path strokeLinecap='round' strokeLinejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5' />
-        </svg>
-        <Link to={''} className={'mr-2 text-blue'}>
-          Áo sơ mi
-        </Link>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          fill='none'
-          viewBox='0 0 24 24'
-          strokeWidth={1.5}
-          stroke='currentColor'
-          className='mr-2 h-4 w-4'
-        >
-          <path strokeLinecap='round' strokeLinejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5' />
-        </svg>
-        <Link to={''} className={'mr-2 text-blue'}>
-          Áo sơ mi nam hoạ tiết Hoa Mẫu Đơn Peony FOMAN tay ngắn vải lụa, thoáng khí, không nhăn, thấm hút (FM26)
-        </Link>
-      </div> */}
       <div className='flex flex-col items-center'>
         <div className='rounded-ms mb-5 flex w-[1280px] items-start bg-white p-3 text-sm shadow-sm'>
-          {/* <div className='rounded-ms flex items-start bg-white p-3'> */}
           <div className='mr-3 flex w-[450px] flex-col justify-center'>
             <div className='h-[450px] w-[450px]'>
               <Image.PreviewGroup>
@@ -332,57 +256,12 @@ function ProductDetail() {
               <div className='col-span-1 col-start-1 row-start-7 my-auto text-gray-500'>
                 Số Lượng
               </div>
-              <div className='col-span-1 col-start-2 row-start-7 my-auto text-gray-500'>
-                <div className='flex items-center'>
-                  {/* <InputOrder addButton={classNames()} /> */}
-                  <button
-                    onClick={handleAmount('substract')}
-                    className='rounded-sm border-[1px] border-gray-300 px-2 py-[6px]'
-                  >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='h-4 w-4'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M19.5 12h-15'
-                      />
-                    </svg>
-                  </button>
-                  <div className='rounded-sm border-y-[1px] border-gray-300 px-3 text-center'>
-                    <input
-                      value={count}
-                      className='w-14 px-3 py-1 text-center outline-none'
-                      type='text'
-                      id=''
-                      {...register('amount')}
-                    />
-                  </div>
-                  <button
-                    onClick={handleAmount('add')}
-                    className='rounded-sm border-[1px] border-gray-300 px-2 py-[6px]'
-                  >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='h-4 w-4'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M12 4.5v15m7.5-7.5h-15'
-                      />
-                    </svg>
-                  </button>
-                </div>
+              <div className='col-span-1 col-start-2 row-start-7 my-auto pr-4 text-gray-500'>
+                <InputOrder
+                  setCount={setCount}
+                  count={count}
+                  amount={product.quantity}
+                />
               </div>
               <div className='col-span-1 col-start-3 row-start-7 my-auto text-center text-gray-500'>
                 {product.quantity} sản phẩm có sẳn

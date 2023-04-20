@@ -27,7 +27,11 @@ const InputNumber = forwardRef<HTMLInputElement, Props>(
   ) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target
-      if ((/^[0-9]+$/.test(value.replaceAll(',', '').replaceAll('.', '')) || value === '') && onChange) {
+      if (
+        (/^[0-9]+$/.test(value.replaceAll(',', '').replaceAll('.', '')) ||
+          value === '') &&
+        onChange
+      ) {
         onChange(e)
         trigger()
       }
@@ -35,7 +39,9 @@ const InputNumber = forwardRef<HTMLInputElement, Props>(
     return (
       <>
         <input
-          className={classNames(`${className} ${err ? 'border-[1px] border-red' : ''}`)}
+          className={classNames(
+            `${className} ${err ? 'border-[1px] border-red' : ''}`
+          )}
           onChange={handleChange}
           value={value}
           {...rest}

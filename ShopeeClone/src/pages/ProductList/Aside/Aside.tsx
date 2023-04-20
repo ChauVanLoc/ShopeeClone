@@ -4,34 +4,22 @@ import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import InputNumber from 'src/components/InputNumber'
-import {
-  ProductKeySearch,
-  ProductSearch
-} from 'src/constants/KeySearch'
+import { ProductKeySearch, ProductSearch } from 'src/constants/KeySearch'
 import { PathRoute } from 'src/constants/PathRoute'
 import useIdHook from 'src/hooks/useIdHook'
 import { ListCategory } from 'src/types/Category.type'
 import { NoUndefinedField } from 'src/types/utils.type'
 import { schema } from 'src/utils/rules'
-import {
-  PriceFormSchema,
-  PriceFormSchemaType
-} from 'src/utils/rules'
+import { PriceFormSchema, PriceFormSchemaType } from 'src/utils/rules'
 import { Rate } from 'antd'
 
 type AsideProps = {
   categories: ListCategory
   ObjectKeySearch: ProductSearch
-  joinKeySearch: (
-    fieldsToUpdate: Partial<ProductSearch>
-  ) => string
+  joinKeySearch: (fieldsToUpdate: Partial<ProductSearch>) => string
 }
 
-function Aside({
-  categories,
-  ObjectKeySearch,
-  joinKeySearch
-}: AsideProps) {
+function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
   const id = useIdHook()
   const navigate = useNavigate()
   const {
@@ -54,36 +42,25 @@ function Aside({
           page: 1
         })
       )
-    } else if (
-      data.price_min !== '' &&
-      data.price_max === ''
-    ) {
+    } else if (data.price_min !== '' && data.price_max === '') {
       navigate(
         joinKeySearch({
           price_min: Number(data.price_min),
           page: 1
         })
       )
-    } else if (
-      data.price_min === '' &&
-      data.price_max !== ''
-    ) {
+    } else if (data.price_min === '' && data.price_max !== '') {
       navigate(
         joinKeySearch({
           price_max: Number(data.price_max),
           page: 1
         })
       )
-    } else if (
-      data.price_min === '' &&
-      data.price_max === ''
-    ) {
+    } else if (data.price_min === '' && data.price_max === '') {
       navigate(joinKeySearch({ page: 1 }))
     }
   })
-  const checkUniqueCategoryPropertyOfObjectKeySearch = (
-    O: ProductSearch
-  ) => {
+  const checkUniqueCategoryPropertyOfObjectKeySearch = (O: ProductSearch) => {
     const keys = Object.keys(ObjectKeySearch)
     if (keys.length === 3 && ObjectKeySearch.category) {
       return true
@@ -92,15 +69,11 @@ function Aside({
   }
 
   const handleRating = (rating: number) => () => {
-    navigate(
-      `${joinKeySearch({ page: 1, rating_filter: rating })}`
-    )
+    navigate(`${joinKeySearch({ page: 1, rating_filter: rating })}`)
   }
 
   useEffect(() => {
-    checkUniqueCategoryPropertyOfObjectKeySearch(
-      ObjectKeySearch
-    ) && reset()
+    checkUniqueCategoryPropertyOfObjectKeySearch(ObjectKeySearch) && reset()
   }, [ObjectKeySearch])
 
   return (
@@ -133,23 +106,22 @@ function Aside({
             to={`?${ProductKeySearch.category}=${c._id}`}
             className='mb-4 flex items-center pr-2'
           >
-            {ObjectKeySearch.category &&
-              c._id === ObjectKeySearch.category && (
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='mr-3 flex h-[10px] w-[10px] flex-shrink-0 text-primary'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5'
-                  />
-                </svg>
-              )}
+            {ObjectKeySearch.category && c._id === ObjectKeySearch.category && (
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='mr-3 flex h-[10px] w-[10px] flex-shrink-0 text-primary'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5'
+                />
+              </svg>
+            )}
             <div
               className={classNames('truncate', {
                 'text-primary':
@@ -165,19 +137,6 @@ function Aside({
             </div>
           </Link>
         ))}
-        {/* <Link to={''} className='flex items-center justify-end pr-2 text-[11px]'>
-          <div className='mr-2 truncate'>Thêm</div>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='h-[10px] w-[10px]'
-          >
-            <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5' />
-          </svg>
-        </Link> */}
       </div>
       <div className='mb-10'>
         <div className='mb-2 flex items-center text-sm font-bold capitalize'>
@@ -211,8 +170,7 @@ function Aside({
                   <div
                     className={`px-5 ${classNames({
                       'rounded-full bg-[#EBEBEB]':
-                        ObjectKeySearch.rating_filter ===
-                        i + 2
+                        ObjectKeySearch.rating_filter === i + 2
                     })}`}
                   >
                     <Rate
@@ -221,9 +179,7 @@ function Aside({
                       allowHalf
                       defaultValue={i + 2}
                     />
-                    <span>
-                      {i + 2 < 5 ? 'trở lên' : ''}
-                    </span>
+                    <span>{i + 2 < 5 ? 'trở lên' : ''}</span>
                   </div>
                 </button>
               ))}
@@ -231,10 +187,7 @@ function Aside({
         </div>
         <div className='mb-7 border-b-[1px] pb-5'>
           <div className='my-4 flex'>Khoảng giá</div>
-          <form
-            className='mb-4 flex flex-col'
-            onSubmit={onSubmit}
-          >
+          <form className='mb-4 flex flex-col' onSubmit={onSubmit}>
             <div className='mb-1 flex items-center justify-between'>
               <InputNumber
                 className={
@@ -258,9 +211,7 @@ function Aside({
               />
             </div>
             <div className='mb-1 min-h-[15px] max-w-full text-red'>
-              {errors && (
-                <span>{errors.price_max?.message}</span>
-              )}
+              {errors && <span>{errors.price_max?.message}</span>}
             </div>
             {errors.price_max && errors.price_min ? (
               <input
