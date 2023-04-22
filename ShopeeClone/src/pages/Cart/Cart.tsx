@@ -141,7 +141,7 @@ function Cart() {
   }, [])
   return (
     <div className='bg-backg'>
-      <div className='mx-auto max-w-7xl bg-backg py-4 text-center text-base'>
+      <div className='mx-auto bg-backg py-4 text-center text-[10px] md:max-w-3xl md:text-xs lg:max-w-4xl lg:text-sm xl:max-w-7xl xl:text-base'>
         {purchases && purchases.length > 0 && (
           <div className='mb-4 grid grid-cols-16 items-center rounded-sm bg-product px-8 py-5 text-center shadow-sm'>
             <input
@@ -149,7 +149,7 @@ function Cart() {
               id='check-all-product'
               type='checkbox'
               checked={isCheckedAll}
-              className='bg-produc m-auto block h-4 w-4 rounded border-gray-100'
+              className='bg-produc m-auto block h-4 w-4 rounded border-gray-100 accent-primary'
             />
             <label
               className='col-span-5 col-start-2 text-start'
@@ -183,7 +183,7 @@ function Cart() {
                 onChange={handleChecked(false, index)}
                 checked={purchase.isChecked}
                 type='checkbox'
-                className={`bg-produc m-auto block h-4 w-4 cursor-pointer rounded border-gray-100 ${classNames(
+                className={`bg-produc m-auto block h-4 w-4 cursor-pointer rounded border-gray-100 accent-primary ${classNames(
                   { 'cursor-wait': purchase.disable }
                 )}`}
               />
@@ -194,9 +194,9 @@ function Cart() {
                 className='col-span-5 col-start-2 text-start'
               >
                 <div className='flex items-center justify-between'>
-                  <div className='mr-5 flex-shrink-0'>
+                  <div className='mr-2 flex-shrink-0 md:mr-3 lg:mr-4 xl:mr-5'>
                     <img
-                      className='h-[80px] w-[80px] object-cover'
+                      className='object-cover lg:h-[70px] lg:w-[70px] xl:h-[80px] xl:w-[80px]'
                       src={purchase.product.image}
                       alt='img'
                     />
@@ -288,28 +288,28 @@ function Cart() {
               id='check-all'
               type='checkbox'
               checked={isCheckedAll}
-              className='bg-produc m-auto block h-4 w-4 cursor-pointer rounded border-gray-100'
+              className='bg-produc m-auto block h-4 w-4 cursor-pointer rounded border-gray-100 accent-primary'
             />
             <div className='col-span-5 col-start-2 text-start'>
               <label className='cursor-pointer' htmlFor='check-all'>
                 Chọn tất cả ({purchases?.length})
               </label>
             </div>
-            <span className='col-span-3 col-start-8'>
+            <span className='col-span-3 col-start-8 text-end'>
               Tổng thanh toán ({purchases?.length} sản phẩm):
             </span>
-            <span className='col-span-3 col-start-11 pl-4 text-start text-2xl text-primary'>
+            <span className='col-span-3 col-start-11 pl-4 text-start text-primary lg:text-xl xl:text-2xl'>
               <span>₫{convertCurrentcy(totalPrice, 0)}</span>
               <div className='flex text-sm'>
                 <span className='mr-4 text-gray-600'>Tiết kiệm</span>
-                <span className='text-base'>
+                <span className='lg:text-sm xl:text-base'>
                   ₫{convertCurrentcy(totalPriceBeforDiscount - totalPrice, 0)}
                 </span>
               </div>
             </span>
             <button
               onClick={handleOrder}
-              className='col-start-14 col-span-3 bg-primary px-4 py-2 text-white duration-150 hover:bg-primary/90'
+              className='col-start-14 col-span-3 bg-primary text-white duration-200 hover:bg-primary/90 md:px-[10px] md:py-1 lg:px-3 lg:py-[6px] xl:px-4 xl:py-2'
             >
               Mua hàng
             </button>

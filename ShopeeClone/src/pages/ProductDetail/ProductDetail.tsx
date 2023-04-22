@@ -77,6 +77,7 @@ function ProductDetail() {
             <div className='h-[350px] w-[350px] md:h-[250px] md:w-[250px] lg:h-[330px] lg:w-[330px] xl:h-[450px] xl:w-[450px]'>
               <Image.PreviewGroup>
                 <Slider
+                  className=''
                   infinite={false}
                   ref={(slider) => setSlider2(slider)}
                   asNavFor={slider1 as Slider}
