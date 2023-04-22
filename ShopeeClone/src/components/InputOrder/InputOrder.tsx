@@ -17,11 +17,11 @@ type InputOrderType = {
 }
 
 const InputOrder = ({
-  InputClassName = 'col-span-3 col-start-2 text-center outline-none border-y-[1px] border-gray-300',
-  InscreaseClassName = 'col-start-5 rounded-sm border-[1px] border-gray-300 p-2 hover:bg-gray-100',
-  ReduceClassName = 'col-start-1 rounded-sm border-[1px] border-gray-300 p-2 hover:bg-gray-100',
-  IconClassName = 'h-4 w-4 mx-auto',
-  rootClassName = 'grid grid-cols-5',
+  InputClassName,
+  InscreaseClassName,
+  ReduceClassName,
+  IconClassName,
+  rootClassName,
   setCount,
   count,
   amount
@@ -42,12 +42,14 @@ const InputOrder = ({
       }
     }
   return (
-    <div className={rootClassName}>
+    <div className={`grid grid-cols-5 ${rootClassName}`}>
       <button
         onClick={handleAmount('substract')}
-        className={`${ReduceClassName} ${classNames({
-          'cursor-not-allowed': count === 1
-        })}`}
+        className={`col-start-1 rounded-sm border-[1px] border-gray-300 hover:bg-gray-100 xl:p-2 ${ReduceClassName} ${classNames(
+          {
+            'cursor-not-allowed': count === 1
+          }
+        )}`}
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -55,25 +57,28 @@ const InputOrder = ({
           viewBox='0 0 24 24'
           strokeWidth={1.5}
           stroke='currentColor'
-          className={IconClassName}
+          className={`mx-auto xl:h-4 xl:w-4 ${IconClassName}`}
         >
           <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 12h-15' />
         </svg>
       </button>
       <input
-        className={InputClassName}
+        className={`col-span-3 col-start-2 border-y-[1px] border-gray-300 text-center outline-none ${InputClassName}`}
         type='text'
         onChange={handleChange}
         value={count}
       />
-      <button onClick={handleAmount('add')} className={InscreaseClassName}>
+      <button
+        onClick={handleAmount('add')}
+        className={`col-start-5 rounded-sm border-[1px] border-gray-300 hover:bg-gray-100 xl:p-2 ${InscreaseClassName}`}
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
           viewBox='0 0 24 24'
           strokeWidth={1.5}
           stroke='currentColor'
-          className={IconClassName}
+          className={`mx-auto xl:h-4 xl:w-4 ${IconClassName}`}
         >
           <path
             strokeLinecap='round'

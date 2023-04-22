@@ -26,7 +26,7 @@ function ProductList() {
   const ListProductdata = getListProduct.data?.data.data.products
   if (!ListCateGoryData && !ListProductdata) return null
   return (
-    <div className='bg-[#F5f5f5] py-2 lg:py-3 xl:py-5'>
+    <div id='productid' className='bg-[#F5f5f5] py-2 md:px-2 lg:py-3 xl:py-5'>
       <div className='flex flex-col bg-[#F5f5f5] md:mx-auto md:max-w-3xl md:flex-row lg:mx-auto lg:max-w-4xl lg:flex-row xl:mx-auto xl:max-w-7xl xl:flex-row'>
         <div className='md:mr-6 md:w-[20%] lg:mr-6 lg:w-[20%] xl:mr-6 xl:w-[20%]'>
           {ListCateGoryData && (
@@ -36,9 +36,21 @@ function ProductList() {
               categories={ListCateGoryData}
             />
           )}
+          <div className='px-2 md:px-0 lg:px-0 xl:px-0'>
+            <Sort
+              rootClassname='flex md:hidden lg:hidden xl:hidden'
+              SearchParamsObject={o}
+              page={o.page as number}
+              stringPagination={joinKeySearch(o)}
+              pageSize={
+                getListProduct.data?.data.data.pagination.page_size as number
+              }
+            />
+          </div>
         </div>
-        <div className='flex w-[80%] flex-col'>
+        <div className='flex flex-col md:w-[80%] lg:w-[80%] xl:w-[80%]'>
           <Sort
+            rootClassname='hidden md:flex lg:flex xl:flex'
             SearchParamsObject={o}
             page={o.page as number}
             stringPagination={joinKeySearch(o)}
@@ -53,7 +65,7 @@ function ProductList() {
               className={classNames({
                 'flex h-[500px] w-[992px] items-center justify-center':
                   ListProductdata?.length === 0,
-                'grid gap-4 md:grid-cols-4 md:gap-3 lg:grid-cols-5 xl:grid-cols-5':
+                'grid grid-cols-2 gap-2 p-2 md:grid-cols-4 md:gap-3 md:p-0 lg:grid-cols-5 lg:gap-4 lg:p-0 xl:grid-cols-5 xl:gap-4 xl:p-0':
                   ListProductdata && ListProductdata?.length > 0
               })}
             >

@@ -9,13 +9,15 @@ type SortType = {
   page: number
   pageSize: number
   stringPagination: (fieldsToUpdate: Partial<ProductSearch>) => string
+  rootClassname?: string
 }
 
 function Sort({
   SearchParamsObject,
   page,
   pageSize,
-  stringPagination
+  stringPagination,
+  rootClassname
 }: SortType) {
   const navigate = useNavigate()
   const handleChangeSelect = (value: string) => {
@@ -24,13 +26,15 @@ function Sort({
       : navigate(stringPagination({ page: 1, order: 'desc' }))
   }
   return (
-    <div className='flex justify-between rounded-sm bg-sort shadow-sm md:mb-2 md:px-2 md:py-1 md:text-[10px] lg:mb-3 lg:px-3 lg:py-2 lg:text-xs xl:mb-4 xl:px-5 xl:py-3 xl:text-sm'>
-      <div className='flex items-center md:space-x-2 lg:space-x-3 xl:space-x-5'>
+    <div
+      className={`mb-1 flex justify-between rounded-sm bg-sort px-1 py-1 text-[8px] shadow-sm md:mb-2 md:px-2 md:py-1 md:text-[10px] lg:mb-3 lg:px-3 lg:py-2 lg:text-xs xl:mb-4 xl:px-5 xl:py-3 xl:text-sm ${rootClassname}`}
+    >
+      <div className='flex items-center space-x-2 md:space-x-2 lg:space-x-3 xl:space-x-5'>
         <div>Sắp xếp theo</div>
         {SearchParamsObject && SearchParamsObject.sort_by === 'view' ? (
           <span
             className={classNames(
-              'cursor-pointer rounded-sm shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
+              'cursor-pointer rounded-sm px-2 py-1 shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
               {
                 'bg-primary text-white': SearchParamsObject.sort_by === 'view',
                 'bg-white':
@@ -45,7 +49,7 @@ function Sort({
           <Link
             to={stringPagination({ sort_by: 'view', page: 1 })}
             className={classNames(
-              'cursor-pointer rounded-sm shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
+              'cursor-pointer rounded-sm px-2 py-1 shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
               {
                 'bg-primary text-white': SearchParamsObject.sort_by === 'view',
                 'bg-white':
@@ -61,7 +65,7 @@ function Sort({
         !SearchParamsObject.hasOwnProperty('sort_by') ? (
           <span
             className={classNames(
-              'cursor-pointer rounded-sm shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
+              'cursor-pointer rounded-sm px-2 py-1 shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
               {
                 'bg-primary text-white':
                   !SearchParamsObject.hasOwnProperty('sort_by') ||
@@ -78,7 +82,7 @@ function Sort({
           <Link
             to={stringPagination({ sort_by: 'createdAt', page: 1 })}
             className={classNames(
-              'cursor-pointer rounded-sm shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
+              'cursor-pointer rounded-sm px-2 py-1 shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
               {
                 'bg-primary text-white':
                   !SearchParamsObject.hasOwnProperty('sort_by') ||
@@ -95,7 +99,7 @@ function Sort({
         {SearchParamsObject && SearchParamsObject.sort_by === 'sold' ? (
           <span
             className={classNames(
-              'cursor-pointer rounded-sm shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
+              'cursor-pointer rounded-sm px-2 py-1 shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
               {
                 'bg-primary text-white': SearchParamsObject.sort_by === 'sold',
                 'bg-white':
@@ -110,7 +114,7 @@ function Sort({
           <Link
             to={stringPagination({ sort_by: 'sold', page: 1 })}
             className={classNames(
-              'cursor-pointer rounded-sm shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
+              'cursor-pointer rounded-sm px-2 py-1 shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
               {
                 'bg-primary text-white': SearchParamsObject.sort_by === 'sold',
                 'bg-white':
@@ -122,7 +126,7 @@ function Sort({
             Bán chạy
           </Link>
         )}
-        <div className='flex items-center rounded-sm bg-product shadow-sm md:h-[22px] lg:h-[28px] xl:h-[36px]'>
+        <div className='hidden items-center rounded-sm bg-product shadow-sm md:flex md:h-[22px] lg:flex lg:h-[28px] xl:flex xl:h-[36px]'>
           <Select
             bordered={false}
             defaultValue='desc'
@@ -141,20 +145,20 @@ function Sort({
         </div>
       </div>
       <div className='flex items-center justify-evenly'>
-        <div className='md:mr-2 lg:mr-3 xl:mr-4'>
+        <div className='mr-2 lg:mr-3 xl:mr-4'>
           <span className='text-primary'>{page}</span>
           <span>/{pageSize}</span>
         </div>
         <div className='flex'>
           {page === 1 ? (
-            <span className='cursor-not-allowed rounded-sm border-r-[1px] border-r-gray-200 bg-gray-300/30 shadow-sm md:p-[5px] lg:p-[6px] xl:p-2'>
+            <span className='cursor-not-allowed rounded-sm border-r-[1px] border-r-gray-200 bg-gray-300/30 p-[4.8px] shadow-sm md:p-[5px] lg:p-[6px] xl:p-2'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='md:h-3 md:w-3 lg:h-3 lg:w-3 xl:h-4 xl:w-4'
+                className='h-2 w-2 md:h-3 md:w-3 lg:h-3 lg:w-3 xl:h-4 xl:w-4'
               >
                 <path
                   strokeLinecap='round'
@@ -166,7 +170,7 @@ function Sort({
           ) : (
             <Link
               to={stringPagination({ page: page - 1 })}
-              className='rounded-sm border-r-[1px] border-r-gray-200 bg-white  shadow-sm md:p-[5px] lg:p-[6px] xl:p-2'
+              className='rounded-sm border-r-[1px] border-r-gray-200 bg-white p-[4.8px] shadow-sm md:p-[5px] lg:p-[6px] xl:p-2'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -174,7 +178,7 @@ function Sort({
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='md:h-3 md:w-3 lg:h-3 lg:w-3 xl:h-4 xl:w-4'
+                className='h-2 w-2 md:h-3 md:w-3 lg:h-3 lg:w-3 xl:h-4 xl:w-4'
               >
                 <path
                   strokeLinecap='round'
@@ -185,14 +189,14 @@ function Sort({
             </Link>
           )}
           {page === pageSize ? (
-            <span className='cursor-not-allowed rounded-sm bg-gray-300/30  shadow-sm md:p-[5px] lg:p-[6px] xl:p-2'>
+            <span className='cursor-not-allowed rounded-sm bg-gray-300/30  p-[4.8px] shadow-sm md:p-[5px] lg:p-[6px] xl:p-2'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='md:h-3 md:w-3 lg:h-3 lg:w-3 xl:h-4 xl:w-4'
+                className='h-2 w-2 md:h-3 md:w-3 lg:h-3 lg:w-3 xl:h-4 xl:w-4'
               >
                 <path
                   strokeLinecap='round'
@@ -204,7 +208,7 @@ function Sort({
           ) : (
             <Link
               to={stringPagination({ page: page + 1 })}
-              className='rounded-sm bg-white shadow-sm md:p-[5px] lg:p-[6px] xl:p-2'
+              className='rounded-sm bg-white p-[4.8px] shadow-sm md:p-[5px] lg:p-[6px] xl:p-2'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -212,7 +216,7 @@ function Sort({
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='md:h-3 md:w-3 lg:h-3 lg:w-3 xl:h-4 xl:w-4'
+                className='h-2 w-2 md:h-3 md:w-3 lg:h-3 lg:w-3 xl:h-4 xl:w-4'
               >
                 <path
                   strokeLinecap='round'
