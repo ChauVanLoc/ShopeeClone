@@ -47,10 +47,13 @@ export default function Login() {
   })
   return (
     <div className='bg-primary'>
-      <div className='mx-auto max-w-5xl bg-bgPrimary bg-right p-4'>
-        <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-10'>
+      <div className='lg:mx-auto lg:max-w-5xl lg:bg-bgPrimary lg:bg-right lg:p-4'>
+        <div className='lg:grid lg:grid-cols-5 lg:py-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
-            <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit}>
+            <form
+              className='rounded bg-white p-10 shadow-sm'
+              onSubmit={onSubmit}
+            >
               <div className='text-2xl'>Đăng nhập</div>
               <Input
                 key={id}
@@ -70,7 +73,11 @@ export default function Login() {
                 errorMessage={errors.password?.message}
                 autoComplete='true'
               />
-              <Button classNameBlock='mt-3' errors={errors} isLoading={loginMutation.isLoading} />
+              <Button
+                classNameBlock='mt-3'
+                errors={errors}
+                isLoading={loginMutation.isLoading}
+              />
               <div className='mt-8 flex items-center justify-center'>
                 <span className='text-gray-400'>Bạn chưa có tài khoản?</span>
                 <Link className='text-red-400 ml-1' to='/register'>

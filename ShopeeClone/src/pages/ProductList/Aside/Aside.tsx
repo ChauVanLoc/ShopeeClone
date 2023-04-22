@@ -5,13 +5,10 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import InputNumber from 'src/components/InputNumber'
 import { ProductKeySearch, ProductSearch } from 'src/constants/KeySearch'
-import { PathRoute } from 'src/constants/PathRoute'
 import useIdHook from 'src/hooks/useIdHook'
 import { ListCategory } from 'src/types/Category.type'
-import { NoUndefinedField } from 'src/types/utils.type'
-import { schema } from 'src/utils/rules'
 import { PriceFormSchema, PriceFormSchemaType } from 'src/utils/rules'
-import { Rate } from 'antd'
+import Rate from 'antd/lib/rate'
 
 type AsideProps = {
   categories: ListCategory
@@ -77,12 +74,9 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
   }, [ObjectKeySearch])
 
   return (
-    <div className='flex max-w-full flex-col py-3 text-[12px]'>
-      <div className='mb-10'>
-        <Link
-          to={''}
-          className='mb-2 flex items-center text-sm font-bold capitalize'
-        >
+    <div className='flex flex-col py-3 md:flex-col md:text-[10px] lg:flex-col lg:space-y-6 lg:text-[10px] xl:flex-col xl:space-y-10 xl:text-[12px]'>
+      <div>
+        <span className='mb-2 flex items-center font-bold capitalize lg:text-xs xl:text-sm'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -98,7 +92,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
             />
           </svg>
           Tất cả danh mục
-        </Link>
+        </span>
         <div className='mb-4 h-[1px] border-b-[1px]' />
         {categories.slice(0, 3).map((c) => (
           <Link
@@ -138,8 +132,8 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
           </Link>
         ))}
       </div>
-      <div className='mb-10'>
-        <div className='mb-2 flex items-center text-sm font-bold capitalize'>
+      <div>
+        <div className='mb-2 flex items-center font-bold capitalize lg:text-xs xl:text-sm'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -156,8 +150,8 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
           </svg>
           BỘ LỌC TÌM KIẾM
         </div>
-        <div className='mb-7 border-b-[1px] pb-5'>
-          <div className='my-4'>Đánh giá</div>
+        <div className='border-b-[1px] lg:mb-5 lg:pb-3 xl:mb-7 xl:pb-5'>
+          <div className='md:my-3 lg:my-3 xl:my-4'>Đánh giá</div>
           <div className='flex flex-col-reverse'>
             {Array(4)
               .fill(0)
@@ -168,13 +162,13 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
                   onClick={handleRating(i + 2)}
                 >
                   <div
-                    className={`px-5 ${classNames({
+                    className={`md:px-2 lg:px-3 xl:px-5 ${classNames({
                       'rounded-full bg-[#EBEBEB]':
                         ObjectKeySearch.rating_filter === i + 2
                     })}`}
                   >
                     <Rate
-                      rootClassName='text-rate text-sm cursor-pointer mr-4 pb-[6px]'
+                      rootClassName='text-rate lg:text-[10px] xl:text-sm cursor-pointer mr-4 pb-[6px] md:text-[10px]'
                       disabled
                       allowHalf
                       defaultValue={i + 2}
@@ -185,13 +179,13 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
               ))}
           </div>
         </div>
-        <div className='mb-7 border-b-[1px] pb-5'>
+        <div className='border-b-[1px] lg:mb-5 lg:pb-4 xl:mb-7 xl:pb-5'>
           <div className='my-4 flex'>Khoảng giá</div>
           <form className='mb-4 flex flex-col' onSubmit={onSubmit}>
             <div className='mb-1 flex items-center justify-between'>
               <InputNumber
                 className={
-                  'h-9 max-w-[43%] rounded-sm border bg-white px-3 outline-none'
+                  'max-w-[43%] rounded-sm border bg-white px-3 outline-none md:h-6 lg:h-7 xl:h-9'
                 }
                 placeholder='₫ TỪ'
                 {...register('price_min')}
@@ -201,7 +195,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
                 value={getValues('price_min')}
               />
               <InputNumber
-                className='h-9 max-w-[43%] rounded-sm border px-3 outline-none'
+                className='max-w-[43%] rounded-sm border px-3 outline-none md:h-6 lg:h-7 xl:h-9'
                 placeholder='₫ ĐẾN'
                 {...register('price_max')}
                 triggerName='price_min'
@@ -215,26 +209,26 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
             </div>
             {errors.price_max && errors.price_min ? (
               <input
-                className='cursor-pointer rounded-sm bg-primary py-3 uppercase text-white'
+                className='cursor-pointer rounded-sm bg-primary uppercase text-white md:py-2 lg:py-2 xl:py-3'
                 type='button'
                 value='Áp dụng'
               />
             ) : (
               <input
-                className='cursor-pointer rounded-sm bg-primary py-3 uppercase text-white'
+                className='cursor-pointer rounded-sm bg-primary uppercase text-white md:py-2 lg:py-2 xl:py-3'
                 type='submit'
                 value='Áp dụng'
               />
             )}
           </form>
         </div>
-        <div className=' border-b-[1px]'>
+        <div className='border-b-[1px]'>
           <button
             onClick={() => {
               navigate('/')
               reset()
             }}
-            className='w-full cursor-pointer rounded-sm bg-primary py-3 uppercase text-white'
+            className='w-full cursor-pointer rounded-sm bg-primary uppercase text-white md:py-2 lg:py-2 xl:py-3'
           >
             XÓA TẤT CẢ
           </button>

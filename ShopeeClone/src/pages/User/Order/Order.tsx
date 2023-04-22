@@ -1,6 +1,6 @@
-import { Empty } from 'antd'
+import Empty from 'antd/lib/empty'
 import classNames from 'classnames'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 import { useState, useContext, useEffect } from 'react'
 import { NavLink, useNavigate, useSearchParams } from 'react-router-dom'
 import { PathRoute } from 'src/constants/PathRoute'

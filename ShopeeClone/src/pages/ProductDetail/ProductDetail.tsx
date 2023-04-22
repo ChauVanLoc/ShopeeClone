@@ -1,8 +1,7 @@
 import DOMPurify from 'dompurify'
-import { useState, useContext } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useState, useContext, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Rate } from 'antd'
+import Rate from 'antd/lib/rate'
 import useQueyProduct from 'src/hooks/useQueyProduct'
 import {
   convertCurrentcy,
@@ -12,22 +11,18 @@ import {
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { Image } from 'antd'
+import Image from 'antd/lib/image'
 import useIdHook from 'src/hooks/useIdHook'
 import classNames from 'classnames'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { PurchaseFetching } from 'src/Api/PurchaseFetching'
-import { Order } from 'src/types/Purchase.type'
-import { toast } from 'react-toastify'
 import { PathRoute } from 'src/constants/PathRoute'
 import InputOrder from 'src/components/InputOrder'
 import useAddToCartMutation from 'src/hooks/useAddToCartMutation'
 import { Context } from 'src/context/AppContext'
 import NotFound from '../NotFound'
+import SkeletonProductDetail from 'src/components/SkeletonProductDetail'
 
 function ProductDetail() {
   const { isAuth } = useContext(Context)
-  const clientQuery = useQueryClient()
   const { idNameProduct } = useParams()
   const navigate = useNavigate()
   const id = idNameProduct?.split(',')[1]
@@ -40,7 +35,6 @@ function ProductDetail() {
   const [change, setChange] = useState<number>(0)
   const [count, setCount] = useState<number>(1)
   const addToCartMutation = useAddToCartMutation()
-
   const handleAddCart = () => {
     if (!isAuth) {
       navigate(`/${PathRoute.login}`)
@@ -67,10 +61,14 @@ function ProductDetail() {
         }
       })
   }
-  const { data } = useQueyProduct(id as string)
-  const product = data?.data.data
-
-  if (!product) return <NotFound />
+  const productDetailFetching = useQueyProduct(id as string)
+  const product = productDetailFetching.data?.data.data
+  if (productDetailFetching.isError) {
+    return <NotFound />
+  }
+  if (!product) {
+    return <SkeletonProductDetail />
+  }
   return (
     <div className='bg-[#f5f5f5] py-3'>
       <div className='flex flex-col items-center'>

@@ -1,11 +1,5 @@
 import { ReactNode, useRef, useState } from 'react'
-import {
-  useFloating,
-  arrow,
-  shift,
-  flip,
-  offset
-} from '@floating-ui/react-dom'
+import { useFloating, arrow, shift, flip, offset } from '@floating-ui/react-dom'
 import { FloatingPortal } from '@floating-ui/react'
 import useIdHook from 'src/hooks/useIdHook'
 import { NavLink, To } from 'react-router-dom'
@@ -30,18 +24,17 @@ function Popover({
   const arrowRef = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
   const idFloatingPortal = useIdHook()
-  const { x, y, strategy, refs, middlewareData } =
-    useFloating({
-      middleware: [
-        shift(),
-        offset(off),
-        flip(),
-        arrow({
-          element: arrowRef
-        })
-      ],
-      placement: 'bottom-end'
-    })
+  const { x, y, strategy, refs, middlewareData } = useFloating({
+    middleware: [
+      shift(),
+      offset(off),
+      flip(),
+      arrow({
+        element: arrowRef
+      })
+    ],
+    placement: 'bottom-end'
+  })
   const onMouseEnterHandle = () => {
     setIsOpen(true)
   }

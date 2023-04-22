@@ -1,12 +1,23 @@
 import { useMemo } from 'react'
-import { isUndefined, omitBy } from 'lodash'
+import omitBy from 'lodash/omitBy'
+import isUndefined from 'lodash/isUndefined'
 import { useSearchParams } from 'react-router-dom'
 import { OrderType, ProductSearch, SortType } from 'src/constants/KeySearch'
 
 function useSearchUrl(limitValue: number = 0): ProductSearch {
   const [searchParams] = useSearchParams()
-  const { page, limit, category, order, sort_by, exclude, name, price_max, price_min, rating_filter } =
-    Object.fromEntries([...searchParams])
+  const {
+    page,
+    limit,
+    category,
+    order,
+    sort_by,
+    exclude,
+    name,
+    price_max,
+    price_min,
+    rating_filter
+  } = Object.fromEntries([...searchParams])
   return useMemo(
     () =>
       omitBy(
@@ -40,7 +51,18 @@ function useSearchUrl(limitValue: number = 0): ProductSearch {
         },
         isUndefined
       ),
-    [page, limit, category, order, sort_by, exclude, name, price_max, price_min, rating_filter]
+    [
+      page,
+      limit,
+      category,
+      order,
+      sort_by,
+      exclude,
+      name,
+      price_max,
+      price_min,
+      rating_filter
+    ]
   )
 }
 

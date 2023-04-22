@@ -8,7 +8,11 @@ import { AuthFetching } from 'src/Api/AthFetching'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import { Context } from 'src/context/AppContext'
-import { RegisterUnionSchema, RegisterSchemaType, RegisterSchema } from 'src/utils/rules'
+import {
+  RegisterUnionSchema,
+  RegisterSchemaType,
+  RegisterSchema
+} from 'src/utils/rules'
 import { ResponveApi } from 'src/types/Responve.type'
 
 export default function Register() {
@@ -22,18 +26,29 @@ export default function Register() {
     resolver: yupResolver(RegisterSchema)
   })
   const registerMutation = useMutation({
-    mutationFn: (body: RegisterSchemaType) => AuthFetching.registerFetching(body)
+    mutationFn: (body: RegisterSchemaType) =>
+      AuthFetching.registerFetching(body)
   })
   const onSubmit = handleSubmit((input) => {
     registerMutation.mutate(input, {
       onError(error) {
-        if (isUnprocessableEntityError<ResponveApi<Omit<RegisterSchemaType, 'confirm_password'>>>(error)) {
+        if (
+          isUnprocessableEntityError<
+            ResponveApi<Omit<RegisterSchemaType, 'confirm_password'>>
+          >(error)
+        ) {
           const data = error.response?.data.data
           data &&
             Object.keys(data).forEach((key) =>
-              setError(key as keyof Omit<RegisterSchemaType, 'confirm_password'>, {
-                message: data[key as keyof Omit<RegisterSchemaType, 'confirm_password'>]
-              })
+              setError(
+                key as keyof Omit<RegisterSchemaType, 'confirm_password'>,
+                {
+                  message:
+                    data[
+                      key as keyof Omit<RegisterSchemaType, 'confirm_password'>
+                    ]
+                }
+              )
             )
         }
       },
@@ -45,10 +60,13 @@ export default function Register() {
   })
   return (
     <div className='bg-primary'>
-      <div className='mx-auto max-w-5xl bg-bgPrimary bg-right p-4'>
-        <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-10'>
+      <div className='mx-auto max-w-5xl bg-right md:p-10 lg:bg-bgPrimary lg:p-14 xl:bg-bgPrimary'>
+        <div className='grid grid-cols-1 lg:grid-cols-5 lg:py-8'>
           <div className='lg:col-span-2 lg:col-start-4'>
-            <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit}>
+            <form
+              className='rounded bg-white p-10 shadow-sm'
+              onSubmit={onSubmit}
+            >
               <div className='text-2xl'>Đăng ký</div>
               <Input
                 type='text'
@@ -76,7 +94,11 @@ export default function Register() {
                 errorMessage={errors.confirm_password?.message}
                 autoComplete='true'
               />
-              <Button classNameBlock='mt-3' errors={errors} isLoading={registerMutation.isLoading} />
+              <Button
+                classNameBlock='mt-3'
+                errors={errors}
+                isLoading={registerMutation.isLoading}
+              />
               <div className='mt-8 flex items-center justify-center'>
                 <span className='text-gray-400'>Bạn đã có tài khoản?</span>
                 <Link className='text-red-400 ml-1' to='/login'>

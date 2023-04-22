@@ -7,7 +7,7 @@ import { joinKeySearch } from 'src/utils/utils'
 import Aside from './Aside'
 import Product from './Product/Product'
 import Sort from './Sort'
-import { Empty } from 'antd'
+import Empty from 'antd/lib/empty'
 import classNames from 'classnames'
 import { useQuery } from '@tanstack/react-query'
 import { ProductFetching } from 'src/Api/ProductFetching'
@@ -22,18 +22,13 @@ function ProductList() {
     queryFn: () => ProductFetching.ListCategoryFetching(),
     staleTime: Infinity
   })
-  const ListCateGoryData = useMemo(
-    () => getListCategory.data?.data.data,
-    [getListCategory]
-  )
-  const ListProductdata = useMemo(
-    () => getListProduct.data?.data.data.products,
-    [getListProduct]
-  )
+  const ListCateGoryData = getListCategory.data?.data.data
+  const ListProductdata = getListProduct.data?.data.data.products
+  if (!ListCateGoryData && !ListProductdata) return null
   return (
-    <div className='bg-[#F5f5f5] py-5'>
-      <div className='mx-auto flex max-w-7xl bg-[#F5f5f5]'>
-        <div className='mr-8 w-[20%]'>
+    <div className='bg-[#F5f5f5] py-2 lg:py-3 xl:py-5'>
+      <div className='flex flex-col bg-[#F5f5f5] md:mx-auto md:max-w-3xl md:flex-row lg:mx-auto lg:max-w-4xl lg:flex-row xl:mx-auto xl:max-w-7xl xl:flex-row'>
+        <div className='md:mr-6 md:w-[20%] lg:mr-6 lg:w-[20%] xl:mr-6 xl:w-[20%]'>
           {ListCateGoryData && (
             <Aside
               joinKeySearch={joinKeySearch<ProductSearch>(o)}
@@ -58,7 +53,7 @@ function ProductList() {
               className={classNames({
                 'flex h-[500px] w-[992px] items-center justify-center':
                   ListProductdata?.length === 0,
-                'grid grid-cols-5 gap-x-4 gap-y-1':
+                'grid gap-4 md:grid-cols-4 md:gap-3 lg:grid-cols-5 xl:grid-cols-5':
                   ListProductdata && ListProductdata?.length > 0
               })}
             >
@@ -67,7 +62,7 @@ function ProductList() {
                   product={e}
                   key={e._id}
                   rating={e.rating}
-                  classNameBlock='hover:translate-y-[-3px] duration-[0.2s] text-sm mt-4 rounded-sm shadow-md bg-product'
+                  classNameBlock='hover:translate-y-[-3px] ease-in-out duration-[0.2s] text-sm rounded-sm shadow-md bg-product'
                 />
               ))}
               {ListProductdata?.length === 0 && (

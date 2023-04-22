@@ -1,8 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { Button, DatePicker, Select, Upload } from 'antd'
-import dayjs, { type Dayjs } from 'dayjs'
+import DatePicker from 'antd/lib/date-picker'
+import dayjs from 'dayjs'
 import { UserFetching } from 'src/Api/UserFetching'
-import useEditUser from 'src/hooks/useUpdateUser'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { ProfileType, profile } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -12,7 +11,6 @@ import useUpdateUser from 'src/hooks/useUpdateUser'
 import { urlApi } from 'src/constants/config'
 import { getTimeToIso } from 'src/utils/utils'
 import { toast } from 'react-toastify'
-import { AxiosError } from 'axios'
 import classNames from 'classnames'
 
 const LimitSize = 1024000
@@ -247,15 +245,17 @@ function Profile() {
         </form>
         <div className='align-middle lg:w-[40%]'>
           <div className='mt-8 flex flex-col items-center justify-center border-l-[1px] pb-10'>
-            {getValues('avatar') ? (
+            {getValues('avatar') || file ? (
               <img
                 className='h-28 w-28 rounded-full border-[1px] border-gray-100 object-cover'
                 src={
                   file
                     ? URL.createObjectURL(file)
-                    : `${urlApi}images/${getValues('avatar')}`
+                    : getValues('avatar')
+                    ? `${urlApi}images/${getValues('avatar')}`
+                    : ''
                 }
-                alt='img-profile'
+                alt='avatar'
               />
             ) : (
               <div className='mb-5 rounded-full bg-gray-100 p-5'>
