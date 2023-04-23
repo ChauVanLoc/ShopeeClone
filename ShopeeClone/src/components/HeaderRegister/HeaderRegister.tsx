@@ -1,11 +1,12 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 function HeaderRegister() {
+  const location = useLocation()
   return (
     <header className='py-5'>
       <div className='mx-auto max-w-7xl px-4'>
         <nav className='flex items-end'>
-          <Link to={'/'} className='flex items-end'>
+          <Link to={'/'} className='flex items-end text-primary'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -24,7 +25,9 @@ function HeaderRegister() {
               TechShop
             </label>
           </Link>
-          <div className='ml-5 text-xl lg:text-2xl'>Đăng ký</div>
+          <div className='ml-5 text-xl lg:text-2xl'>
+            {location.pathname.includes('login') ? 'Đăng nhập' : 'Đăng ký'}
+          </div>
         </nav>
       </div>
     </header>
