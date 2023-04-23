@@ -47,7 +47,7 @@ export default function Login() {
   })
   return (
     <div className='bg-primary'>
-      <div className='lg:mx-auto lg:max-w-5xl lg:bg-bgPrimary lg:bg-right lg:p-4'>
+      <div className='lg:mx-auto lg:max-w-5xl lg:bg-right lg:p-4'>
         <div className='lg:grid lg:grid-cols-5 lg:py-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
             <form

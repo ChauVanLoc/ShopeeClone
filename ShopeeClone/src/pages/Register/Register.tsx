@@ -60,7 +60,7 @@ export default function Register() {
   })
   return (
     <div className='bg-primary'>
-      <div className='mx-auto max-w-5xl bg-right md:p-10 lg:bg-bgPrimary lg:p-14 xl:bg-bgPrimary'>
+      <div className='mx-auto max-w-5xl bg-right md:p-10 lg:p-14 xl:bg-bgPrimary'>
         <div className='grid grid-cols-1 lg:grid-cols-5 lg:py-8'>
           <div className='lg:col-span-2 lg:col-start-4'>
             <form
