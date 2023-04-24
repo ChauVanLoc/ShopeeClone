@@ -133,7 +133,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
       </button>
       <BackgroundToggle setToggle={setToggle} visible={toggle} />
       <div
-        className={`absolute rounded-sm bg-white px-5 py-3 text-[10px] shadow-sm md:static md:flex md:translate-x-[0%] md:flex-col md:rounded-none md:bg-[#F5f5f5] md:p-0 md:text-xs md:shadow-none lg:static lg:flex lg:translate-x-[0%] lg:flex-col lg:space-y-6 lg:rounded-none lg:bg-[#F5f5f5] lg:p-0 lg:text-xs lg:shadow-none xl:static xl:flex xl:translate-x-[0%] xl:flex-col xl:space-y-10 xl:rounded-none xl:bg-[#F5f5f5] xl:p-0 xl:text-sm xl:shadow-none ${classNames(
+        className={`absolute rounded-sm bg-white px-5 py-3 text-xs shadow-sm md:static md:flex md:translate-x-[0%] md:flex-col md:rounded-none md:bg-[#F5f5f5] md:p-0 md:text-xs md:shadow-none lg:static lg:flex lg:translate-x-[0%] lg:flex-col lg:space-y-6 lg:rounded-none lg:bg-[#F5f5f5] lg:p-0 lg:text-xs lg:shadow-none xl:static xl:flex xl:translate-x-[0%] xl:flex-col xl:space-y-10 xl:rounded-none xl:bg-[#F5f5f5] xl:p-0 xl:text-sm xl:shadow-none ${classNames(
           {
             'z-50 translate-x-[-2%] duration-500 ease-in-out': toggle,
             'translate-x-[-120%] duration-500 ease-in-out': !toggle
@@ -141,7 +141,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
         )}`}
       >
         <div>
-          <span className='mb-2 flex items-center font-bold capitalize lg:text-xs xl:text-sm'>
+          <span className='mb-2 flex items-center text-xs font-bold capitalize xl:text-sm'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -199,7 +199,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
           ))}
         </div>
         <div>
-          <div className='mb-2 flex items-center font-bold capitalize lg:text-xs xl:text-sm'>
+          <div className='mb-2 flex items-center text-xs font-bold capitalize xl:text-sm'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -228,17 +228,15 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
                     onClick={handleRating(i + 2)}
                   >
                     <div
-                      className={`flex items-center px-2 md:px-3 lg:px-3 xl:px-4 ${classNames(
-                        {
-                          'rounded-full bg-[#EBEBEB]':
-                            ObjectKeySearch.rating_filter === i + 2
-                        }
-                      )}`}
+                      className={`flex items-center px-3 xl:px-4 ${classNames({
+                        'rounded-full bg-[#EBEBEB]':
+                          ObjectKeySearch.rating_filter === i + 2
+                      })}`}
                     >
-                      <div className='mr-2 phone:mr-3 lg:mr-3 xl:mr-4'>
+                      <div className='mr-3 xl:mr-4'>
                         <Rate
-                          className='pb-[2px] phone:pb-[4px] lg:pb-[4px] xl:pb-[6px]'
-                          rootClassName='text-rate text-[8px] lg:text-[12px] xl:text-sm cursor-pointer md:text-[10px]'
+                          className='pb-[4px] xl:pb-[6px]'
+                          rootClassName='text-rate text-[10px] lg:text-[12px] xl:text-sm cursor-pointer'
                           disabled
                           allowHalf
                           defaultValue={i + 2}
@@ -256,7 +254,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
               <div className='mb-1 flex items-center justify-between'>
                 <InputNumber
                   className={
-                    'h-5 max-w-[43%] rounded-sm border bg-white px-2 outline-none phone:h-7 phone:px-3 md:h-8 md:px-3 lg:h-8 lg:px-3 xl:h-9 xl:px-3'
+                    'h-7 max-w-[43%] rounded-sm border bg-white px-2 outline-none phone:px-3 md:h-8 md:px-3 lg:h-8 lg:px-3 xl:h-9 xl:px-3'
                   }
                   placeholder='₫ TỪ'
                   {...register('price_min')}
@@ -266,7 +264,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
                   value={getValues('price_min')}
                 />
                 <InputNumber
-                  className='h-5 max-w-[43%] rounded-sm border px-2 outline-none phone:h-7 phone:px-3 md:h-8 md:px-3 lg:h-8 lg:px-3 xl:h-9 xl:px-3'
+                  className='h-7 max-w-[43%] rounded-sm border px-2 outline-none phone:px-3 md:h-8 md:px-3 lg:h-8 lg:px-3 xl:h-9 xl:px-3'
                   placeholder='₫ ĐẾN'
                   {...register('price_max')}
                   triggerName='price_min'
@@ -280,13 +278,13 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
               </div>
               {errors.price_max && errors.price_min ? (
                 <input
-                  className='cursor-pointer rounded-sm bg-primary py-1 uppercase text-white phone:py-2 md:py-2 lg:py-2 xl:py-3'
+                  className='cursor-pointer rounded-sm bg-primary py-2 uppercase text-white xl:py-3'
                   type='button'
                   value='Áp dụng'
                 />
               ) : (
                 <input
-                  className='cursor-pointer rounded-sm bg-primary py-1 uppercase text-white phone:py-2 md:py-2 lg:py-2 xl:py-3'
+                  className='cursor-pointer rounded-sm bg-primary py-2 uppercase text-white xl:py-3'
                   type='submit'
                   value='Áp dụng'
                 />
@@ -299,7 +297,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
                 navigate('/')
                 reset()
               }}
-              className='w-full cursor-pointer rounded-sm bg-primary py-1 uppercase text-white phone:py-2 md:py-2 lg:py-2 xl:py-3'
+              className='w-full cursor-pointer rounded-sm bg-primary py-2 uppercase text-white xl:py-3'
             >
               XÓA TẤT CẢ
             </button>

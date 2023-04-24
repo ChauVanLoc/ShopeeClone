@@ -21,11 +21,13 @@ function Product({ product, classNameBlock, rating }: ProductProps) {
       to={`/${initId(product.name)}-id,${product._id}`}
       className={classNameBlock}
     >
-      <img
-        className='mx-auto h-[176px] object-cover phone:h-[201px] md:h-[183px] lg:h-[162px] xl:h-[190px]'
-        src={product.image}
-        alt='img'
-      />
+      <div>
+        <img
+          className='mx-auto h-[176px] object-cover phone:h-[201px] md:h-[183px] lg:h-[162px] xl:h-[190px]'
+          src={product.image}
+          alt='img'
+        />
+      </div>
       <div className='p-2'>
         <p className='text-[10px] line-clamp-2 phone:h-[34px] phone:text-xs md:h-[34px] md:text-xs lg:h-[34px] lg:text-xs xl:h-[42px] xl:text-sm'>
           {product.name}
@@ -49,7 +51,7 @@ function Product({ product, classNameBlock, rating }: ProductProps) {
               defaultValue={rating}
             />
           </div>
-          <div className='ml-2 text-[8px] phone:ml-3 phone:text-[10px] md:ml-2 md:text-[10px] lg:ml-2 lg:text-[10px] xl:ml-3 xl:text-xs'>
+          <div className='ml-2 text-[10px] phone:ml-3 phone:text-[10px] md:ml-2 md:text-[10px] lg:ml-2 lg:text-[10px] xl:ml-3 xl:text-xs'>
             Đã bán {convertDigitalNumber(product.sold)}
           </div>
         </div>
