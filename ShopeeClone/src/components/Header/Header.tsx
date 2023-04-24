@@ -50,7 +50,7 @@ function Header() {
   })
   const purchaseData = purchaseFetching.data?.data.data
   return (
-    <div className='bg-header px-2 pb-2 pt-1 phone:px-3 md:px-3 md:pb-3 lg:px-0 lg:pb-4 xl:px-0 xl:pb-5'>
+    <div className='bg-header px-2 pb-2 pt-1 md:px-3 md:pb-3 lg:px-0 lg:pb-4 xl:px-0 xl:pb-5'>
       <div className='mx-auto text-[10px] text-white md:max-w-3xl lg:max-w-4xl xl:max-w-7xl xl:text-xs'>
         <div className='mb:mb-2 mb-1 mt-1 flex justify-end md:justify-between lg:mb-2 lg:justify-between xl:mb-3 xl:justify-between'>
           <div className='hidden items-center justify-between sm:hidden md:flex md:space-x-2 lg:flex lg:space-x-3 xl:flex xl:space-x-4'>

@@ -70,11 +70,11 @@ function ProductDetail() {
     return <SkeletonProductDetail />
   }
   return (
-    <div className='bg-[#f5f5f5] p-3 text-[8px] md:text-[10px] lg:py-3 lg:text-xs xl:py-3 xl:text-sm'>
+    <div className='bg-[#f5f5f5] p-2 text-xs lg:py-3 lg:text-xs xl:py-3 xl:text-sm'>
       <div className='flex flex-col items-center'>
         <div className='rounded-ms mb-2 flex flex-col bg-white shadow-sm md:mb-3 md:max-w-3xl md:flex-row md:items-start md:p-2 lg:mb-4 lg:max-w-4xl lg:flex-row lg:items-start lg:p-3 xl:mb-5 xl:max-w-7xl xl:flex-row xl:items-start xl:p-3'>
-          <div className='mb-5 flex w-[350px] flex-col justify-center md:mb-0 md:mr-3 md:w-[250px] lg:mb-0 lg:mr-3 lg:w-[330px] xl:mb-0 xl:mr-3 xl:w-[450px]'>
-            <div className='h-[350px] w-[350px] md:h-[250px] md:w-[250px] lg:h-[330px] lg:w-[330px] xl:h-[450px] xl:w-[450px]'>
+          <div className='mb-5 flex w-[360px] flex-col justify-center phone:w-[410px] md:mb-0 md:mr-3 md:w-[250px] lg:mb-0 lg:mr-3 lg:w-[330px] xl:mb-0 xl:mr-3 xl:w-[450px]'>
+            <div className='h-[360px] w-[360px] phone:h-[410px] phone:w-[410px] md:h-[250px] md:w-[250px] lg:h-[330px] lg:w-[330px] xl:h-[450px] xl:w-[450px]'>
               <Image.PreviewGroup>
                 <Slider
                   className=''
@@ -96,7 +96,7 @@ function ProductDetail() {
                 </Slider>
               </Image.PreviewGroup>
             </div>
-            <div className='mt-3 w-[350px] md:w-[250px] lg:w-[330px] xl:w-[450px]'>
+            <div className='mt-3 w-[360px] phone:w-[410px] md:w-[250px] lg:w-[330px] xl:w-[450px]'>
               <Slider
                 infinite={false}
                 ref={(slider) => setSlider1(slider)}
@@ -133,7 +133,7 @@ function ProductDetail() {
               </Slider>
             </div>
           </div>
-          <div className='m-auto h-auto md:w-[60%] lg:w-[60%] xl:w-[60%]'>
+          <div className='md:w-[60%] lg:w-[60%] xl:w-[60%]'>
             <h3 className='mb-3 w-full px-3 text-sm font-medium line-clamp-2 md:truncate md:px-0 md:text-base lg:truncate lg:px-0 lg:text-lg xl:truncate xl:px-0 xl:text-xl'>
               {product.name}
             </h3>
@@ -160,7 +160,7 @@ function ProductDetail() {
                 <span>{convertCurrentcy(product.price, 0)}</span>
               </div>
               <div className='flex items-center'>
-                <span className='rounded-sm bg-red py-[0.5px] text-[8px] font-bold text-white md:px-[5px] md:py-[2px] md:text-[10px] lg:px-[6px] lg:py-[3px] lg:text-[10px] xl:px-2 xl:py-1 xl:text-xs'>
+                <span className='rounded-sm bg-red px-[3px] py-[0.5px] text-[8px] font-bold text-white md:px-[5px] md:py-[2px] md:text-[10px] lg:px-[6px] lg:py-[3px] lg:text-[10px] xl:px-2 xl:py-1 xl:text-xs'>
                   {rateSale(product.price_before_discount, product.price)} Giảm
                 </span>
               </div>
@@ -214,21 +214,21 @@ function ProductDetail() {
                 </div>
                 <div>₫0 - ₫22.000</div>
               </div>
-              <div className='col-span-1 col-start-1 row-start-5 text-gray-500'>
+              <div className='col-span-1 col-start-1 row-start-5 hidden text-gray-500 md:block lg:block xl:block'>
                 Size
               </div>
-              <div className='col-span-4 col-start-2 row-start-5'>
+              <div className='col-span-4 col-start-2 row-start-5 hidden md:block lg:block xl:block'>
                 <div className='flex'>
-                  <div className='mr-1 border-[1px] border-gray-200 p-1 md:mr-2 md:py-1 md:px-2 lg:mr-2 lg:py-1 lg:px-2 xl:mr-3 xl:py-2 xl:px-3'>
+                  <div className='border-[1px] border-gray-200 p-1 md:mr-1 md:px-1 md:py-1 lg:mr-2 lg:px-2 lg:py-1 xl:mr-3 xl:px-3 xl:py-2'>
                     S (50-60kg)
                   </div>
-                  <div className='mr-1 border-[1px] border-gray-200 p-1 md:mr-2 md:py-1 md:px-2 lg:mr-2 lg:py-1 lg:px-2 xl:mr-3 xl:py-2 xl:px-3'>
+                  <div className='border-[1px] border-gray-200 p-1 md:mr-1 md:px-1 md:py-1 lg:mr-2 lg:px-2 lg:py-1 xl:mr-3 xl:px-3 xl:py-2'>
                     M (60-70kg)
                   </div>
-                  <div className='mr-1 border-[1px] border-gray-200 p-1 md:mr-2 md:py-1 md:px-2 lg:mr-2 lg:py-1 lg:px-2 xl:mr-3 xl:py-2 xl:px-3'>
+                  <div className='border-[1px] border-gray-200 p-1 md:mr-1 md:px-1 md:py-1 lg:mr-2 lg:px-2 lg:py-1 xl:mr-3 xl:px-3 xl:py-2'>
                     L (70-80kg)
                   </div>
-                  <div className='mr-1 border-[1px] border-gray-200 p-1 md:mr-2 md:py-1 md:px-2 lg:mr-2 lg:py-1 lg:px-2 xl:mr-3 xl:py-2 xl:px-3'>
+                  <div className='border-[1px] border-gray-200 p-1 md:px-1 md:py-1 lg:px-2 lg:py-1 xl:px-3 xl:py-2'>
                     XL (80-95kg)
                   </div>
                 </div>
@@ -267,10 +267,10 @@ function ProductDetail() {
                 {product.quantity} sản phẩm có sẳn
               </div>
             </div>
-            <div className='ml-7 mb-2 grid grid-cols-10 gap-9 md:pt-5 lg:pt-5 lg:text-sm xl:pt-5 xl:text-base'>
+            <div className='mb-2 grid grid-cols-9 gap-9 phone:grid-cols-10 md:ml-7 md:grid-cols-10 md:pt-5 lg:ml-7 lg:grid-cols-10 lg:pt-5 lg:text-sm xl:ml-7 xl:grid-cols-10 xl:pt-5 xl:text-base'>
               <button
                 onClick={handleAddCart}
-                className='col-span-4 col-start-1 flex items-center justify-center border border-red bg-[#FDF3F4] py-1 text-red md:py-2 lg:py-3 xl:py-4'
+                className='col-span-4 col-start-2 flex items-center justify-center border border-red bg-[#FDF3F4] px-2 py-2 text-red phone:px-2 md:col-span-4 md:col-start-1 md:py-2 lg:col-span-4 lg:col-start-1 lg:py-3 xl:col-span-4 xl:col-start-1 xl:py-4'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -290,7 +290,7 @@ function ProductDetail() {
               </button>
               <button
                 onClick={handleOrder}
-                className='col-span-3 col-start-5 bg-red text-white'
+                className='col-span-3 col-start-6 bg-red text-white'
               >
                 Mua hàng
               </button>
@@ -299,11 +299,10 @@ function ProductDetail() {
           {/* </div> */}
         </div>
         <div className='rounded-sm bg-white p-3 md:max-w-3xl md:p-4 lg:max-w-4xl lg:p-5 xl:max-w-7xl xl:p-7'>
-          <div className='bg-[#f5f5f5] p-2 text-sm font-bold uppercase md:p-3 md:text-base lg:p-4 lg:text-lg xl:p-5 xl:text-xl'>
+          <div className='mb-2 bg-[#f5f5f5] p-2 text-sm font-bold uppercase md:mr-3 md:p-3 md:text-base lg:mr-4 lg:p-4 lg:text-lg xl:mb-5 xl:p-5 xl:text-xl'>
             chi tiết sản phẩm
           </div>
           <div
-            className='p-5'
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(product.description)
             }}
