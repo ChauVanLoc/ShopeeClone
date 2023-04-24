@@ -139,7 +139,7 @@ function ProductDetail() {
             </h3>
             <div className='mb-3 flex px-3 md:px-0 lg:px-0 xl:px-0'>
               <Rate
-                className='text-[8px] text-rate md:text-[10px] lg:text-xs xl:text-sm'
+                className='md:xs text-xs text-rate lg:text-xs xl:text-sm'
                 disabled
                 allowHalf
                 defaultValue={4.5}
