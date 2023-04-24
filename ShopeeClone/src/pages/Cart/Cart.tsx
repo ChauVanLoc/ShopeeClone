@@ -294,7 +294,7 @@ function Cart() {
           </>
         )}
         {purchases.length > 0 && (
-          <div className='sticky bottom-0 left-0 right-0 flex items-center justify-between rounded-sm border border-gray-200 bg-product px-3 py-8 text-center md:mb-4 md:grid md:grid-cols-16 md:px-8 md:py-5'>
+          <div className='fixed bottom-0 left-0 right-0 flex items-center justify-between rounded-sm border border-gray-200 bg-product px-3 py-8 text-center md:sticky md:mb-4 md:grid md:grid-cols-16 md:px-8 md:py-5'>
             <input
               onChange={handleChecked(true)}
               id='check-all'

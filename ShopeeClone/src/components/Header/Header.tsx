@@ -17,7 +17,7 @@ import { UserFetching } from 'src/Api/UserFetching'
 import { urlApi } from 'src/constants/config'
 import classNames from 'classnames'
 
-const { user: userPath, account, profile, order } = PathRoute
+const { user: userPath, account, profile, order, password } = PathRoute
 
 function Header() {
   const o = useSearchUrl()
@@ -168,14 +168,26 @@ function Header() {
                 }
                 off={0.7}
                 classNameBlock='pl-3 py-1 cursor-pointer'
-                classNameArrow='translate-l-[-50%] absolute -top-[11%] border-[6px] border-solid border-white border-x-transparent border-t-transparent'
+                classNameArrow={`translate-l-[-50%] absolute -top-[8.2%] md:-top-[11%] border-[6px] border-solid border-white border-x-transparent border-t-transparent`}
               >
                 <div className='flex flex-col rounded-sm bg-white text-[12px] shadow-sm'>
                   <NavLink
                     to={`/${userPath}/${account}/${profile}`}
-                    className='cursor-pointer py-[9px] pl-5 pr-16 capitalize hover:bg-gray-100 hover:text-primary'
+                    className='hidden cursor-pointer py-[9px] pl-5 pr-16 capitalize hover:bg-gray-100 hover:text-primary md:block'
                   >
                     Tài khoản của tôi
+                  </NavLink>
+                  <NavLink
+                    to={`/${userPath}/${account}/${profile}`}
+                    className='block cursor-pointer py-[9px] pl-5 pr-16 capitalize hover:bg-gray-100 hover:text-primary md:hidden'
+                  >
+                    Hồ sơ của tôi
+                  </NavLink>
+                  <NavLink
+                    to={`/${userPath}/${account}/${password}`}
+                    className='block cursor-pointer py-[9px] pl-5 pr-16 capitalize hover:bg-gray-100 hover:text-primary md:hidden'
+                  >
+                    Thay đổi mật khẩu
                   </NavLink>
                   <NavLink
                     to={`/${userPath}/${order}`}

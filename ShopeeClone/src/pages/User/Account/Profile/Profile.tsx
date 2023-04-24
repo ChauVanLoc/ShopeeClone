@@ -106,7 +106,7 @@ function Profile() {
           Quản lý thông tin hồ sơ để bảo mật tài khoản
         </p>
       </div>
-      <div className='flex'>
+      <div className='flex flex-col-reverse md:flex-row'>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className='mt-8 grid grid-cols-3 grid-rows-6 items-center gap-x-8 gap-y-5 lg:w-[60%]'
@@ -129,7 +129,7 @@ function Profile() {
               {...register('name')}
             />
             <span
-              className={`absolute top-0 left-2 -translate-y-[50%] bg-product px-2 font-sans text-xs italic text-primary opacity-0 ${classNames(
+              className={`absolute left-2 top-0 -translate-y-[50%] bg-product px-2 font-sans text-xs italic text-primary opacity-0 ${classNames(
                 {
                   'opacity-100': errors.name
                 }
@@ -164,7 +164,7 @@ function Profile() {
               {...register('phone')}
             />
             <span
-              className={`absolute top-0 left-2 -translate-y-[50%] bg-product px-2 font-sans text-xs italic text-primary opacity-0 ${classNames(
+              className={`absolute left-2 top-0 -translate-y-[50%] bg-product px-2 font-sans text-xs italic text-primary opacity-0 ${classNames(
                 {
                   'opacity-100': errors.phone
                 }
@@ -192,7 +192,7 @@ function Profile() {
               {...register('address')}
             />
             <span
-              className={`absolute top-0 left-2 -translate-y-[50%] bg-product px-2 font-sans text-xs italic text-primary opacity-0 ${classNames(
+              className={`absolute left-2 top-0 -translate-y-[50%] bg-product px-2 font-sans text-xs italic text-primary opacity-0 ${classNames(
                 {
                   'opacity-100': errors.address
                 }
@@ -244,7 +244,7 @@ function Profile() {
           />
         </form>
         <div className='align-middle lg:w-[40%]'>
-          <div className='mt-8 flex flex-col items-center justify-center border-l-[1px] pb-10'>
+          <div className='mt-8 flex flex-col items-center justify-center pb-10 md:border-l-[1px]'>
             {getValues('avatar') || file ? (
               <img
                 className='h-28 w-28 rounded-full border-[1px] border-gray-100 object-cover'
