@@ -233,7 +233,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
                           ObjectKeySearch.rating_filter === i + 2
                       })}`}
                     >
-                      <div className='mr-3 xl:mr-4'>
+                      <div className='mr-3 md:mr-2 xl:mr-4'>
                         <Rate
                           className='pb-[4px] xl:pb-[6px]'
                           rootClassName='text-rate text-[10px] lg:text-[12px] xl:text-sm cursor-pointer'

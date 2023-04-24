@@ -51,7 +51,7 @@ function Header() {
   const purchaseData = purchaseFetching.data?.data.data
   return (
     <div className='bg-header px-2 pb-2 pt-1 phone:px-3 md:px-3 md:pb-3 lg:px-0 lg:pb-4 xl:px-0 xl:pb-5'>
-      <div className='mx-auto text-[9px] text-white phone:text-[10px] md:max-w-3xl md:text-[10px] lg:max-w-4xl lg:text-[10px] xl:max-w-7xl xl:text-xs'>
+      <div className='mx-auto text-[10px] text-white md:max-w-3xl lg:max-w-4xl xl:max-w-7xl xl:text-xs'>
         <div className='mb:mb-2 mb-1 mt-1 flex justify-end md:justify-between lg:mb-2 lg:justify-between xl:mb-3 xl:justify-between'>
           <div className='hidden items-center justify-between sm:hidden md:flex md:space-x-2 lg:flex lg:space-x-3 xl:flex xl:space-x-4'>
             <span className={'border-r-[1px] md:pr-2 lg:pr-2 xl:pr-3'}>
@@ -217,7 +217,7 @@ function Header() {
               viewBox='0 0 24 24'
               strokeWidth={1.5}
               stroke='currentColor'
-              className='h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-10 lg:w-10 xl:h-12 xl:w-12'
+              className='h-8 w-8 md:h-10 md:w-10 lg:h-10 lg:w-10 xl:h-12 xl:w-12'
             >
               <path
                 strokeLinecap='round'
@@ -225,12 +225,12 @@ function Header() {
                 d='M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z'
               />
             </svg>
-            <label className='ml-2 cursor-pointer font-serif text-lg sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl'>
+            <label className='ml-2 cursor-pointer font-serif text-xl md:text-2xl lg:text-2xl xl:text-3xl'>
               TechShop
             </label>
           </Link>
-          <div className='flex w-[60%] justify-between md:w-[70%] lg:w-[70%] xl:w-[70%]'>
-            <div className='relative flex h-[22px] w-[85%] items-end overflow-hidden rounded-sm bg-white md:h-[30px] lg:h-[30px] xl:h-[40px]'>
+          <div className='flex w-[55%] justify-between md:w-[70%] lg:w-[70%] xl:w-[70%]'>
+            <div className='relative flex h-[26px] w-[85%] items-end overflow-hidden rounded-sm bg-white md:h-[30px] lg:h-[30px] xl:h-[40px]'>
               <form onSubmit={onSubmit}>
                 <input
                   type='text'
@@ -240,7 +240,7 @@ function Header() {
                 />
                 <button
                   onClick={onSubmit}
-                  className='absolute right-1 top-[50%] flex h-[18px] w-[30px] translate-y-[-50%] items-center justify-center rounded-sm bg-header xl:h-[32px] xl:w-[55px]'
+                  className='absolute right-1 top-[50%] flex h-[20px] w-[30px] translate-y-[-50%] items-center justify-center rounded-sm bg-header xl:h-[32px] xl:w-[55px]'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -248,7 +248,7 @@ function Header() {
                     viewBox='0 0 24 24'
                     strokeWidth={1.5}
                     stroke='currentColor'
-                    className='h-3 w-4 md:h-4 md:w-4 xl:h-6 xl:w-6'
+                    className='h-4 w-4 xl:h-6 xl:w-6'
                   >
                     <path
                       strokeLinecap='round'
@@ -286,7 +286,7 @@ function Header() {
                       viewBox='0 0 24 24'
                       strokeWidth={1.25}
                       stroke='currentColor'
-                      className='h-5 w-5 text-white sm:h-6 sm:w-6 md:h-8 md:w-8 lg:h-8 lg:w-8 xl:h-9 xl:w-9'
+                      className='h-6 w-6 text-white md:h-8 md:w-8 lg:h-8 lg:w-8 xl:h-9 xl:w-9'
                     >
                       <path
                         strokeLinecap='round'

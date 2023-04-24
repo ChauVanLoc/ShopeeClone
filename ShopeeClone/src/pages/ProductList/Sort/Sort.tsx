@@ -29,7 +29,7 @@ function Sort({
     <div
       className={`mb-1 flex justify-between rounded-sm bg-sort p-2 text-[12px] shadow-sm phone:px-3 phone:py-2 phone:text-xs md:mb-2 md:px-3 md:py-2 md:text-xs lg:mb-3 lg:px-3 lg:py-2 lg:text-xs xl:mb-4 xl:px-5 xl:py-3 xl:text-sm ${rootClassname}`}
     >
-      <div className='flex items-center space-x-3 md:space-x-3 lg:space-x-3 xl:space-x-5'>
+      <div className='flex items-center space-x-2 phone:space-x-2 md:space-x-3 lg:space-x-3 xl:space-x-5'>
         <div>Sắp xếp theo</div>
         {SearchParamsObject && SearchParamsObject.sort_by === 'view' ? (
           <span
@@ -144,12 +144,12 @@ function Sort({
           />
         </div>
       </div>
-      <div className='hidden items-center justify-evenly phone:flex md:flex lg:flex xl:flex'>
+      <div className='flex items-center justify-evenly'>
         <div className='mr-2 lg:mr-3 xl:mr-4'>
           <span className='text-primary'>{page}</span>
           <span>/{pageSize}</span>
         </div>
-        <div className='flex'>
+        <div className='hidden md:flex lg:flex xl:flex'>
           {page === 1 ? (
             <span className='cursor-not-allowed rounded-sm border-r-[1px] border-r-gray-200 bg-gray-300/30 p-[4.8px] shadow-sm phone:p-[8px] md:p-[9px] lg:p-[6px] xl:p-2'>
               <svg
