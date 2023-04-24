@@ -70,14 +70,13 @@ function ProductDetail() {
     return <SkeletonProductDetail />
   }
   return (
-    <div className='bg-[#f5f5f5] p-2 text-xs lg:py-3 lg:text-xs xl:py-3 xl:text-sm'>
-      <div className='flex flex-col items-center'>
-        <div className='rounded-ms mb-2 flex flex-col bg-white shadow-sm md:mb-3 md:max-w-3xl md:flex-row md:items-start md:p-2 lg:mb-4 lg:max-w-4xl lg:flex-row lg:items-start lg:p-3 xl:mb-5 xl:max-w-7xl xl:flex-row xl:items-start xl:p-3'>
-          <div className='mb-5 w-[360px] phone:w-[410px] md:mb-0 md:mr-3 md:w-[250px] lg:mb-0 lg:mr-3 lg:w-[330px] xl:mb-0 xl:mr-3 xl:w-[450px]'>
-            <div className='mx-auto flex h-[360px] w-[360px] flex-col justify-center phone:h-[410px] phone:w-[410px] md:h-[250px] md:w-[250px] lg:h-[330px] lg:w-[330px] xl:h-[450px] xl:w-[450px]'>
+    <div className='bg-[#f5f5f5] p-2 text-xs lg:py-3 lg:text-xs xl:py-4 xl:text-sm'>
+      <div className='mx-auto md:max-w-3xl lg:max-w-4xl xl:max-w-7xl'>
+        <div className='rounded-ms mb-2 flex flex-col bg-white shadow-sm md:mb-3 md:flex-row md:items-start md:justify-between md:p-4 lg:mb-4 lg:p-3 xl:mb-5 xl:p-4'>
+          <div className='md:w-[38%] md:p-0 lg:w-[38%] xl:w-[38%]'>
+            <div>
               <Image.PreviewGroup>
                 <Slider
-                  className=''
                   infinite={false}
                   ref={(slider) => setSlider2(slider)}
                   asNavFor={slider1 as Slider}
@@ -87,17 +86,18 @@ function ProductDetail() {
                   }}
                 >
                   {product.images.map((_, i) => (
-                    <img
-                      className='w-full'
-                      key={idProduct}
-                      src={product.images[i]}
-                      alt={idProduct}
-                    />
+                    <div className='flex items-center justify-center'>
+                      <img
+                        key={idProduct}
+                        src={product.images[i]}
+                        alt={idProduct}
+                      />
+                    </div>
                   ))}
                 </Slider>
               </Image.PreviewGroup>
             </div>
-            <div className='mx-auto mt-3 w-[360px] phone:w-[410px] md:w-[250px] lg:w-[330px] xl:w-[450px]'>
+            <div>
               <Slider
                 infinite={false}
                 ref={(slider) => setSlider1(slider)}
@@ -122,22 +122,24 @@ function ProductDetail() {
                 }}
               >
                 {product.images.map((_, i) => (
-                  <img
-                    className={classNames({
-                      'border-2 border-solid border-red': change === i
-                    })}
-                    key={idProduct}
-                    src={product.images[i]}
-                    alt={idProduct}
-                  />
+                  <div className='odd:py-2 odd:pr-2 even:p-2'>
+                    <img
+                      className={classNames({
+                        'border-2 border-solid border-red': change === i
+                      })}
+                      key={idProduct}
+                      src={product.images[i]}
+                      alt={idProduct}
+                    />
+                  </div>
                 ))}
               </Slider>
             </div>
           </div>
-          <div className='md:w-[60%] lg:w-[60%] xl:w-[60%]'>
-            <h3 className='mb-3 w-full px-3 text-sm font-medium line-clamp-2 md:truncate md:px-0 md:text-base lg:truncate lg:px-0 lg:text-lg xl:truncate xl:px-0 xl:text-xl'>
+          <div className='w-full md:w-[60%] lg:w-[60%] xl:w-[60%]'>
+            <p className='mb-3 px-3 text-sm font-medium line-clamp-2 md:px-0 md:text-base lg:px-0 lg:text-lg xl:px-0 xl:text-xl'>
               {product.name}
-            </h3>
+            </p>
             <div className='mb-3 flex px-3 md:px-0 lg:px-0 xl:px-0'>
               <Rate
                 className='md:xs text-xs text-rate lg:text-xs xl:text-sm'
@@ -299,8 +301,8 @@ function ProductDetail() {
           </div>
           {/* </div> */}
         </div>
-        <div className='rounded-sm bg-white p-3 md:max-w-3xl md:p-4 lg:max-w-4xl lg:p-5 xl:max-w-7xl xl:p-7'>
-          <div className='mb-2 bg-[#f5f5f5] p-2 text-sm font-bold uppercase md:mr-3 md:p-3 md:text-base lg:mr-4 lg:p-4 lg:text-lg xl:mb-5 xl:p-5 xl:text-xl'>
+        <div className='rounded-sm bg-white p-3 md:p-4  lg:p-5 xl:p-7'>
+          <div className='mb-2 bg-[#f5f5f5] p-2 text-sm font-bold uppercase md:p-3 md:text-base lg:p-4 lg:text-lg xl:mb-5 xl:p-5 xl:text-xl'>
             chi tiết sản phẩm
           </div>
           <div
