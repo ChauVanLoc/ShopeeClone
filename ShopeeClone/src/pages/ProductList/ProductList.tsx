@@ -74,7 +74,7 @@ function ProductList() {
                   product={e}
                   key={e._id}
                   rating={e.rating}
-                  classNameBlock='hover:translate-y-[-3px] ease-in-out duration-[0.2s] text-sm rounded-sm shadow-md bg-product'
+                  classNameBlock='lg:hover:translate-y-[-3px] xl:hover:translate-y-[-3px] ease-in-out duration-[0.2s] rounded-sm shadow-md bg-product'
                 />
               ))}
               {ListProductdata?.length === 0 && (
