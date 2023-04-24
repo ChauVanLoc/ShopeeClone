@@ -26,7 +26,7 @@ function ProductList() {
   const ListProductdata = getListProduct.data?.data.data.products
   if (!ListCateGoryData && !ListProductdata) return null
   return (
-    <div id='productid' className='bg-[#F5f5f5] py-2 md:px-2 lg:py-3 xl:py-5'>
+    <div id='productid' className='bg-[#F5f5f5] py-2 md:px-3 lg:py-2 xl:py-4'>
       <div className='flex flex-col bg-[#F5f5f5] md:mx-auto md:max-w-3xl md:flex-row lg:mx-auto lg:max-w-4xl lg:flex-row xl:mx-auto xl:max-w-7xl xl:flex-row'>
         <div className='md:mr-6 md:w-[20%] lg:mr-6 lg:w-[20%] xl:mr-6 xl:w-[20%]'>
           {ListCateGoryData && (
@@ -65,7 +65,7 @@ function ProductList() {
               className={classNames({
                 'flex h-[500px] w-[992px] items-center justify-center':
                   ListProductdata?.length === 0,
-                'grid grid-cols-2 gap-2 p-2 md:grid-cols-4 md:gap-3 md:p-0 lg:grid-cols-5 lg:gap-4 lg:p-0 xl:grid-cols-5 xl:gap-4 xl:p-0':
+                'grid grid-cols-2 gap-2 p-2 phone:gap-2 phone:px-2 md:grid-cols-3 md:gap-3 md:p-0 lg:grid-cols-4 lg:gap-4 lg:p-0 xl:grid-cols-5 xl:gap-4 xl:p-0':
                   ListProductdata && ListProductdata?.length > 0
               })}
             >

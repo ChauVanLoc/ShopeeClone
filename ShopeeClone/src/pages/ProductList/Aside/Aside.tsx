@@ -21,7 +21,7 @@ const BackgroundToggle = ({ visible, setToggle }: bgToggleType) => {
     <div
       onClick={() => setToggle(!visible)}
       className={`z-40 md:hidden lg:hidden xl:hidden ${classNames({
-        'absolute top-0 left-0 bottom-0 w-screen bg-zinc-600/30': visible
+        'absolute bottom-0 left-0 top-0 w-screen bg-zinc-600/30': visible
       })}`}
     />,
     document.getElementById('root') as HTMLElement
@@ -96,7 +96,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
     <div className='relative mb-2 md:mb-0 md:pl-0 md:pt-2 lg:mb-0 lg:pl-0 lg:pt-2 xl:mb-0 xl:pl-0 xl:pt-2'>
       <button
         onClick={() => setToggle(!toggle)}
-        className='ml-2 flex items-center text-[10px] duration-500 md:hidden lg:hidden xl:hidden'
+        className='ml-2 flex items-center text-xs duration-500 md:hidden lg:hidden xl:hidden'
       >
         {!toggle ? (
           <svg
@@ -133,7 +133,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
       </button>
       <BackgroundToggle setToggle={setToggle} visible={toggle} />
       <div
-        className={`absolute rounded-sm bg-white px-5 py-3 text-[8px] shadow-sm md:static md:flex md:translate-x-[0%] md:flex-col md:rounded-none md:bg-[#F5f5f5] md:p-0 md:text-[12px] md:shadow-none lg:static lg:flex lg:translate-x-[0%] lg:flex-col lg:space-y-6 lg:rounded-none lg:bg-[#F5f5f5] lg:p-0 lg:text-[12px] lg:shadow-none xl:static xl:flex xl:translate-x-[0%] xl:flex-col xl:space-y-10 xl:rounded-none xl:bg-[#F5f5f5] xl:p-0 xl:text-[14px] xl:shadow-none ${classNames(
+        className={`absolute rounded-sm bg-white px-5 py-3 text-[10px] shadow-sm md:static md:flex md:translate-x-[0%] md:flex-col md:rounded-none md:bg-[#F5f5f5] md:p-0 md:text-xs md:shadow-none lg:static lg:flex lg:translate-x-[0%] lg:flex-col lg:space-y-6 lg:rounded-none lg:bg-[#F5f5f5] lg:p-0 lg:text-xs lg:shadow-none xl:static xl:flex xl:translate-x-[0%] xl:flex-col xl:space-y-10 xl:rounded-none xl:bg-[#F5f5f5] xl:p-0 xl:text-sm xl:shadow-none ${classNames(
           {
             'z-50 translate-x-[-2%] duration-500 ease-in-out': toggle,
             'translate-x-[-120%] duration-500 ease-in-out': !toggle
@@ -224,22 +224,27 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
                 .map((_, i) => (
                   <button
                     key={i}
-                    className='mb-3 flex items-center md:mb-4 lg:mb-4 xl:mb-4'
+                    className='mb-4 flex items-end'
                     onClick={handleRating(i + 2)}
                   >
                     <div
-                      className={`px-2 md:px-2 lg:px-3 xl:px-5 ${classNames({
-                        'rounded-full bg-[#EBEBEB]':
-                          ObjectKeySearch.rating_filter === i + 2
-                      })}`}
+                      className={`flex items-center px-2 md:px-3 lg:px-3 xl:px-4 ${classNames(
+                        {
+                          'rounded-full bg-[#EBEBEB]':
+                            ObjectKeySearch.rating_filter === i + 2
+                        }
+                      )}`}
                     >
-                      <Rate
-                        rootClassName='text-rate text-[8px] lg:text-[10px] xl:text-sm cursor-pointer mr-4 pb-[6px] md:text-[10px]'
-                        disabled
-                        allowHalf
-                        defaultValue={i + 2}
-                      />
-                      <span>{i + 2 < 5 ? 'trở lên' : ''}</span>
+                      <div className='mr-2 phone:mr-3 lg:mr-3 xl:mr-4'>
+                        <Rate
+                          className='pb-[2px] phone:pb-[4px] lg:pb-[4px] xl:pb-[6px]'
+                          rootClassName='text-rate text-[8px] lg:text-[12px] xl:text-sm cursor-pointer md:text-[10px]'
+                          disabled
+                          allowHalf
+                          defaultValue={i + 2}
+                        />
+                      </div>
+                      <div>{i + 2 < 5 ? 'trở lên' : ''}</div>
                     </div>
                   </button>
                 ))}
@@ -251,7 +256,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
               <div className='mb-1 flex items-center justify-between'>
                 <InputNumber
                   className={
-                    'h-5 max-w-[43%] rounded-sm border bg-white px-2 outline-none md:h-6 md:px-3 lg:h-7 lg:px-3 xl:h-9 xl:px-3'
+                    'h-5 max-w-[43%] rounded-sm border bg-white px-2 outline-none phone:h-7 phone:px-3 md:h-8 md:px-3 lg:h-8 lg:px-3 xl:h-9 xl:px-3'
                   }
                   placeholder='₫ TỪ'
                   {...register('price_min')}
@@ -261,7 +266,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
                   value={getValues('price_min')}
                 />
                 <InputNumber
-                  className='h-5 max-w-[43%] rounded-sm border px-2 outline-none md:h-6 md:px-3 lg:h-7 lg:px-3 xl:h-9 xl:px-3'
+                  className='h-5 max-w-[43%] rounded-sm border px-2 outline-none phone:h-7 phone:px-3 md:h-8 md:px-3 lg:h-8 lg:px-3 xl:h-9 xl:px-3'
                   placeholder='₫ ĐẾN'
                   {...register('price_max')}
                   triggerName='price_min'
@@ -275,13 +280,13 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
               </div>
               {errors.price_max && errors.price_min ? (
                 <input
-                  className='cursor-pointer rounded-sm bg-primary py-1 uppercase text-white md:py-2 lg:py-2 xl:py-3'
+                  className='cursor-pointer rounded-sm bg-primary py-1 uppercase text-white phone:py-2 md:py-2 lg:py-2 xl:py-3'
                   type='button'
                   value='Áp dụng'
                 />
               ) : (
                 <input
-                  className='cursor-pointer rounded-sm bg-primary py-1 uppercase text-white md:py-2 lg:py-2 xl:py-3'
+                  className='cursor-pointer rounded-sm bg-primary py-1 uppercase text-white phone:py-2 md:py-2 lg:py-2 xl:py-3'
                   type='submit'
                   value='Áp dụng'
                 />
@@ -294,7 +299,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
                 navigate('/')
                 reset()
               }}
-              className='w-full cursor-pointer rounded-sm bg-primary py-1 uppercase text-white md:py-2 lg:py-2 xl:py-3'
+              className='w-full cursor-pointer rounded-sm bg-primary py-1 uppercase text-white phone:py-2 md:py-2 lg:py-2 xl:py-3'
             >
               XÓA TẤT CẢ
             </button>

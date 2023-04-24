@@ -27,14 +27,14 @@ function Sort({
   }
   return (
     <div
-      className={`mb-1 flex justify-between rounded-sm bg-sort px-1 py-1 text-[8px] shadow-sm md:mb-2 md:px-2 md:py-1 md:text-[10px] lg:mb-3 lg:px-3 lg:py-2 lg:text-xs xl:mb-4 xl:px-5 xl:py-3 xl:text-sm ${rootClassname}`}
+      className={`mb-1 flex justify-between rounded-sm bg-sort px-1 py-1 text-[8px] shadow-sm phone:px-3 phone:py-2 phone:text-xs md:mb-2 md:px-3 md:py-2 md:text-xs lg:mb-3 lg:px-3 lg:py-2 lg:text-xs xl:mb-4 xl:px-5 xl:py-3 xl:text-sm ${rootClassname}`}
     >
-      <div className='flex items-center space-x-2 md:space-x-2 lg:space-x-3 xl:space-x-5'>
+      <div className='flex items-center space-x-2 md:space-x-3 lg:space-x-3 xl:space-x-5'>
         <div>Sắp xếp theo</div>
         {SearchParamsObject && SearchParamsObject.sort_by === 'view' ? (
           <span
             className={classNames(
-              'cursor-pointer rounded-sm px-2 py-1 shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
+              'cursor-pointer rounded-sm px-2 py-1 shadow-sm phone:px-2 phone:py-[4px] md:px-3 md:py-[7px] lg:px-4 lg:py-[6px] xl:px-5 xl:py-2',
               {
                 'bg-primary text-white': SearchParamsObject.sort_by === 'view',
                 'bg-white':
@@ -49,7 +49,7 @@ function Sort({
           <Link
             to={stringPagination({ sort_by: 'view', page: 1 })}
             className={classNames(
-              'cursor-pointer rounded-sm px-2 py-1 shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
+              'cursor-pointer rounded-sm px-2 py-1 shadow-sm phone:px-2 phone:py-[4px] md:px-3 md:py-[7px] lg:px-4 lg:py-[6px] xl:px-5 xl:py-2',
               {
                 'bg-primary text-white': SearchParamsObject.sort_by === 'view',
                 'bg-white':
@@ -65,7 +65,7 @@ function Sort({
         !SearchParamsObject.hasOwnProperty('sort_by') ? (
           <span
             className={classNames(
-              'cursor-pointer rounded-sm px-2 py-1 shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
+              'cursor-pointer rounded-sm px-2 py-1 shadow-sm phone:px-2 phone:py-[4px] md:px-3 md:py-[7px] lg:px-4 lg:py-[6px] xl:px-5 xl:py-2',
               {
                 'bg-primary text-white':
                   !SearchParamsObject.hasOwnProperty('sort_by') ||
@@ -82,7 +82,7 @@ function Sort({
           <Link
             to={stringPagination({ sort_by: 'createdAt', page: 1 })}
             className={classNames(
-              'cursor-pointer rounded-sm px-2 py-1 shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
+              'cursor-pointer rounded-sm px-2 py-1 shadow-sm phone:px-2 phone:py-[4px] md:px-3 md:py-[7px] lg:px-4 lg:py-[6px] xl:px-5 xl:py-2',
               {
                 'bg-primary text-white':
                   !SearchParamsObject.hasOwnProperty('sort_by') ||
@@ -99,7 +99,7 @@ function Sort({
         {SearchParamsObject && SearchParamsObject.sort_by === 'sold' ? (
           <span
             className={classNames(
-              'cursor-pointer rounded-sm px-2 py-1 shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
+              'cursor-pointer rounded-sm px-2 py-1 shadow-sm phone:px-2 phone:py-[4px] md:px-3 md:py-[7px] lg:px-4 lg:py-[6px] xl:px-5 xl:py-2',
               {
                 'bg-primary text-white': SearchParamsObject.sort_by === 'sold',
                 'bg-white':
@@ -114,7 +114,7 @@ function Sort({
           <Link
             to={stringPagination({ sort_by: 'sold', page: 1 })}
             className={classNames(
-              'cursor-pointer rounded-sm px-2 py-1 shadow-sm md:py-[5px] md:px-3 lg:py-[6px] lg:px-4 xl:py-2 xl:px-5',
+              'cursor-pointer rounded-sm px-2 py-1 shadow-sm phone:px-2 phone:py-[4px] md:px-3 md:py-[7px] lg:px-4 lg:py-[6px] xl:px-5 xl:py-2',
               {
                 'bg-primary text-white': SearchParamsObject.sort_by === 'sold',
                 'bg-white':
@@ -126,7 +126,7 @@ function Sort({
             Bán chạy
           </Link>
         )}
-        <div className='hidden items-center rounded-sm bg-product shadow-sm md:flex md:h-[22px] lg:flex lg:h-[28px] xl:flex xl:h-[36px]'>
+        <div className='hidden items-center rounded-sm bg-product shadow-sm md:hidden md:h-[22px] lg:flex lg:h-[28px] xl:flex xl:h-[36px]'>
           <Select
             bordered={false}
             defaultValue='desc'
@@ -151,7 +151,7 @@ function Sort({
         </div>
         <div className='flex'>
           {page === 1 ? (
-            <span className='cursor-not-allowed rounded-sm border-r-[1px] border-r-gray-200 bg-gray-300/30 p-[4.8px] shadow-sm md:p-[5px] lg:p-[6px] xl:p-2'>
+            <span className='cursor-not-allowed rounded-sm border-r-[1px] border-r-gray-200 bg-gray-300/30 p-[4.8px] shadow-sm phone:p-[8px] md:p-[9px] lg:p-[6px] xl:p-2'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
@@ -170,7 +170,7 @@ function Sort({
           ) : (
             <Link
               to={stringPagination({ page: page - 1 })}
-              className='rounded-sm border-r-[1px] border-r-gray-200 bg-white p-[4.8px] shadow-sm md:p-[5px] lg:p-[6px] xl:p-2'
+              className='rounded-sm border-r-[1px] border-r-gray-200 bg-white p-[4.8px] shadow-sm phone:p-[8px] md:p-[9px] lg:p-[6px] xl:p-2'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -189,7 +189,7 @@ function Sort({
             </Link>
           )}
           {page === pageSize ? (
-            <span className='cursor-not-allowed rounded-sm bg-gray-300/30  p-[4.8px] shadow-sm md:p-[5px] lg:p-[6px] xl:p-2'>
+            <span className='cursor-not-allowed rounded-sm bg-gray-300/30  p-[4.8px] shadow-sm phone:p-[8px] md:p-[9px] lg:p-[6px] xl:p-2'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
@@ -208,7 +208,7 @@ function Sort({
           ) : (
             <Link
               to={stringPagination({ page: page + 1 })}
-              className='rounded-sm bg-white p-[4.8px] shadow-sm md:p-[5px] lg:p-[6px] xl:p-2'
+              className='rounded-sm bg-white p-[4.8px] shadow-sm phone:p-[8px] md:p-[9px] lg:p-[6px] xl:p-2'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'

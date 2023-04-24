@@ -50,7 +50,7 @@ function Header() {
   })
   const purchaseData = purchaseFetching.data?.data.data
   return (
-    <div className='bg-header px-2 pt-1 pb-2 sm:pb-2 md:px-2 md:pb-3 lg:px-0 lg:pb-4 xl:px-0 xl:pb-5'>
+    <div className='bg-header px-2 pb-2 pt-1 phone:px-3 md:px-3 md:pb-3 lg:px-0 lg:pb-4 xl:px-0 xl:pb-5'>
       <div className='mx-auto text-[9px] text-white md:max-w-3xl md:text-[10px] lg:max-w-4xl lg:text-[10px] xl:max-w-7xl xl:text-xs'>
         <div className='mb:mb-2 mb-1 mt-1 flex justify-end md:justify-between lg:mb-2 lg:justify-between xl:mb-3 xl:justify-between'>
           <div className='hidden items-center justify-between sm:hidden md:flex md:space-x-2 lg:flex lg:space-x-3 xl:flex xl:space-x-4'>
@@ -119,7 +119,7 @@ function Header() {
             >
               <div
                 className={
-                  'flex flex-col rounded-sm bg-white py-3 pr-16 pl-3 text-[12px] text-gray-800 shadow-md'
+                  'flex flex-col rounded-sm bg-white py-3 pl-3 pr-16 text-[12px] text-gray-800 shadow-md'
                 }
               >
                 <button className='mb-3 hover:text-header'>Tiếng Việt</button>
@@ -234,13 +234,13 @@ function Header() {
               <form onSubmit={onSubmit}>
                 <input
                   type='text'
-                  className='absolute top-0 left-0 h-full w-[90%] pl-3 text-[8px] text-sm text-gray-600 outline-none placeholder:text-xs md:text-[10px] lg:text-[12px] xl:text-xs'
+                  className='absolute left-0 top-0 h-full w-[90%] pl-3 text-[8px] text-sm text-gray-600 outline-none placeholder:text-xs md:text-[10px] lg:text-[12px] xl:text-xs'
                   placeholder='Sale lên đến 90%'
                   {...register('search')}
                 />
                 <button
                   onClick={onSubmit}
-                  className='absolute top-[50%] right-1 flex h-[18px] w-[30px] translate-y-[-50%] items-center justify-center rounded-sm bg-header xl:h-[32px] xl:w-[55px]'
+                  className='absolute right-1 top-[50%] flex h-[18px] w-[30px] translate-y-[-50%] items-center justify-center rounded-sm bg-header xl:h-[32px] xl:w-[55px]'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
