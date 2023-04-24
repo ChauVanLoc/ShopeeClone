@@ -133,7 +133,7 @@ function Aside({ categories, ObjectKeySearch, joinKeySearch }: AsideProps) {
       </button>
       <BackgroundToggle setToggle={setToggle} visible={toggle} />
       <div
-        className={`absolute rounded-sm bg-white px-5 py-3 text-xs shadow-sm md:static md:flex md:translate-x-[0%] md:flex-col md:rounded-none md:bg-[#F5f5f5] md:p-0 md:text-xs md:shadow-none lg:static lg:flex lg:translate-x-[0%] lg:flex-col lg:space-y-6 lg:rounded-none lg:bg-[#F5f5f5] lg:p-0 lg:text-xs lg:shadow-none xl:static xl:flex xl:translate-x-[0%] xl:flex-col xl:space-y-10 xl:rounded-none xl:bg-[#F5f5f5] xl:p-0 xl:text-sm xl:shadow-none ${classNames(
+        className={`absolute rounded-sm bg-white px-5 py-3 text-[10px] shadow-sm phone:text-xs md:static md:flex md:translate-x-[0%] md:flex-col md:rounded-none md:bg-[#F5f5f5] md:p-0 md:text-xs md:shadow-none lg:static lg:flex lg:translate-x-[0%] lg:flex-col lg:space-y-6 lg:rounded-none lg:bg-[#F5f5f5] lg:p-0 lg:text-xs lg:shadow-none xl:static xl:flex xl:translate-x-[0%] xl:flex-col xl:space-y-10 xl:rounded-none xl:bg-[#F5f5f5] xl:p-0 xl:text-sm xl:shadow-none ${classNames(
           {
             'z-50 translate-x-[-2%] duration-500 ease-in-out': toggle,
             'translate-x-[-120%] duration-500 ease-in-out': !toggle
