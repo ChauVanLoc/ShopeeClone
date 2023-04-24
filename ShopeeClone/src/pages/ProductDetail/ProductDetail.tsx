@@ -73,8 +73,8 @@ function ProductDetail() {
     <div className='bg-[#f5f5f5] p-2 text-xs lg:py-3 lg:text-xs xl:py-3 xl:text-sm'>
       <div className='flex flex-col items-center'>
         <div className='rounded-ms mb-2 flex flex-col bg-white shadow-sm md:mb-3 md:max-w-3xl md:flex-row md:items-start md:p-2 lg:mb-4 lg:max-w-4xl lg:flex-row lg:items-start lg:p-3 xl:mb-5 xl:max-w-7xl xl:flex-row xl:items-start xl:p-3'>
-          <div className='mb-5 flex w-[360px] flex-col justify-center phone:w-[410px] md:mb-0 md:mr-3 md:w-[250px] lg:mb-0 lg:mr-3 lg:w-[330px] xl:mb-0 xl:mr-3 xl:w-[450px]'>
-            <div className='h-[360px] w-[360px] phone:h-[410px] phone:w-[410px] md:h-[250px] md:w-[250px] lg:h-[330px] lg:w-[330px] xl:h-[450px] xl:w-[450px]'>
+          <div className='mb-5 w-[360px] phone:w-[410px] md:mb-0 md:mr-3 md:w-[250px] lg:mb-0 lg:mr-3 lg:w-[330px] xl:mb-0 xl:mr-3 xl:w-[450px]'>
+            <div className='mx-auto flex h-[360px] w-[360px] flex-col justify-center phone:h-[410px] phone:w-[410px] md:h-[250px] md:w-[250px] lg:h-[330px] lg:w-[330px] xl:h-[450px] xl:w-[450px]'>
               <Image.PreviewGroup>
                 <Slider
                   className=''
@@ -88,6 +88,7 @@ function ProductDetail() {
                 >
                   {product.images.map((_, i) => (
                     <img
+                      className='w-full'
                       key={idProduct}
                       src={product.images[i]}
                       alt={idProduct}
@@ -96,7 +97,7 @@ function ProductDetail() {
                 </Slider>
               </Image.PreviewGroup>
             </div>
-            <div className='mt-3 w-[360px] phone:w-[410px] md:w-[250px] lg:w-[330px] xl:w-[450px]'>
+            <div className='mx-auto mt-3 w-[360px] phone:w-[410px] md:w-[250px] lg:w-[330px] xl:w-[450px]'>
               <Slider
                 infinite={false}
                 ref={(slider) => setSlider1(slider)}
