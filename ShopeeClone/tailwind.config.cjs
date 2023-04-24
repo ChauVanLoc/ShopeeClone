@@ -20,8 +20,7 @@ module.exports = {
         red: '#d0011b'
       },
       backgroundImage: {
-        bgPrimary:
-          "url('https://cf.shopee.vn/file/5569eb9dc7e09e2dbed5315b8f2ea8ba')"
+        bgPrimary: 'url("./src/assets/BackgroundPrimary.png")'
       },
       maxWidth: {
         primary: '1200px'
