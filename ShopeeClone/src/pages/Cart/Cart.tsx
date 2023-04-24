@@ -140,10 +140,10 @@ function Cart() {
     window.history.replaceState({}, '')
   }, [])
   return (
-    <div className='bg-backg p-3 md:p-3 lg:p-0 xl:p-0'>
-      <div className='mx-auto bg-backg text-center text-[10px] md:max-w-3xl md:text-xs lg:max-w-4xl lg:py-4 lg:text-sm xl:max-w-7xl xl:py-4 xl:text-base'>
+    <div className='bg-backg md:p-3 lg:p-0 xl:p-0'>
+      <div className='mx-auto space-y-3 bg-backg text-center text-xs md:max-w-3xl md:text-xs lg:max-w-4xl lg:py-4 lg:text-sm xl:max-w-7xl xl:text-base'>
         {purchases && purchases.length > 0 && (
-          <div className='mb-4 grid grid-cols-16 items-center rounded-sm bg-product px-8 py-5 text-center shadow-sm'>
+          <div className='hidden rounded-sm bg-product px-8 py-5 text-center shadow-sm md:grid md:grid-cols-16 md:items-center'>
             <input
               onChange={handleChecked(true)}
               id='check-all-product'
@@ -176,14 +176,14 @@ function Cart() {
           purchases.map((purchase, index) => (
             <div
               key={purchase._id}
-              className='my-4 grid grid-cols-16 items-center rounded-sm bg-product px-8 py-5 text-sm shadow-sm'
+              className='flex items-center space-x-3 rounded-sm bg-product px-3 py-4 shadow-sm md:my-4 md:grid md:grid-cols-16 md:space-x-0 md:px-8 md:py-5'
             >
               <input
                 disabled={purchase.disable}
                 onChange={handleChecked(false, index)}
                 checked={purchase.isChecked}
                 type='checkbox'
-                className={`bg-produc m-auto block h-4 w-4 cursor-pointer rounded border-gray-100 accent-primary ${classNames(
+                className={`bg-produc m-auto block h-4 w-4 flex-shrink-0 cursor-pointer rounded border-gray-100 accent-primary ${classNames(
                   { 'cursor-wait': purchase.disable }
                 )}`}
               />
@@ -193,24 +193,36 @@ function Cart() {
                 }`}
                 className='col-span-5 col-start-2 text-start'
               >
-                <div className='flex items-center justify-between'>
+                <div className='flex items-center justify-between space-x-2'>
                   <div className='mr-2 flex-shrink-0 md:mr-2 lg:mr-4 xl:mr-5'>
                     <img
-                      className='object-cover md:h-[60px] md:w-[60px] lg:h-[70px] lg:w-[70px] xl:h-[80px] xl:w-[80px]'
+                      className='h-[80px] w-[80px] object-cover md:h-[60px] md:w-[60px] lg:h-[70px] lg:w-[70px] xl:h-[80px] xl:w-[80px]'
                       src={purchase.product.image}
                       alt='img'
                     />
                   </div>
-                  <div className='grow-0'>
+                  <div className='grow-0 space-y-1 md:space-y-2'>
                     <p className='line-clamp-2'>{purchase.product.name}</p>
-                    <div className='mt-2 flex items-center'>
+                    <div className='md:hidden'>
+                      <span className='mr-2 text-gray-400 line-through md:mr-2 lg:mr-3 xl:mr-3'>
+                        ₫
+                        {convertCurrentcy(
+                          purchase.product.price_before_discount,
+                          0
+                        )}
+                      </span>
+                      <span className='text-primary'>
+                        ₫{convertCurrentcy(purchase.product.price, 0)}
+                      </span>
+                    </div>
+                    <div className='flex items-center'>
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'
                         viewBox='0 0 24 24'
                         strokeWidth={1.5}
                         stroke='currentColor'
-                        className='text-primary md:h-4 md:w-4 lg:h-5 lg:w-5 xl:h-5 xl:w-5'
+                        className='h-3 w-3 text-primary md:h-4 md:w-4 lg:h-5 lg:w-5 xl:h-5 xl:w-5'
                       >
                         <path
                           strokeLinecap='round'
@@ -218,14 +230,14 @@ function Cart() {
                           d='M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25'
                         />
                       </svg>
-                      <span className='ml-1 text-[8px] md:text-[10px] lg:ml-3 lg:text-xs xl:ml-3 xl:text-xs'>
+                      <span className='ml-1 text-[9px] md:text-[9px] lg:ml-3 lg:text-xs xl:ml-3 xl:text-xs'>
                         7 Ngày Miễn Phí Trả Hàng
                       </span>
                     </div>
                   </div>
                 </div>
               </NavLink>
-              <div className='col-span-3 col-start-8 text-center'>
+              <div className='col-span-3 col-start-8 hidden text-center md:block'>
                 <span className='text-gray-400 line-through md:mr-2 lg:mr-3 xl:mr-3'>
                   ₫{convertCurrentcy(purchase.product.price_before_discount, 0)}
                 </span>
@@ -233,17 +245,17 @@ function Cart() {
                   ₫{convertCurrentcy(purchase.product.price, 0)}
                 </span>
               </div>
-              <span className='col-span-2 col-start-11 text-center'>
+              <span className='hidden text-center md:col-span-2 md:col-start-11 md:block'>
                 {purchase.buy_count}
               </span>
-              <span className='col-span-2 col-start-13 text-center text-primary'>
+              <span className='col-span-2 col-start-13 hidden text-center text-primary md:block'>
                 ₫
                 {convertCurrentcy(
                   purchase.buy_count * purchase.product.price,
                   0
                 )}
               </span>
-              <div className='col-start-15 col-span-2 text-center '>
+              <div className='md:col-start-15 hidden text-center md:col-span-2 md:block'>
                 <button
                   disabled={purchase.disable}
                   onClick={handleDelete(purchase._id)}
@@ -282,26 +294,38 @@ function Cart() {
           </>
         )}
         {purchases.length > 0 && (
-          <div className='sticky bottom-0 mb-4 grid grid-cols-16 items-center rounded-sm border border-gray-200 bg-product px-8 py-5 text-center'>
+          <div className='sticky bottom-0 left-0 right-0 flex items-center justify-between rounded-sm border border-gray-200 bg-product px-3 py-8 text-center md:mb-4 md:grid md:grid-cols-16 md:px-8 md:py-5'>
             <input
               onChange={handleChecked(true)}
               id='check-all'
               type='checkbox'
               checked={isCheckedAll}
-              className='bg-produc m-auto block h-4 w-4 cursor-pointer rounded border-gray-100 accent-primary'
+              className='bg-produc block h-4 w-4 cursor-pointer rounded border-gray-100 accent-primary md:m-auto'
             />
             <div className='col-span-5 col-start-2 text-start'>
               <label className='cursor-pointer' htmlFor='check-all'>
-                Chọn tất cả ({purchases?.length})
+                {location.pathname.includes('cart')
+                  ? 'Tất cả'
+                  : `Chọn tất cả (${purchases?.length})`}
               </label>
             </div>
-            <span className='col-span-3 col-start-8 text-end'>
+            <span className='col-span-3 col-start-8 hidden text-end md:block'>
               Tổng thanh toán ({purchases?.length} sản phẩm):
             </span>
             <span className='col-span-3 col-start-11 pl-4 text-start text-primary md:text-lg lg:text-xl xl:text-2xl'>
-              <span>₫{convertCurrentcy(totalPrice, 0)}</span>
+              <span className='flex items-baseline'>
+                <span className={`mr-1 block text-sm text-gray-700 md:hidden`}>
+                  Tổng cộng
+                </span>
+                <span className='hidden md:block'>
+                  ₫{convertCurrentcy(totalPrice, 0)}
+                </span>
+                <span className='text-lg md:hidden'>
+                  ₫{convertCurrentcy(totalPrice, 0)}
+                </span>
+              </span>
               <div className='flex md:text-xs lg:text-sm xl:text-sm'>
-                <span className='text-gray-600 md:mr-2 lg:mr-4 xl:mr-4'>
+                <span className='mr-1 text-gray-600 md:mr-2 lg:mr-4 xl:mr-4'>
                   Tiết kiệm
                 </span>
                 <span className='md:text-xs lg:text-sm xl:text-base'>
@@ -311,9 +335,9 @@ function Cart() {
             </span>
             <button
               onClick={handleOrder}
-              className='col-start-14 col-span-3 bg-primary text-white duration-200 hover:bg-primary/90 md:ml-1 md:px-[10px] md:py-2 lg:ml-2 lg:px-3 lg:py-[6px] xl:px-4 xl:py-2'
+              className='col-start-14 col-span-3 rounded-sm bg-primary px-4 py-2 text-white shadow-sm duration-200 hover:bg-primary/90 md:ml-1 md:px-[10px] md:py-2 lg:ml-2 lg:px-3 lg:py-[6px] xl:px-4 xl:py-2'
             >
-              Mua hàng
+              Mua hàng ({purchases?.length})
             </button>
           </div>
         )}

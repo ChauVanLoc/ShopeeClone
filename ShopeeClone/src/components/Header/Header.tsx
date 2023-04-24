@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Context } from 'src/context/AppContext'
 import Popover from '../Popover'
@@ -15,11 +15,13 @@ import useQueryListPurchase from 'src/hooks/useQueryListPurchase'
 import { PathRoute } from 'src/constants/PathRoute'
 import { UserFetching } from 'src/Api/UserFetching'
 import { urlApi } from 'src/constants/config'
+import classNames from 'classnames'
 
 const { user: userPath, account, profile, order } = PathRoute
 
 function Header() {
   const o = useSearchUrl()
+  const location = useLocation()
   const join = joinKeySearch<ProductSearch>(omit(o, ['category']))
   const { isAuth, setIsAuth, user, setUser } = useContext(Context)
   const navigate = useNavigate()
@@ -226,19 +228,23 @@ function Header() {
               />
             </svg>
             <label className='ml-2 cursor-pointer font-serif text-xl md:text-2xl lg:text-2xl xl:text-3xl'>
-              TechShop
+              {location.pathname.includes('cart') ? 'Giỏ hàng' : 'TechShop'}
             </label>
           </Link>
-          <div className='flex w-[55%] justify-between md:w-[70%] lg:w-[70%] xl:w-[70%]'>
-            <div className='relative flex h-[26px] w-[85%] items-end overflow-hidden rounded-sm bg-white md:h-[30px] lg:h-[30px] xl:h-[40px]'>
+          <div className='relative flex w-[55%] justify-between md:w-[70%] lg:w-[70%] xl:w-[70%]'>
+            <div
+              className={`relative flex h-[26px] w-[85%] items-end overflow-hidden rounded-sm bg-white md:h-[30px] lg:h-[30px] xl:h-[40px]`}
+            >
               <form onSubmit={onSubmit}>
                 <input
                   type='text'
-                  className='absolute left-0 top-0 h-full w-[90%] pl-3 text-[8px] text-sm text-gray-600 outline-none placeholder:text-xs md:text-[10px] lg:text-[12px] xl:text-xs'
+                  className={`absolute left-0 top-0 h-full w-[90%] pl-3 text-[8px] text-sm text-gray-600 outline-none placeholder:text-xs md:text-[10px] lg:text-[12px] xl:text-xs`}
+                  disabled={location.pathname.includes('cart')}
                   placeholder='Sale lên đến 90%'
                   {...register('search')}
                 />
                 <button
+                  disabled={location.pathname.includes('cart')}
                   onClick={onSubmit}
                   className='absolute right-1 top-[50%] flex h-[20px] w-[30px] translate-y-[-50%] items-center justify-center rounded-sm bg-header xl:h-[32px] xl:w-[55px]'
                 >
@@ -278,7 +284,7 @@ function Header() {
                 >
                   <NavLink
                     to={`/${PathRoute.cart}`}
-                    className='flex cursor-pointer self-end'
+                    className={`flex cursor-pointer self-end`}
                   >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
