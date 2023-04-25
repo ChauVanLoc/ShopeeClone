@@ -47,8 +47,10 @@ function Header() {
     LogoutMutation.mutate()
   }
   const onSubmit = handleSubmit((data) => {
-    navigate(`${join({ name: data.search })}`)
-    reset()
+    if (data.search) {
+      navigate(`${join({ name: data.search })}`)
+      reset()
+    }
   })
   const purchaseData = purchaseFetching.data?.data.data
   return (

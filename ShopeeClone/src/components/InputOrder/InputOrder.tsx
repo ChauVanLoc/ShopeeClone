@@ -28,7 +28,7 @@ const InputOrder = ({
 }: InputOrderType) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
-    if (/^\d+$/.test(value) && Number(value) > 0) {
+    if (/^\d+$/.test(value) && Number(value) > 0 && Number(value) <= amount) {
       setCount(Number(value.trim()))
     }
   }
