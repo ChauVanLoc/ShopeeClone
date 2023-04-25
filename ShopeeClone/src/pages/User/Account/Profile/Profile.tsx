@@ -100,7 +100,7 @@ function Profile() {
     return null
   }
   return (
-    <div className='rounded-sm bg-product p-3 shadow-sm phone:p-5 md:p-6'>
+    <div className='rounded-sm bg-product p-2 shadow-sm phone:p-5 md:p-6'>
       <Helmet>
         <title>Thông tin cá nhân</title>
         <meta

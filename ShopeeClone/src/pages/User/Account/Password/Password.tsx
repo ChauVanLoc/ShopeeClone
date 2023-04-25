@@ -82,7 +82,7 @@ function Password() {
       </div>
       <form
         onSubmit={onSubmit}
-        className='mt-8 grid grid-cols-7 grid-rows-4 items-center gap-8'
+        className='mt-8 grid grid-cols-7 grid-rows-4 flex-col items-center gap-8'
       >
         <label
           htmlFor='ps'
@@ -90,9 +90,9 @@ function Password() {
         >
           Mật khẩu hiện tại
         </label>
-        <div className='relative col-span-3 col-start-3 row-start-1 flex'>
+        <div className='relative col-span-4 col-start-3 row-start-1 flex'>
           <input
-            className={`grow rounded-sm border-[1px] border-gray-300 py-3 pl-3 pr-12 outline-none ${classNames(
+            className={`grow rounded-sm border-[1px] border-gray-300 py-2 pl-3 pr-12 outline-none lg:py-2 xl:py-3 ${classNames(
               {
                 'border-primary': errors.newPassword
               }
@@ -102,7 +102,7 @@ function Password() {
             {...register('newPassword')}
           />
           <span
-            className={`absolute top-0 left-2 -translate-y-[50%] bg-product px-2 font-sans text-xs italic text-primary opacity-0 ${classNames(
+            className={`absolute top-0 left-2 -translate-y-[50%] bg-product px-2 font-sans text-[10px] italic text-primary opacity-0 md:text-xs xl:text-sm ${classNames(
               {
                 'opacity-100': errors.newPassword
               }
@@ -114,7 +114,7 @@ function Password() {
             onClick={() =>
               setVisible({ ...visible, newPassword: !visible.newPassword })
             }
-            className='absolute right-4 top-[50%] -translate-y-[50%] cursor-pointer'
+            className='absolute right-[-32px] top-[50%] -translate-y-[50%] cursor-pointer phone:right-[-4px] md:right-4'
           >
             {visible.newPassword ? (
               <svg
@@ -123,7 +123,7 @@ function Password() {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='h-4 w-4'
+                className='h-3 w-3 md:h-4 md:w-4'
               >
                 <path
                   strokeLinecap='round'
@@ -143,7 +143,7 @@ function Password() {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='h-4 w-4'
+                className='h-3 w-3 md:h-4 md:w-4'
               >
                 <path
                   strokeLinecap='round'
@@ -161,9 +161,9 @@ function Password() {
         >
           Mật khẩu mới
         </label>
-        <div className='relative col-span-3 col-start-3 row-start-2 flex'>
+        <div className='relative col-span-4 col-start-3 row-start-2 flex'>
           <input
-            className={`grow rounded-sm border-[1px] border-gray-300 py-3 pl-3 pr-12 outline-none ${classNames(
+            className={`grow rounded-sm border-[1px] border-gray-300 py-2 pl-3 pr-12 outline-none lg:py-2 xl:py-3 ${classNames(
               {
                 'border-primary': errors.password
               }
@@ -173,7 +173,7 @@ function Password() {
             {...register('password')}
           />
           <span
-            className={`absolute top-0 left-2 -translate-y-[50%] bg-product px-2 font-sans text-xs italic text-primary opacity-0 ${classNames(
+            className={`absolute top-0 left-2 -translate-y-[50%] bg-product px-2 font-sans text-[10px] italic text-primary opacity-0 md:text-xs xl:text-sm ${classNames(
               {
                 'opacity-100': errors.password
               }
@@ -185,7 +185,7 @@ function Password() {
             onClick={() =>
               setVisible({ ...visible, password: !visible.password })
             }
-            className='absolute right-4 top-[50%] -translate-y-[50%] cursor-pointer'
+            className='absolute right-[-32px] top-[50%] -translate-y-[50%] cursor-pointer phone:right-[-4px] md:right-4'
           >
             {visible.password ? (
               <svg
@@ -194,7 +194,7 @@ function Password() {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='h-4 w-4'
+                className='h-3 w-3 md:h-4 md:w-4'
               >
                 <path
                   strokeLinecap='round'
@@ -214,7 +214,7 @@ function Password() {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='h-4 w-4'
+                className='h-3 w-3 md:h-4 md:w-4'
               >
                 <path
                   strokeLinecap='round'
@@ -232,9 +232,9 @@ function Password() {
         >
           Xác nhận mật khẩu
         </label>
-        <div className='relative col-span-3 col-start-3 row-start-3 flex'>
+        <div className='relative col-span-4 col-start-3 row-start-3 flex'>
           <input
-            className={`grow rounded-sm border-[1px] border-gray-300 py-3 pl-3 pr-12 outline-none ${classNames(
+            className={`grow rounded-sm border-[1px] border-gray-300 py-2 pl-3 pr-12 outline-none lg:py-2 xl:py-3 ${classNames(
               {
                 'border-primary': errors.confirm_password
               }
@@ -244,7 +244,7 @@ function Password() {
             {...register('confirm_password')}
           />
           <span
-            className={`absolute top-0 left-2 -translate-y-[50%] bg-product px-2 font-sans text-xs italic text-primary opacity-0 ${classNames(
+            className={`absolute top-0 left-2 -translate-y-[50%] bg-product px-2 font-sans text-[10px] italic text-primary opacity-0 md:text-xs xl:text-sm ${classNames(
               {
                 'opacity-100': errors.confirm_password
               }
@@ -259,7 +259,7 @@ function Password() {
                 confirm_password: !visible.confirm_password
               })
             }
-            className='absolute right-4 top-[50%] -translate-y-[50%] cursor-pointer'
+            className='absolute right-[-32px] top-[50%] -translate-y-[50%] cursor-pointer phone:right-[-4px] md:right-4'
           >
             {visible.confirm_password ? (
               <svg
@@ -268,7 +268,7 @@ function Password() {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='h-4 w-4'
+                className='h-3 w-3 md:h-4 md:w-4'
               >
                 <path
                   strokeLinecap='round'
@@ -288,7 +288,7 @@ function Password() {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='h-4 w-4'
+                className='h-3 w-3 md:h-4 md:w-4'
               >
                 <path
                   strokeLinecap='round'
@@ -301,7 +301,7 @@ function Password() {
         </div>
         <input
           type='submit'
-          className='col-start-3 row-start-4 cursor-pointer bg-primary p-3 text-white duration-150 hover:bg-primary/90'
+          className='col-span-2 col-start-3 row-start-4 cursor-pointer bg-primary py-2 text-white duration-150 hover:bg-primary/90 md:py-2 lg:py-2 xl:py-3'
           value={'Lưu'}
         />
       </form>

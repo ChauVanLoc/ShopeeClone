@@ -52,7 +52,7 @@ function Order() {
     purchaseFetching.data && setPurchase(purchaseFetching.data?.data.data)
   }, [purchaseFetching.isSuccess, purchaseFetching.isRefetching])
   return (
-    <div className='bg-backg p-2 md:max-w-3xl md:px-0 lg:max-w-4xl xl:max-w-7xl xl:text-sm'>
+    <div className='bg-backg md:max-w-3xl md:px-0 lg:max-w-4xl xl:max-w-7xl xl:text-sm'>
       <Helmet>
         <title>Đơn hàng</title>
         <meta
