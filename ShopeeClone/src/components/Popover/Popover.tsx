@@ -47,6 +47,7 @@ function Popover({
       ref={refs.setReference}
       onMouseEnter={onMouseEnterHandle}
       onMouseLeave={onMouseLeaveHandle}
+      onClick={() => setIsOpen(!isOpen)}
     >
       {as}
       <FloatingPortal id={idFloatingPortal}>

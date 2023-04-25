@@ -67,7 +67,7 @@ function Order() {
             {
               'border-b-2 border-b-primary text-primary':
                 Number(status) === PurchaseStatus.WAITING_FOR_SHOP || !status,
-              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
+              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out lg:hover:after:w-full':
                 status !== undefined &&
                 Number(status) !== PurchaseStatus.WAITING_FOR_SHOP
             }
@@ -81,7 +81,7 @@ function Order() {
             {
               'border-b-2 border-b-primary text-primary':
                 Number(status) === PurchaseStatus.PICK_UP,
-              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
+              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out lg:hover:after:w-full':
                 Number(status) !== PurchaseStatus.PICK_UP
             }
           )}`}
@@ -94,7 +94,7 @@ function Order() {
             {
               'border-b-2 border-b-primary text-primary':
                 Number(status) === PurchaseStatus.SHIP,
-              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
+              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out lg:hover:after:w-full':
                 Number(status) !== PurchaseStatus.SHIP
             }
           )}`}
@@ -107,7 +107,7 @@ function Order() {
             {
               'border-b-2 border-b-primary text-primary':
                 Number(status) === PurchaseStatus.DELIVERY,
-              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
+              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out lg:hover:after:w-full':
                 Number(status) !== PurchaseStatus.DELIVERY
             }
           )}`}
@@ -120,7 +120,7 @@ function Order() {
             {
               'border-b-2 border-b-primary text-primary':
                 Number(status) === PurchaseStatus.CANCEL,
-              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
+              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out lg:hover:after:w-full':
                 Number(status) !== PurchaseStatus.CANCEL
             }
           )}`}
@@ -262,7 +262,7 @@ function Order() {
             </div>
           ))
         ) : (
-          <div className='flex h-[300px] items-center justify-center bg-product lg:mt-4 lg:h-[400px]'>
+          <div className='flex h-[450px] items-center justify-center bg-product md:h-[350px] lg:mt-4 lg:h-[400px]'>
             <Empty
               image='https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/5fafbb923393b712b96488590b8f781f.png'
               imageStyle={{

@@ -141,7 +141,7 @@ function Cart() {
     window.history.replaceState({}, '')
   }, [])
   return (
-    <div className='bg-backg md:p-3 lg:p-0 xl:p-0'>
+    <div className='bg-backg p-2 md:p-3 lg:p-0 xl:p-0'>
       <Helmet>
         <title>Giỏ hàng | TechShop</title>
         <meta name='description' content='Giỏ hàng TechShop' />
@@ -198,7 +198,7 @@ function Cart() {
                 }`}
                 className='col-span-5 col-start-2 text-start'
               >
-                <div className='flex items-center justify-between space-x-2'>
+                <div className='relative flex items-center justify-between space-x-2'>
                   <div className='mr-2 flex-shrink-0 md:mr-2 lg:mr-4 xl:mr-5'>
                     <img
                       className='h-[80px] w-[80px] object-cover md:h-[60px] md:w-[60px] lg:h-[70px] lg:w-[70px] xl:h-[80px] xl:w-[80px]'
@@ -220,6 +220,9 @@ function Cart() {
                         ₫{convertCurrentcy(purchase.product.price, 0)}
                       </span>
                     </div>
+                    <span className='absolute top-1/2 right-4 translate-y-[-50%] text-sm text-primary md:hidden'>
+                      x{purchase.buy_count}
+                    </span>
                     <div className='flex items-center'>
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -227,7 +230,7 @@ function Cart() {
                         viewBox='0 0 24 24'
                         strokeWidth={1.5}
                         stroke='currentColor'
-                        className='h-3 w-3 text-primary md:h-4 md:w-4 lg:h-5 lg:w-5 xl:h-5 xl:w-5'
+                        className='h-3 w-3 text-primary md:h-4 md:w-4 xl:h-5 xl:w-5'
                       >
                         <path
                           strokeLinecap='round'
@@ -235,7 +238,7 @@ function Cart() {
                           d='M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25'
                         />
                       </svg>
-                      <span className='ml-1 text-[9px] md:text-[9px] lg:ml-3 lg:text-xs xl:ml-3 xl:text-xs'>
+                      <span className='ml-1 text-[9px] md:text-[9px] lg:ml-2 lg:text-xs xl:ml-3 xl:text-xs'>
                         7 Ngày Miễn Phí Trả Hàng
                       </span>
                     </div>
@@ -274,7 +277,7 @@ function Cart() {
             </div>
           ))
         ) : (
-          <>
+          <div className='flex h-[450px] items-center justify-center bg-product'>
             <Empty
               className='mb-5'
               imageStyle={{
@@ -291,12 +294,12 @@ function Cart() {
             >
               <Link
                 to={'/'}
-                className='bg-primary px-6 py-2 text-base uppercase text-white duration-150 hover:bg-primary/90 hover:text-white'
+                className='bg-primary px-4 py-2 text-sm uppercase text-white duration-150 hover:bg-primary/90 hover:text-white md:px-6 lg:text-base'
               >
                 Mua ngay
               </Link>
             </Empty>
-          </>
+          </div>
         )}
         {purchases.length > 0 && (
           <div className='fixed bottom-0 left-0 right-0 flex items-center justify-between rounded-sm border border-gray-200 bg-product px-3 py-8 text-center md:sticky md:mb-4 md:grid md:grid-cols-16 md:px-8 md:py-5'>

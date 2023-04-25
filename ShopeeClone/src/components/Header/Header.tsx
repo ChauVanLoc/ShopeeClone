@@ -319,15 +319,15 @@ function Header() {
               off={5}
               classNameBlock={'ml-4 flex'}
               classNameArrow={
-                'translate-l-[-50%] absolute top-[-8.5%] border-[12px] border-solid border-white border-x-transparent border-t-transparent cursor-pointer'
+                'translate-l-[-50%] absolute top-[-6.5%] border-[12px] border-solid border-white border-x-transparent border-t-transparent cursor-pointer'
               }
             >
               {purchaseData && purchaseData.length >= 1 ? (
-                <div className='hidden flex-col rounded-sm bg-white text-[12px] text-gray-600 shadow-md md:flex lg:w-[400px]'>
+                <div className='relative hidden flex-col rounded-sm bg-white text-[12px] text-gray-600 shadow-md lg:flex lg:h-[356.8px] lg:w-[400px]'>
                   <div className='p-3 capitalize text-gray-300'>
                     Sản phẩm mới thêm
                   </div>
-                  {purchaseData.slice(0, 5).map((purchase) => (
+                  {purchaseData.slice(0, 4).map((purchase) => (
                     <NavLink
                       to={`/${initId(purchase.product.name)}-id,${
                         purchase.product._id
@@ -346,10 +346,10 @@ function Header() {
                       </div>
                     </NavLink>
                   ))}
-                  <div className='flex items-center justify-between p-3'>
+                  <div className='absolute bottom-0 left-0 right-0 flex items-center justify-between p-3'>
                     <div className='p-3'>
-                      {purchaseData.length > 5
-                        ? `${purchaseData.length - 5} Thêm hàng vào giỏ`
+                      {purchaseData.length > 4
+                        ? `${purchaseData.length - 4} Thêm hàng vào giỏ`
                         : ''}
                     </div>
                     <NavLink
@@ -361,7 +361,7 @@ function Header() {
                   </div>
                 </div>
               ) : (
-                <div className='hidden items-center justify-center rounded-sm bg-white text-[12px] text-gray-600 shadow-sm md:flex lg:h-[260px] lg:w-[400px]'>
+                <div className='hidden items-center justify-center rounded-sm bg-white text-[12px] text-gray-600 shadow-sm md:flex lg:h-[356.8px] lg:w-[400px]'>
                   <Empty
                     className='m-auto'
                     image='https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/9bdd8040b334d31946f49e36beaf32db.png'
