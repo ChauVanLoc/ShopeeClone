@@ -60,7 +60,7 @@ function Order() {
           content='Danh sách các trạng thái đơn hàng của khác hàng'
         />
       </Helmet>
-      <div className='sticky top-0 mb-2 flex items-center rounded-sm bg-product shadow-sm md:mb-4'>
+      <div className='sticky top-0 mb-3 flex items-center rounded-sm bg-product shadow-sm md:mb-4'>
         <NavLink
           to={{ search: `status=${PurchaseStatus.WAITING_FOR_SHOP}` }}
           className={`px-8 py-3 text-center md:w-[20%] md:px-2 xl:py-5 ${classNames(
@@ -159,7 +159,7 @@ function Order() {
           purchase.map((p) => (
             <div
               key={p._id}
-              className='mt-4 rounded-sm bg-product p-2 shadow-sm md:p-4 lg:p-6'
+              className='mt-3 rounded-sm bg-product p-2 shadow-sm md:mt-4 md:p-4 lg:p-6'
             >
               <div className='flex items-center justify-end border-b-[1px] border-b-gray-200 pb-2 md:pb-4'>
                 <span className='mr-2 flex text-green-600 phone:mr-4'>

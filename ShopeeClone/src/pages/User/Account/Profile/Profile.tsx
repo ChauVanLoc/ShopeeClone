@@ -100,7 +100,7 @@ function Profile() {
     return null
   }
   return (
-    <div className='rounded-sm bg-product p-6 shadow-sm'>
+    <div className='rounded-sm bg-product p-3 shadow-sm phone:p-5 md:p-6'>
       <Helmet>
         <title>Thông tin cá nhân</title>
         <meta
@@ -114,7 +114,7 @@ function Profile() {
           Quản lý thông tin hồ sơ để bảo mật tài khoản
         </p>
       </div>
-      <div className='flex flex-col-reverse md:flex-row'>
+      <div className='flex flex-col-reverse lg:flex-row'>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className='mt-8 grid grid-cols-3 grid-rows-6 items-center gap-x-8 gap-y-5 lg:w-[60%]'
@@ -127,7 +127,7 @@ function Profile() {
           </label>
           <div className='relative col-span-2 col-start-2 row-start-1 flex'>
             <input
-              className={`grow rounded-sm border-[1px] border-gray-300 px-3 py-3 outline-none ${classNames(
+              className={`grow rounded-sm border-[1px] border-gray-300 px-2 py-2 outline-none xl:px-3 xl:py-3 ${classNames(
                 {
                   'border-primary': errors.name
                 }
@@ -162,7 +162,7 @@ function Profile() {
           </label>
           <div className='relative col-span-2 col-start-2 row-start-3 flex'>
             <input
-              className={`grow rounded-sm border-[1px] border-gray-300 px-3 py-3 outline-none ${classNames(
+              className={`p grow rounded-sm border-[1px] border-gray-300 px-2 py-2 outline-none xl:px-3 xl:py-3 ${classNames(
                 {
                   'border-primary': errors.phone
                 }
@@ -190,7 +190,7 @@ function Profile() {
           </label>
           <div className='relative col-span-2 col-start-2 row-start-4 flex'>
             <input
-              className={`grow rounded-sm border-[1px] border-gray-300 px-3 py-3 outline-none ${classNames(
+              className={`p grow rounded-sm border-[1px] border-gray-300 px-2 py-2 outline-none xl:px-3  xl:py-3 ${classNames(
                 {
                   'border-primary': errors.address
                 }
@@ -216,13 +216,13 @@ function Profile() {
           >
             Ngày sinh
           </label>
-          <div className='col-start-2 row-start-5'>
+          <div className='col-span-2 col-start-2 row-start-5 xl:col-span-1'>
             <Controller
               name='date_of_birth'
               control={control}
               render={({ field, fieldState }) => (
                 <DatePicker
-                  className='rounded-sm p-3 font-semibold'
+                  className='rounded-sm p-2 font-semibold xl:p-3'
                   disabledDate={(current) =>
                     current && current.valueOf() > Date.now()
                   }
@@ -248,11 +248,12 @@ function Profile() {
           </div>
           <input
             type='submit'
-            className='col-start-2 row-start-6 cursor-pointer bg-primary p-3 text-white hover:bg-primary/90'
+            className='col-start-2 row-start-6 cursor-pointer bg-primary p-2 text-white hover:bg-primary/90 xl:p-3'
+            value='Lưu'
           />
         </form>
         <div className='align-middle lg:w-[40%]'>
-          <div className='mt-8 flex flex-col items-center justify-center pb-10 md:border-l-[1px]'>
+          <div className='mt-8 flex flex-col items-center justify-center pb-10 lg:border-l-[1px]'>
             {getValues('avatar') || file ? (
               <img
                 className='h-28 w-28 rounded-full border-[1px] border-gray-100 object-cover'
