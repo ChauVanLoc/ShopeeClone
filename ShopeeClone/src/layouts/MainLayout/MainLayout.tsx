@@ -9,7 +9,7 @@ function MainLayout() {
     <div className='select-none'>
       <Header />
       <Outlet />
-      {location.pathname.includes('cart') ? null : <Footer />}
+      <Footer />
     </div>
   )
 }

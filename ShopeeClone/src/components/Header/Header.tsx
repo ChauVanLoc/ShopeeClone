@@ -280,23 +280,24 @@ function Header() {
             <Popover
               to={PathRoute.cart}
               as={
-                <Badge
-                  color='#FAFAFA'
-                  style={{
-                    color: '#ee4d2d',
-                    fontWeight: '600',
-                    cursor: 'pointer'
-                  }}
-                  offset={[-2, 5]}
-                  count={
-                    purchaseData && purchaseData?.length > 9
-                      ? '9+'
-                      : purchaseData?.length
-                  }
+                <NavLink
+                  to={`/${PathRoute.cart}`}
+                  className={`cursor-pointer self-end`}
                 >
-                  <NavLink
-                    to={`/${PathRoute.cart}`}
-                    className={`flex cursor-pointer self-end`}
+                  <Badge
+                    color='#FAFAFA'
+                    style={{
+                      color: '#ee4d2d',
+                      fontWeight: '600',
+                      cursor: 'pointer'
+                    }}
+                    size='small'
+                    offset={[-2, 5]}
+                    count={
+                      purchaseData && purchaseData?.length > 9
+                        ? '9+'
+                        : purchaseData?.length
+                    }
                   >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
@@ -312,8 +313,8 @@ function Header() {
                         d='M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z'
                       />
                     </svg>
-                  </NavLink>
-                </Badge>
+                  </Badge>
+                </NavLink>
               }
               off={5}
               classNameBlock={'ml-4 flex'}
@@ -322,7 +323,7 @@ function Header() {
               }
             >
               {purchaseData && purchaseData.length >= 1 ? (
-                <div className='flex flex-col rounded-sm bg-white text-[12px] text-gray-600 shadow-md lg:w-[400px]'>
+                <div className='hidden flex-col rounded-sm bg-white text-[12px] text-gray-600 shadow-md md:flex lg:w-[400px]'>
                   <div className='p-3 capitalize text-gray-300'>
                     Sản phẩm mới thêm
                   </div>
@@ -360,7 +361,7 @@ function Header() {
                   </div>
                 </div>
               ) : (
-                <div className='flex items-center justify-center rounded-sm bg-white text-[12px] text-gray-600 shadow-sm lg:h-[260px] lg:w-[400px]'>
+                <div className='hidden items-center justify-center rounded-sm bg-white text-[12px] text-gray-600 shadow-sm md:flex lg:h-[260px] lg:w-[400px]'>
                   <Empty
                     className='m-auto'
                     image='https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/9bdd8040b334d31946f49e36beaf32db.png'

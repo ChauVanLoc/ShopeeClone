@@ -52,7 +52,7 @@ function Order() {
     purchaseFetching.data && setPurchase(purchaseFetching.data?.data.data)
   }, [purchaseFetching.isSuccess, purchaseFetching.isRefetching])
   return (
-    <div className='bg-backg'>
+    <div className='bg-backg px-2 text-xs md:max-w-3xl md:px-0 lg:max-w-4xl xl:max-w-7xl xl:text-sm'>
       <Helmet>
         <title>Đơn hàng</title>
         <meta
@@ -63,7 +63,7 @@ function Order() {
       <div className='sticky top-0 mb-4 flex rounded-sm bg-product shadow-sm'>
         <NavLink
           to={{ search: `status=${PurchaseStatus.WAITING_FOR_SHOP}` }}
-          className={`px-10 py-5 ${classNames({
+          className={`basis-1/7 md:basis-0 md:px-10 md:py-5 ${classNames({
             'border-b-2 border-b-primary text-primary':
               Number(status) === PurchaseStatus.WAITING_FOR_SHOP || !status,
             'relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
@@ -75,7 +75,7 @@ function Order() {
         </NavLink>
         <NavLink
           to={{ search: `status=${PurchaseStatus.PICK_UP}` }}
-          className={`px-10 py-5 ${classNames({
+          className={`basis-2/7 md:basis-0 md:px-10 md:py-5 ${classNames({
             'border-b-2 border-b-primary text-primary':
               Number(status) === PurchaseStatus.PICK_UP,
             'relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
@@ -86,7 +86,7 @@ function Order() {
         </NavLink>
         <NavLink
           to={{ search: `status=${PurchaseStatus.SHIP}` }}
-          className={`px-10 py-5 ${classNames({
+          className={`basis-1/7 md:basis-0 md:px-10 md:py-5 ${classNames({
             'border-b-2 border-b-primary text-primary':
               Number(status) === PurchaseStatus.SHIP,
             'relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
@@ -97,7 +97,7 @@ function Order() {
         </NavLink>
         <NavLink
           to={{ search: `status=${PurchaseStatus.DELIVERY}` }}
-          className={`px-10 py-5 ${classNames({
+          className={`basis-1/7 md:basis-0 md:px-10 md:py-5 ${classNames({
             'border-b-2 border-b-primary text-primary':
               Number(status) === PurchaseStatus.DELIVERY,
             'relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
@@ -108,7 +108,7 @@ function Order() {
         </NavLink>
         <NavLink
           to={{ search: `status=${PurchaseStatus.CANCEL}` }}
-          className={`px-10 py-5 ${classNames({
+          className={`basis-1/7 md:basis-0 md:px-10 md:py-5 ${classNames({
             'border-b-2 border-b-primary text-primary':
               Number(status) === PurchaseStatus.CANCEL,
             'relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
@@ -149,10 +149,10 @@ function Order() {
           purchase.map((p) => (
             <div
               key={p._id}
-              className='mt-4 rounded-sm bg-product p-6 shadow-sm'
+              className='mt-4 rounded-sm bg-product p-2 shadow-sm md:p-4 lg:p-6'
             >
-              <div className='flex items-center justify-end border-b-[1px] border-b-gray-200 pb-4'>
-                <span className='mr-4 flex text-green-600'>
+              <div className='flex items-center justify-end border-b-[1px] border-b-gray-200 pb-2 md:pb-4'>
+                <span className='mr-2 flex text-green-600 phone:mr-4'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'
@@ -169,23 +169,35 @@ function Order() {
                   </svg>
                   Đơn hàng đã được giao thành công
                 </span>
-                <span className='border-l-2 border-l-gray-300 pl-5 uppercase text-primary'>
+                <span className='border-l-2 border-l-gray-300 pl-[10px] uppercase text-primary phone:pl-5'>
                   Hoàn thành
                 </span>
               </div>
               <NavLink
                 to={`/${initId(p.product.name)}-id,${p.product._id}`}
-                className='flex cursor-pointer justify-between py-4'
+                className='flex cursor-pointer py-3 md:scroll-px-0 md:py-4'
               >
-                <div className='shrink-0 lg:h-[80px] lg:w-[80px]'>
-                  <img src={p.product.image} alt='' />
+                <div className='basis-1/8'>
+                  <img
+                    className='max-w-[70px] md:max-w-[80px]'
+                    src={p.product.image}
+                    alt=''
+                  />
                 </div>
-                <div className='line-clamp-2 lg:w-[68%]'>
-                  <p className='mb-3'>{p.product.name}</p>
+                <div className='basis-7/8 pl-2 phone:pl-3 md:basis-5/8 md:px-3 lg:px-4 xl:px-0 xl:pr-5'>
+                  <p className='mb-2 line-clamp-2 md:mb-3'>{p.product.name}</p>
+                  <div className='block md:hidden'>
+                    <span className='mr-3 text-gray-300 line-through'>
+                      ₫{convertCurrentcy(p.price_before_discount, 0)}
+                    </span>
+                    <span className='text-primary'>
+                      ₫{convertCurrentcy(p.price, 0)}
+                    </span>
+                  </div>
                   <span>x{p.buy_count}</span>
                 </div>
-                <div className='flex items-center justify-end text-sm lg:min-w-[20%]'>
-                  <span className='mr-3 text-gray-300 line-through'>
+                <div className='hidden flex-wrap-reverse items-center justify-end text-sm md:flex md:basis-2/8'>
+                  <span className='ml-3 text-gray-300 line-through lg:ml-0 lg:mr-3'>
                     ₫{convertCurrentcy(p.price_before_discount, 0)}
                   </span>
                   <span className='text-primary'>
@@ -218,21 +230,21 @@ function Order() {
                     </svg>
                   </span>
                   <span className='ml-2 mr-4'>Thành tiền:</span>
-                  <span className='text-2xl text-primary'>
+                  <span className='text-lg text-primary lg:text-xl xl:text-2xl'>
                     ₫{convertCurrentcy(p.buy_count * p.price, 0)}
                   </span>
                 </div>
                 <div className='mt-4 flex items-center justify-end'>
                   <button
                     onClick={handleOrder(p.product._id)}
-                    className='mr-4 rounded-md bg-primary px-7 py-3 capitalize text-white hover:bg-primary/90'
+                    className='mr-1 rounded-md bg-primary px-2 py-2 capitalize text-white hover:bg-primary/90 phone:mr-2 phone:px-3 md:mr-4 md:py-2 md:px-5 lg:px-7 lg:py-3'
                   >
                     Mua Lại
                   </button>
-                  <button className='mr-4  rounded-md border-[1px] border-gray-300 px-7 py-3 capitalize'>
+                  <button className='mr-1 rounded-md border-[1px] border-gray-300 px-2 py-2 capitalize phone:mr-2 phone:px-3 md:mr-4 md:py-2 md:px-5 lg:px-7 lg:py-3'>
                     Liên hệ người bán
                   </button>
-                  <button className='rounded-md border-[1px] border-gray-300 px-7 py-3 capitalize'>
+                  <button className='rounded-md border-[1px] border-gray-300 px-2 py-2 capitalize phone:px-3 md:py-2 md:px-5 lg:px-7 lg:py-3'>
                     Xem đánh giá Shop
                   </button>
                 </div>

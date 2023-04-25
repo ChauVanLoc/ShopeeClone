@@ -72,7 +72,7 @@ function ProductDetail() {
     return <SkeletonProductDetail />
   }
   return (
-    <div className='w-screen bg-[#f5f5f5] p-2 text-xs lg:py-3 lg:text-xs xl:py-4 xl:text-sm'>
+    <div className='overflow-x-hidden bg-[#f5f5f5] p-2 text-xs lg:py-3 xl:py-4 xl:text-sm'>
       <Helmet>
         <title>{product.name}</title>
         <meta
@@ -85,9 +85,9 @@ function ProductDetail() {
           })}
         />
       </Helmet>
-      <div className='mx-auto md:max-w-3xl lg:max-w-4xl xl:max-w-7xl'>
+      <div className='md:mx-auto md:max-w-3xl lg:max-w-4xl xl:max-w-7xl'>
         <div className='rounded-ms mb-2 flex flex-col bg-white shadow-sm md:mb-3 md:flex-row md:items-start md:justify-between md:p-4 lg:mb-4 lg:p-3 xl:mb-5 xl:p-4'>
-          <div className='md:w-[38%] md:p-0 lg:w-[38%] xl:w-[38%]'>
+          <div className='md:w-[38%]'>
             <div>
               <Image.PreviewGroup>
                 <Slider
@@ -100,7 +100,7 @@ function ProductDetail() {
                   }}
                 >
                   {product.images.map((_, i) => (
-                    <div className='flex items-center justify-center'>
+                    <div>
                       <img
                         key={idProduct}
                         src={product.images[i]}
@@ -150,13 +150,13 @@ function ProductDetail() {
               </Slider>
             </div>
           </div>
-          <div className='w-full md:w-[60%] lg:w-[60%] xl:w-[60%]'>
-            <p className='mb-3 px-3 text-sm font-medium line-clamp-2 md:px-0 md:text-base lg:px-0 lg:text-lg xl:px-0 xl:text-xl'>
+          <div className='md:w-[60%]'>
+            <p className='mb-3 px-3 text-sm font-medium line-clamp-2 md:px-0 md:text-base lg:text-lg xl:text-xl'>
               {product.name}
             </p>
-            <div className='mb-3 flex px-3 md:px-0 lg:px-0 xl:px-0'>
+            <div className='mb-3 flex px-3 md:px-0'>
               <Rate
-                className='md:xs text-xs text-rate lg:text-xs xl:text-sm'
+                className='text-xs text-rate xl:text-sm'
                 disabled
                 allowHalf
                 defaultValue={4.5}
@@ -315,7 +315,7 @@ function ProductDetail() {
           </div>
           {/* </div> */}
         </div>
-        <div className='rounded-sm bg-white p-3 md:p-4  lg:p-5 xl:p-7'>
+        <div className='rounded-sm bg-white p-3 md:p-4 lg:p-5 xl:p-7'>
           <div className='mb-2 bg-[#f5f5f5] p-2 text-sm font-bold uppercase md:p-3 md:text-base lg:p-4 lg:text-lg xl:mb-5 xl:p-5 xl:text-xl'>
             chi tiết sản phẩm
           </div>
