@@ -12,6 +12,7 @@ import { urlApi } from 'src/constants/config'
 import { getTimeToIso } from 'src/utils/utils'
 import { toast } from 'react-toastify'
 import classNames from 'classnames'
+import { Helmet } from 'react-helmet-async'
 
 const LimitSize = 1024000
 
@@ -100,6 +101,13 @@ function Profile() {
   }
   return (
     <div className='rounded-sm bg-product p-6 shadow-sm'>
+      <Helmet>
+        <title>Thông tin cá nhân</title>
+        <meta
+          name='description'
+          content='Thông tin cá nhân của người dùng TechShop'
+        />
+      </Helmet>
       <div className='border-b-[1px] border-b-gray-300 pb-3'>
         <h2 className='text-lg capitalize'>hồ sơ của tôi</h2>
         <p className='mt-1 text-gray-500'>

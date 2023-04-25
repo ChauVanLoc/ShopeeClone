@@ -11,6 +11,7 @@ import { Context } from 'src/context/AppContext'
 import Button from 'src/components/Button'
 import { ResponveApi } from 'src/types/Responve.type'
 import useIdHook from 'src/hooks/useIdHook'
+import { Helmet } from 'react-helmet-async'
 
 export default function Login() {
   const id = useIdHook()
@@ -47,6 +48,10 @@ export default function Login() {
   })
   return (
     <div className='bg-primary'>
+      <Helmet>
+        <title>Đăng nhập | TechShop</title>
+        <meta name='description' content='Đăng nhập vào TechShop' />
+      </Helmet>
       <div className='bg-bgPrimary lg:mx-auto lg:max-w-5xl lg:bg-right lg:p-4'>
         <div className='lg:grid lg:grid-cols-5 lg:py-10'>
           <div className='lg:col-span-2 lg:col-start-4'>

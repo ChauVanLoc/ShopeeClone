@@ -2,6 +2,7 @@ import Empty from 'antd/lib/empty'
 import classNames from 'classnames'
 import debounce from 'lodash/debounce'
 import { useState, useContext, useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { NavLink, useNavigate, useSearchParams } from 'react-router-dom'
 import { PathRoute } from 'src/constants/PathRoute'
 import { PurchaseStatus } from 'src/constants/PurchaseStatus'
@@ -52,6 +53,13 @@ function Order() {
   }, [purchaseFetching.isSuccess, purchaseFetching.isRefetching])
   return (
     <div className='bg-backg'>
+      <Helmet>
+        <title>Đơn hàng</title>
+        <meta
+          name='description'
+          content='Danh sách các trạng thái đơn hàng của khác hàng'
+        />
+      </Helmet>
       <div className='sticky top-0 mb-4 flex rounded-sm bg-product shadow-sm'>
         <NavLink
           to={{ search: `status=${PurchaseStatus.WAITING_FOR_SHOP}` }}

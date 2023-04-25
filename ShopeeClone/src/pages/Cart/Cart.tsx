@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import produce from 'immer'
 import keyBy from 'lodash/keyBy'
 import { useContext, useState, useEffect, useMemo, useCallback } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { PurchaseFetching } from 'src/Api/PurchaseFetching'
@@ -141,6 +142,10 @@ function Cart() {
   }, [])
   return (
     <div className='bg-backg md:p-3 lg:p-0 xl:p-0'>
+      <Helmet>
+        <title>Giỏ hàng | TechShop</title>
+        <meta name='description' content='Giỏ hàng TechShop' />
+      </Helmet>
       <div className='mx-auto space-y-3 bg-backg text-center text-xs md:max-w-3xl md:text-xs lg:max-w-4xl lg:py-4 lg:text-sm xl:max-w-7xl xl:text-base'>
         {purchases && purchases.length > 0 && (
           <div className='hidden rounded-sm bg-product px-8 py-5 text-center shadow-sm md:grid md:grid-cols-16 md:items-center'>

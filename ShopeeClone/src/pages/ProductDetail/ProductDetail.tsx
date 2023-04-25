@@ -20,6 +20,8 @@ import useAddToCartMutation from 'src/hooks/useAddToCartMutation'
 import { Context } from 'src/context/AppContext'
 import NotFound from '../NotFound'
 import SkeletonProductDetail from 'src/components/SkeletonProductDetail'
+import { Helmet } from 'react-helmet-async'
+import { convert } from 'html-to-text'
 
 function ProductDetail() {
   const { isAuth } = useContext(Context)
@@ -71,6 +73,18 @@ function ProductDetail() {
   }
   return (
     <div className='w-screen bg-[#f5f5f5] p-2 text-xs lg:py-3 lg:text-xs xl:py-4 xl:text-sm'>
+      <Helmet>
+        <title>{product.name}</title>
+        <meta
+          name='description'
+          content={convert(product.description, {
+            limits: {
+              maxInputLength: 130,
+              ellipsis: '...'
+            }
+          })}
+        />
+      </Helmet>
       <div className='mx-auto md:max-w-3xl lg:max-w-4xl xl:max-w-7xl'>
         <div className='rounded-ms mb-2 flex flex-col bg-white shadow-sm md:mb-3 md:flex-row md:items-start md:justify-between md:p-4 lg:mb-4 lg:p-3 xl:mb-5 xl:p-4'>
           <div className='md:w-[38%] md:p-0 lg:w-[38%] xl:w-[38%]'>

@@ -41,7 +41,6 @@ const Cart = lazy(() => import('./pages/Cart'))
 const User = lazy(() => import('./pages/User'))
 const Account = lazy(() => import('./pages/User/Account'))
 const Password = lazy(() => import('./pages/User/Account/Password'))
-const Address = lazy(() => import('./pages/User/Account/Address'))
 const Order = lazy(() => import('./pages/User/Order'))
 const Profile = lazy(() => import('./pages/User/Account/Profile'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -120,14 +119,6 @@ function App() {
                   element={
                     <Suspense>
                       <Password />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path={PathRoute.address}
-                  element={
-                    <Suspense>
-                      <Address />
                     </Suspense>
                   }
                 />

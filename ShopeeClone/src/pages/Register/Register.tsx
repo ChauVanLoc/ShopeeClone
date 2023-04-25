@@ -14,6 +14,7 @@ import {
   RegisterSchema
 } from 'src/utils/rules'
 import { ResponveApi } from 'src/types/Responve.type'
+import { Helmet } from 'react-helmet-async'
 
 export default function Register() {
   const { setIsAuth, setUser } = useContext(Context)
@@ -60,6 +61,10 @@ export default function Register() {
   })
   return (
     <div className='bg-primary'>
+      <Helmet>
+        <title>Đăng ký | TechShop</title>
+        <meta name='description' content='Đăng ký tài khoản TechShop' />
+      </Helmet>
       <div className='mx-auto max-w-5xl bg-bgPrimary bg-right md:p-10 lg:p-14 '>
         <div className='grid grid-cols-1 lg:grid-cols-5 lg:py-8'>
           <div className='lg:col-span-2 lg:col-start-4'>

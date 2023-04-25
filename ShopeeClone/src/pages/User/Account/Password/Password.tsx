@@ -16,6 +16,7 @@ import useUpdateUser from 'src/hooks/useUpdateUser'
 import axios, { AxiosError, HttpStatusCode, isAxiosError } from 'axios'
 import { ResponveApi } from 'src/types/Responve.type'
 import { OptionUser, User } from 'src/types/User'
+import { Helmet } from 'react-helmet-async'
 
 type inputVisibleType = {
   newPassword: boolean
@@ -69,6 +70,10 @@ function Password() {
   })
   return (
     <div className='select-none rounded-sm bg-product p-6 shadow-sm'>
+      <Helmet>
+        <title>Thay đổi mật khẩu</title>
+        <meta name='description' content='Thay đổi mật khẩu người dùng' />
+      </Helmet>
       <div className='border-b-[1px] border-b-gray-300 pb-3'>
         <h2 className='text-lg capitalize'>Đổi mật khẩu</h2>
         <p className='mt-1 text-gray-500'>

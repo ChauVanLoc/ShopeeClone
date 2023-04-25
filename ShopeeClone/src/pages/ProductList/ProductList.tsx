@@ -11,6 +11,7 @@ import Empty from 'antd/lib/empty'
 import classNames from 'classnames'
 import { useQuery } from '@tanstack/react-query'
 import { ProductFetching } from 'src/Api/ProductFetching'
+import { Helmet } from 'react-helmet-async'
 
 const limit = 10
 
@@ -27,6 +28,10 @@ function ProductList() {
   if (!ListCateGoryData && !ListProductdata) return null
   return (
     <div id='productid' className='bg-[#F5f5f5] py-2 md:px-3 lg:py-2 xl:py-4'>
+      <Helmet>
+        <title>Trang chủ TechShop</title>
+        <meta name='description' content='Trang chủ TechShop' />
+      </Helmet>
       <div className='flex flex-col bg-[#F5f5f5] md:mx-auto md:max-w-3xl md:flex-row lg:mx-auto lg:max-w-4xl lg:flex-row xl:mx-auto xl:max-w-7xl xl:flex-row'>
         <div className='md:mr-6 md:w-[20%] lg:mr-6 lg:w-[20%] xl:mr-6 xl:w-[20%]'>
           {ListCateGoryData && (
