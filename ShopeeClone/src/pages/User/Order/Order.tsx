@@ -52,7 +52,7 @@ function Order() {
     purchaseFetching.data && setPurchase(purchaseFetching.data?.data.data)
   }, [purchaseFetching.isSuccess, purchaseFetching.isRefetching])
   return (
-    <div className='bg-backg px-2 text-xs md:max-w-3xl md:px-0 lg:max-w-4xl xl:max-w-7xl xl:text-sm'>
+    <div className='bg-backg p-2 md:max-w-3xl md:px-0 lg:max-w-4xl xl:max-w-7xl xl:text-sm'>
       <Helmet>
         <title>Đơn hàng</title>
         <meta
@@ -60,74 +60,84 @@ function Order() {
           content='Danh sách các trạng thái đơn hàng của khác hàng'
         />
       </Helmet>
-      <div className='sticky top-0 mb-4 flex rounded-sm bg-product shadow-sm'>
+      <div className='sticky top-0 mb-2 flex items-center rounded-sm bg-product shadow-sm md:mb-4'>
         <NavLink
           to={{ search: `status=${PurchaseStatus.WAITING_FOR_SHOP}` }}
-          className={`basis-1/7 md:basis-0 md:px-10 md:py-5 ${classNames({
-            'border-b-2 border-b-primary text-primary':
-              Number(status) === PurchaseStatus.WAITING_FOR_SHOP || !status,
-            'relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
-              status !== undefined &&
-              Number(status) !== PurchaseStatus.WAITING_FOR_SHOP
-          })}`}
+          className={`px-8 py-3 text-center md:w-[20%] md:px-2 xl:py-5 ${classNames(
+            {
+              'border-b-2 border-b-primary text-primary':
+                Number(status) === PurchaseStatus.WAITING_FOR_SHOP || !status,
+              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
+                status !== undefined &&
+                Number(status) !== PurchaseStatus.WAITING_FOR_SHOP
+            }
+          )}`}
         >
           Tất cả
         </NavLink>
         <NavLink
           to={{ search: `status=${PurchaseStatus.PICK_UP}` }}
-          className={`basis-2/7 md:basis-0 md:px-10 md:py-5 ${classNames({
-            'border-b-2 border-b-primary text-primary':
-              Number(status) === PurchaseStatus.PICK_UP,
-            'relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
-              Number(status) !== PurchaseStatus.PICK_UP
-          })}`}
+          className={`hidden px-8 py-3 text-center lg:block lg:w-[20%] lg:px-3 xl:py-5 ${classNames(
+            {
+              'border-b-2 border-b-primary text-primary':
+                Number(status) === PurchaseStatus.PICK_UP,
+              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
+                Number(status) !== PurchaseStatus.PICK_UP
+            }
+          )}`}
         >
           Chờ xác nhận
         </NavLink>
         <NavLink
           to={{ search: `status=${PurchaseStatus.SHIP}` }}
-          className={`basis-1/7 md:basis-0 md:px-10 md:py-5 ${classNames({
-            'border-b-2 border-b-primary text-primary':
-              Number(status) === PurchaseStatus.SHIP,
-            'relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
-              Number(status) !== PurchaseStatus.SHIP
-          })}`}
+          className={`px-8 py-3 text-center lg:w-[20%] lg:px-3 xl:py-5 ${classNames(
+            {
+              'border-b-2 border-b-primary text-primary':
+                Number(status) === PurchaseStatus.SHIP,
+              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
+                Number(status) !== PurchaseStatus.SHIP
+            }
+          )}`}
         >
           Đã giao
         </NavLink>
         <NavLink
           to={{ search: `status=${PurchaseStatus.DELIVERY}` }}
-          className={`basis-1/7 md:basis-0 md:px-10 md:py-5 ${classNames({
-            'border-b-2 border-b-primary text-primary':
-              Number(status) === PurchaseStatus.DELIVERY,
-            'relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
-              Number(status) !== PurchaseStatus.DELIVERY
-          })}`}
+          className={`px-8 py-3 text-center lg:w-[20%] lg:px-3 xl:py-5 ${classNames(
+            {
+              'border-b-2 border-b-primary text-primary':
+                Number(status) === PurchaseStatus.DELIVERY,
+              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
+                Number(status) !== PurchaseStatus.DELIVERY
+            }
+          )}`}
         >
           Đang giao
         </NavLink>
         <NavLink
           to={{ search: `status=${PurchaseStatus.CANCEL}` }}
-          className={`basis-1/7 md:basis-0 md:px-10 md:py-5 ${classNames({
-            'border-b-2 border-b-primary text-primary':
-              Number(status) === PurchaseStatus.CANCEL,
-            'relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
-              Number(status) !== PurchaseStatus.CANCEL
-          })}`}
+          className={`px-8 py-3 text-center lg:w-[20%] lg:px-3 xl:py-5 ${classNames(
+            {
+              'border-b-2 border-b-primary text-primary':
+                Number(status) === PurchaseStatus.CANCEL,
+              'relative after:absolute after:bottom-[-1px] after:left-0 after:h-[2px] after:w-0 after:bg-primary hover:text-primary hover:after:w-full hover:after:transition-all hover:after:duration-500 hover:after:ease-in-out':
+                Number(status) !== PurchaseStatus.CANCEL
+            }
+          )}`}
         >
           Đã hủy
         </NavLink>
       </div>
       {purchase.length > 0 && (
-        <div className='flex items-center rounded-sm bg-[#EAEAEA]/70 px-4 py-2 shadow-sm'>
-          <span className='peer-focus:text-white'>
+        <div className='flex items-center rounded-sm bg-[#EAEAEA]/70 px-2 py-2 shadow-sm md:px-4 md:py-2'>
+          <span>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'
               strokeWidth={1.5}
               stroke='currentColor'
-              className='mr-4 h-6 w-6'
+              className='mr-2 h-4 w-4 text-gray-300 md:mr-4 md:h-6 md:w-6'
             >
               <path
                 strokeLinecap='round'
@@ -137,7 +147,7 @@ function Order() {
             </svg>
           </span>
           <input
-            className='peer grow bg-[#EAEAEA]/70 outline-none placeholder:italic'
+            className='grow bg-[#EAEAEA]/70 outline-none placeholder:italic'
             onChange={handleSearch}
             type='text'
             placeholder='Bạn có thể tìm kiếm theo ID đơn hàng, tên sản phẩm, ID sản phẩm'
@@ -205,8 +215,8 @@ function Order() {
                   </span>
                 </div>
               </NavLink>
-              <div className='border-t-[1px] border-gray-200 pt-4'>
-                <div className='flex items-center justify-end'>
+              <div className='border-t-[1px] border-gray-200'>
+                <div className='mt-2 flex items-center justify-end md:mt-4'>
                   <span>
                     <svg
                       width={16}
@@ -234,14 +244,14 @@ function Order() {
                     ₫{convertCurrentcy(p.buy_count * p.price, 0)}
                   </span>
                 </div>
-                <div className='mt-4 flex items-center justify-end'>
+                <div className='mt-2 flex flex-row-reverse items-center justify-evenly md:mt-4 md:flex-row md:justify-end'>
                   <button
                     onClick={handleOrder(p.product._id)}
-                    className='mr-1 rounded-md bg-primary px-2 py-2 capitalize text-white hover:bg-primary/90 phone:mr-2 phone:px-3 md:mr-4 md:py-2 md:px-5 lg:px-7 lg:py-3'
+                    className='rounded-md bg-primary px-4 py-2 capitalize text-white hover:bg-primary/90 phone:px-3 md:mr-4 md:py-2 md:px-5 lg:px-7 lg:py-3'
                   >
                     Mua Lại
                   </button>
-                  <button className='mr-1 rounded-md border-[1px] border-gray-300 px-2 py-2 capitalize phone:mr-2 phone:px-3 md:mr-4 md:py-2 md:px-5 lg:px-7 lg:py-3'>
+                  <button className='rounded-md border-[1px] border-gray-300 px-2 py-2 capitalize phone:px-3 md:mr-4 md:py-2 md:px-5 lg:px-7 lg:py-3'>
                     Liên hệ người bán
                   </button>
                   <button className='rounded-md border-[1px] border-gray-300 px-2 py-2 capitalize phone:px-3 md:py-2 md:px-5 lg:px-7 lg:py-3'>
@@ -252,7 +262,7 @@ function Order() {
             </div>
           ))
         ) : (
-          <div className='mt-4 flex items-center justify-center bg-product lg:h-[400px]'>
+          <div className='flex h-[300px] items-center justify-center bg-product lg:mt-4 lg:h-[400px]'>
             <Empty
               image='https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/5fafbb923393b712b96488590b8f781f.png'
               imageStyle={{
