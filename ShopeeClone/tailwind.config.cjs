@@ -23,7 +23,7 @@ module.exports = {
         red: '#d0011b'
       },
       backgroundImage: {
-        bgPrimary: 'url("./src/assets/BackgroundPrimary.png")'
+        bgPrimary: 'url("/public/BackgroundPrimary.png")'
       },
       maxWidth: {
         primary: '1200px'
